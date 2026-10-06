@@ -77,9 +77,19 @@ De bases espalhadas pelo mapa saem drones para reabastecer as aeronaves em voo. 
   construtor), **branda** fora dela (`refuel.crash_penalty_priority` / `crash_penalty_other`). Rotas em loop nunca caem.
 - Os drones só têm as **pistas de radar** (`RadarNetwork.picture`: ruidosas, sem identidade, só com cobertura) mais as zonas
   prioritárias; a posição verdadeira só decide contato, queda e métricas.
+- **Rendezvous**: o drone voa para o ponto de interceptação da pista de radar até alguma aeronave entrar no alcance do
+  seu **sensor próprio** (`refuel.sensor_range`, padrão 300 m); daí segue a posição verdadeira dela e, ao chegar ao
+  `refuel.contact_radius`, reabastece na hora. Replay: `python view_refuel.py <missao> [--policy hungaro|<pesos.pt>] [--seed N]`.
 - Construtor: modo **⛽ Base** (tecla 7), **◎ Prioridade** (tecla 8) e aba *Reabast.* (drones por base, velocidade, autonomia,
   raio de contato, penalidades). O formato JSON ganhou `bases`, `zones` e `refuel`.
-- Cada missão com radares + bases é um **cenário**; `python run_refuel.py` treina/avalia sobre `missions/*.json`
+- **Presets aleatórios**: na aba *Rota*, seção *Aleatoriedade* (0 = fixo): raio de sorteio do ponto, faixa de velocidade
+  (mín/máx) e de AGL (mín/máx) por waypoint (vale para novos pontos e *Aplicar ao selecionado*); na aba *Aeronaves*, raio
+  aleatório do início. O mapa mostra a área de sorteio. Cada episódio de treino sorteia uma instância nova
+  (`Mission.randomized(seed)`); no 6-DOF use `python run_mission.py <missao> --seed N`.
+- **Organização**: Ctrl+S salva em `missions/<local>/<n>_radares/<n>_abastecimentos/<nome>.json` (local = cidade do
+  local pronto mais próximo; abastecimentos = nº de aeronaves; o arquivo anterior dentro de `missions/` é movido). Nome
+  da missão na aba *Mapa / Arquivo*; desmarque a opção para salvar no caminho digitado.
+- Cada missão com radares + bases é um **cenário** (busca recursiva em `missions/`); `python run_refuel.py` treina/avalia sobre `missions/*.json`
   (divisão treino/teste por cenário). Ambiente cinemático (as rotas da missão como ponto, DEM real para o radar), rápido o
   bastante para RL; o 6-DOF fica para validar a política depois.
 - Métodos comparados: aleatório, guloso (próximo / urgente / prioridade), húngaro (com e sem prioridade) e redes neurais

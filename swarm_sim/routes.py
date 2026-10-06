@@ -15,6 +15,16 @@ class Waypoint:
     loiter_radius: float = 0.0         # >0: orbita em torno do ponto antes de seguir
     loiter_turns: float = 0.0          # numero de voltas na orbita
     loiter_dir: int = 1                # +1 horario, -1 anti-horario (visto de cima)
+    # aleatoriedade (preset de treino): sorteada por Mission.randomized; 0/None = valor fixo acima
+    pos_radius: float = 0.0            # posicao sorteada uniformemente num disco deste raio [m]
+    speed_min: float | None = None     # velocidade do trecho sorteada em [speed_min, speed_max] [m/s]
+    speed_max: float | None = None
+    agl_min: float | None = None       # AGL sorteada em [agl_min, agl_max] [m] (ignorado em ponto de impacto)
+    agl_max: float | None = None
+
+    @property
+    def randomized(self) -> bool:
+        return self.pos_radius > 0 or self.speed_min is not None or self.agl_min is not None
 
     @property
     def impact(self) -> bool:

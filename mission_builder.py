@@ -17,7 +17,9 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
 import numpy as np
+from PIL import Image, ImageDraw, ImageTk
 
+from swarm_sim.landmarks import draw_landmarks, visible_landmarks
 from swarm_sim.mapview import MapView
 from swarm_sim.gusts import GustZone
 from swarm_sim.radar import RadarStation, coverage_mask
@@ -62,7 +64,9 @@ RADAR_FIELDS = {
 }
 RADAR_COLOR = "#ff9f43"
 BASE_COLOR = "#7bed9f"
-ZONE_COLOR = "#ff4d4d"
+ZONE_COLOR = "#ff7a7a"                  # contorno (vermelho suave)
+ZONE_FILL = (255, 90, 90, 46)           # preenchimento RGBA translucido (alfa ~18 %)
+ZONE_FILL_SEL = (255, 90, 90, 72)
 
 
 def nice_step(m_per_px: float, px: float = 110.0) -> float:
@@ -83,7 +87,7 @@ class MissionEditor:
         self.cur = 0
         self.mode = "Waypoint"
         self.params = {"agl": 120.0, "speed": 25.0, "radius": 300.0, "turns": 1.0, "dir": 1.0,
-                       "g_speed": 10.0, "g_dir": 90.0, "g_radius": 400.0, "g_up": 0.0, "b_drones": 3.0, "z_radius": 1500.0,
+                       "g_speed": 10.0, "g_dir": 90.0, "g_radius": 400.0, "g_up": 0.0, "b_drones": 3.0, "z_radius": 1500.0, "pr": 0.0, "v_lo": 0.0, "v_hi": 0.0, "a_lo": 0.0, "a_hi": 0.0,
                        **{k: getattr(RadarStation(0, 0), attr) / sc for k, (_l, attr, sc) in RADAR_FIELDS.items()}}
 
     @property
@@ -105,7 +109,7 @@ class MissionEditor:
         src = self.ac
         name = self._unique(f"{src.name}_copia")
         spec = AircraftSpec(name, [Waypoint(**vars(w)) for w in src.waypoints],
-                            dict(src.start) if src.start else None, src.speed, src.loop, spline=src.spline, rcs=src.rcs)
+                            dict(src.start) if src.start else None, src.speed, src.loop, spline=src.spline, rcs=src.rcs, start_radius=src.start_radius)
         self.m.aircraft.append(spec)
         self.cur = len(self.m.aircraft) - 1
 
@@ -137,6 +141,13 @@ class MissionEditor:
                 if d <= r and (best is None or d < best[0]):
                     best = (d, w.n, w.e)
         return (best[1], best[2]) if best else (n, e)
+
+    def rand_kw(self) -> dict:
+        """Campos de aleatoriedade (preset de treino) para novos pontos / aplicar; 0 = desligado."""
+        p = self.params
+        v = (p["v_lo"], p["v_hi"]) if p["v_lo"] > 0 and p["v_hi"] > 0 else (None, None)
+        a = (p["a_lo"], p["a_hi"]) if p["a_lo"] > 0 and p["a_hi"] > 0 else (None, None)
+        return {"pos_radius": max(p["pr"], 0.0), "speed_min": v[0], "speed_max": v[1], "agl_min": a[0], "agl_max": a[1]}
 
     def click(self, n: float, e: float, snap: float = 0.0):
         """Aplica um clique (n, e em metros) conforme o modo atual."""
@@ -173,12 +184,12 @@ class MissionEditor:
                 hdg = float(np.degrees(np.arctan2(w.e - e, w.n - n)))
             self.ac.start = {"n": n, "e": e, "heading_deg": hdg}
         elif self.mode == "Chao":
-            self.ac.waypoints.append(Waypoint(n, e, agl=0.0, speed=p["speed"]))
+            self.ac.waypoints.append(Waypoint(n, e, agl=0.0, speed=p["speed"], **self.rand_kw()))
         elif self.mode == "Loiter":
             self.ac.waypoints.append(Waypoint(n, e, agl=p["agl"], speed=p["speed"], loiter_radius=p["radius"],
-                                              loiter_turns=p["turns"], loiter_dir=int(p["dir"])))
+                                              loiter_turns=p["turns"], loiter_dir=int(p["dir"]), **self.rand_kw()))
         else:
-            self.ac.waypoints.append(Waypoint(n, e, agl=p["agl"], speed=p["speed"]))
+            self.ac.waypoints.append(Waypoint(n, e, agl=p["agl"], speed=p["speed"], **self.rand_kw()))
         if self.ac.waypoints:
             self.ac.speed = self.ac.waypoints[0].speed or p["speed"]     # velocidade de partida
 
@@ -270,9 +281,11 @@ class MissionEditor:
         elif kind == "zone":
             self.m.zones.pop(idx)
 
-    def apply_wp(self, idx: int, agl=None, speed=None, radius=None, turns=None, direction=None):
-        """Altera parametros de um waypoint (speed = velocidade do ar do trecho ate ele)."""
+    def apply_wp(self, idx: int, agl=None, speed=None, radius=None, turns=None, direction=None, rand=None):
+        """Altera parametros de um waypoint (speed = velocidade do ar do trecho ate ele; rand = aleatoriedade)."""
         w = self.ac.waypoints[idx]
+        for k, v in (rand or {}).items():
+            setattr(w, k, v)
         if agl is not None:
             w.agl = agl
         if speed is not None:
@@ -308,9 +321,23 @@ class MissionEditor:
         self.ac.start = None
 
     def save(self, path: str):
+        """Grava em `path`. Devolve o caminho efetivo."""
         self.m.validate()
         os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
         self.m.save(path)
+        return path
+
+    def save_organized(self, current: str | None = None, root: str = "missions") -> str:
+        """Salva em missions/<local>/<n>_radares/<n>_abastecimentos/<nome>.json. Se a missao ja estava salva em
+        outro lugar dentro de `root` (ex.: mudou o numero de radares), o arquivo antigo e removido (move)."""
+        path = self.m.organized_path(os.path.abspath(root))
+        self.save(path)
+        if current and os.path.exists(current):
+            old, new = os.path.abspath(current), os.path.abspath(path)
+            inside = os.path.commonpath([old, os.path.abspath(root)]) == os.path.abspath(root)
+            if inside and os.path.normcase(old) != os.path.normcase(new):
+                os.remove(old)
+        return path
 
     def load(self, path: str):
         self.m = Mission.load(path)
@@ -334,6 +361,8 @@ class BuilderApp:
         self._drag = None
         self.show_grid = tk.BooleanVar(value=True)
         self.show_labels = tk.BooleanVar(value=True)
+        self.show_marks = tk.BooleanVar(value=True)
+        self._marks_cache = (None, [])
         root.title("Construtor de missão")
         root.geometry(f"{min(1480, root.winfo_screenwidth() - 40)}x{min(900, root.winfo_screenheight() - 90)}+10+10")
         self._style()
@@ -402,7 +431,7 @@ class BuilderApp:
         for name, label in (("Elevacao", "Relevo"), ("Satelite", "Satélite")):
             ttk.Radiobutton(bar, text=label, value=name, variable=self.layer_var, style="Tool.TRadiobutton",
                             command=self._layer_changed).pack(side="left", padx=1)
-        for var, text in ((self.show_labels, "Rótulos"), (self.show_grid, "Grade")):
+        for var, text in ((self.show_labels, "Rótulos"), (self.show_grid, "Grade"), (self.show_marks, "Marcos")):
             ttk.Checkbutton(bar, text=text, variable=var, command=lambda: self.map.redraw(),
                             style="Bar.TCheckbutton").pack(side="right", padx=6)
         ttk.Button(bar, text="Salvar (Ctrl+S)", style="Accent.TButton", command=self._save).pack(side="right")
@@ -468,7 +497,15 @@ class BuilderApp:
                         command=self._spline_changed).pack(anchor="w")
         self.rcs_var = self._num_var(1.0, lambda v: self._rcs_changed(v))
         self._field(f, "RCS radar [m²]", self.rcs_var, 7)
+        self.start_r_var = self._num_var(0.0, lambda v: self._start_r_changed(v))
+        self._field(f, "Raio aleatório do início [m]", self.start_r_var, 7)
         ttk.Button(f, text="⇄ Inverter rota", command=self._reverse).pack(fill="x", pady=2)
+
+    def _start_r_changed(self, var):
+        v = self._num(var)
+        if v is not None and v >= 0:
+            self.ed.ac.start_radius = v
+            self.changed(lists=False)
 
     def _tab_route(self, f):
         ttk.Label(f, text="WAYPOINTS (selecione para editar)", style="Head.TLabel").pack(anchor="w")
@@ -501,6 +538,16 @@ class BuilderApp:
         cb.pack(side="left")
         cb.bind("<<ComboboxSelected>>", lambda e: self.ed.params.__setitem__(
             "dir", 1.0 if self.dir_var.get() == "Horário" else -1.0))
+        ttk.Label(f, text="ALEATORIEDADE (preset de treino; 0 = fixo)", style="Head.TLabel").pack(anchor="w", pady=(8, 0))
+        self.vars["pr"] = self._num_var(self.ed.params["pr"], lambda v: self._param_changed("pr", v))
+        self._field(f, "Raio do ponto [m]", self.vars["pr"])
+        for (k1, k2), label in ((("v_lo", "v_hi"), "Vel. mín / máx [m/s]"), (("a_lo", "a_hi"), "AGL mín / máx [m]")):
+            r = ttk.Frame(f)
+            r.pack(fill="x", pady=1)
+            ttk.Label(r, text=label, width=20).pack(side="left")
+            for k in (k1, k2):
+                self.vars[k] = self._num_var(self.ed.params[k], lambda v, kk=k: self._param_changed(kk, v))
+                ttk.Entry(r, textvariable=self.vars[k], width=6).pack(side="left", padx=1)
         row = ttk.Frame(f)
         row.pack(fill="x", pady=(8, 2))
         ttk.Button(row, text="Aplicar ao selecionado", command=self._apply_sel).pack(
@@ -701,13 +748,15 @@ class BuilderApp:
         self.rf_vars = {}
         for key, label in (("drone_speed", "Vel. do drone [m/s]"), ("endurance", "Autonomia do drone [s]"),
                            ("contact_radius", "Raio de contato [m]"),
+                           ("sensor_range", "Alcance do sensor do drone [m]"),
                            ("crash_penalty_priority", "Queda em zona prioritária"),
                            ("crash_penalty_other", "Queda fora das zonas")):
             self.rf_vars[key] = self._num_var(getattr(self.ed.m.refuel, key), lambda v, k=key: self._refuel_param(k, v))
             self._field(f, label, self.rf_vars[key])
         ttk.Label(f, text="Cada drone reabastece UMA aeronave e cada aeronave recebe UM drone;\n"
                           "a aeronave reabastecida sai da simulação. Os drones só conhecem as\n"
-                          "pistas de radar (nunca a posição verdadeira). As aeronaves têm\n"
+                          "pistas de radar até a aeronave entrar no alcance do sensor próprio;\n"
+                          "aí a seguem até o raio de contato. As aeronaves têm\n"
                           "combustível infinito: o objetivo é reabastecer todas o mais rápido.\n"
                           "Treino: python run_refuel.py (usa as missões de missions/).",
                   style="Muted.TLabel", justify="left").pack(anchor="w", pady=8)
@@ -808,6 +857,13 @@ class BuilderApp:
         ttk.Button(f, text="Recentrar mapa", command=self._recenter).pack(fill="x", pady=3)
         ttk.Separator(f).pack(fill="x", pady=8)
         ttk.Label(f, text="ARQUIVO", style="Head.TLabel").pack(anchor="w")
+        self.mname = tk.StringVar(value=self.ed.m.name)
+        r = self._field(f, "Nome da missão", self.mname, 18)
+        self.mname.trace_add("write", lambda *_a: None if self._loading else setattr(
+            self.ed.m, "name", self.mname.get().strip() or "missao"))
+        self.organize = tk.BooleanVar(value=True)
+        ttk.Checkbutton(f, text="Ctrl+S organiza em missions/<local>/<radares>/<abastecimentos>/",
+                        variable=self.organize).pack(anchor="w", pady=2)
         self.path_var = tk.StringVar(value=self.path)
         ttk.Entry(f, textvariable=self.path_var, width=36).pack(fill="x", pady=2)
         row = ttk.Frame(f)
@@ -839,6 +895,8 @@ class BuilderApp:
         self.loop_var.set(a.loop)
         self.spline_var.set(a.spline)
         self.rcs_var.set(f"{a.rcs:g}")
+        self.start_r_var.set(f"{a.start_radius:g}")
+        self.mname.set(m.name)
         for k, v in self.rf_vars.items():
             v.set(f"{getattr(m.refuel, k):g}")
         self.wind_n.set(f"{m.wind_steady_ne[0]:g}")
@@ -1006,7 +1064,11 @@ class BuilderApp:
                 self.vars["radius"].set(f"{w.loiter_radius:g}")
                 self.vars["turns"].set(f"{w.loiter_turns:g}")
                 self.dir_var.set("Horário" if w.loiter_dir >= 0 else "Anti-horário")
-            for key in ("agl", "speed", "radius", "turns"):
+            rnd = {"pr": w.pos_radius, "v_lo": w.speed_min or 0.0, "v_hi": w.speed_max or 0.0,
+                   "a_lo": w.agl_min or 0.0, "a_hi": w.agl_max or 0.0}
+            for key, val in rnd.items():
+                self.vars[key].set(f"{val:g}")
+            for key in ("agl", "speed", "radius", "turns", *rnd):
                 self._param_changed(key, self.vars[key], force=True)
             self._loading = False
             self.status.set(f"waypoint {k + 1} selecionado: edite na aba Rota e clique 'Aplicar ao selecionado'")
@@ -1047,7 +1109,7 @@ class BuilderApp:
         loit = w.loiter_radius > 0
         self.ed.apply_wp(self.sel_wp, agl=(None if w.impact else p["agl"]), speed=p["speed"],
                          radius=(p["radius"] if loit else None), turns=(p["turns"] if loit else None),
-                         direction=(p["dir"] if loit else None))
+                         direction=(p["dir"] if loit else None), rand=self.ed.rand_kw())
         self.status.set(f"waypoint {self.sel_wp + 1}: {p['speed']:g} m/s no trecho até ele")
         self.changed()
 
@@ -1182,16 +1244,19 @@ class BuilderApp:
         self.status.set(f"mapa recentrado em {lat:.4f}, {lon:.4f} ({size:g} km)")
 
     def _save(self, path: str | None = None):
-        path = path or self.path_var.get()
         try:
-            self.ed.save(path)
+            if path is None and self.organize.get():
+                path = self.ed.save_organized(self.path)
+            else:
+                path = self.ed.save(path or self.path_var.get())
         except ValueError as ex:
             self.status.set(f"NÃO SALVO: {ex}")
             messagebox.showwarning("Missão inválida", str(ex))
             return
         self.path = path
         self.path_var.set(path)
-        self.status.set(f"salvo em {path}\nsimule: python run_mission.py {path}")
+        extra = "\npreset aleatório: cada simulação/episódio sorteia os pontos" if self.ed.m.is_preset else ""
+        self.status.set(f"salvo em {os.path.relpath(path)}\nsimule: python run_mission.py {os.path.relpath(path)}{extra}")
 
     def _save_as(self):
         p = filedialog.asksaveasfilename(defaultextension=".json", initialdir="missions",
@@ -1220,6 +1285,7 @@ class BuilderApp:
 
     # -------------------------------------------------------------------- desenho
     def _overlay(self, c: MapView, light: bool):
+        self._zone_imgs = []
         if self.show_grid.get():
             self._draw_grid(c)
         for i, rd in enumerate(self.ed.m.radars):
@@ -1228,6 +1294,10 @@ class BuilderApp:
             self._draw_gust(c, i, g)
         for i, z in enumerate(self.ed.m.zones):
             self._draw_zone(c, i, z)
+        if self.show_marks.get():                             # marcos conhecidos (ITA, INPE, UNIFEI, Inatel...)
+            if self._marks_cache[0] is not self.T:
+                self._marks_cache = (self.T, visible_landmarks(self.T))
+            draw_landmarks(c, self._marks_cache[1])
         for i, b in enumerate(self.ed.m.bases):
             self._draw_base(c, i, b)
         for k, a in enumerate(self.ed.m.aircraft):
@@ -1287,8 +1357,18 @@ class BuilderApp:
         x, y = c.w2s(z.n, z.e)
         R = z.radius * c.scale
         sel = i == self.sel_zone
-        c.create_oval(x - R, y - R, x + R, y + R, fill=ZONE_COLOR, stipple="gray12", outline=ZONE_COLOR,
-                      width=3 if sel else 2, dash=(10, 5))
+        # o canvas do Tk nao tem alfa: o preenchimento e uma imagem RGBA recortada a area visivel
+        W, H = c.winfo_width(), c.winfo_height()
+        x0, y0 = max(int(x - R), 0), max(int(y - R), 0)
+        x1, y1 = min(int(x + R) + 1, W), min(int(y + R) + 1, H)
+        if x1 > x0 and y1 > y0:
+            img = Image.new("RGBA", (x1 - x0, y1 - y0), (0, 0, 0, 0))
+            ImageDraw.Draw(img).ellipse((x - R - x0, y - R - y0, x + R - x0, y + R - y0),
+                                        fill=ZONE_FILL_SEL if sel else ZONE_FILL)
+            photo = ImageTk.PhotoImage(img)
+            self._zone_imgs.append(photo)                     # referencia viva ate o proximo redesenho
+            c.create_image(x0, y0, image=photo, anchor="nw")
+        c.create_oval(x - R, y - R, x + R, y + R, outline=ZONE_COLOR, width=2 if sel else 1, dash=(8, 5))
         c.create_text(x, y - R - 6, text=f"{z.name}  prioridade  r={z.radius:g} m", fill="white", anchor="s",
                       font=("Segoe UI", 9, "bold"))
 
@@ -1383,6 +1463,9 @@ class BuilderApp:
                                   fill="white", font=("Segoe UI", 8))
         if a.start:
             x, y = c.w2s(a.start["n"], a.start["e"])
+            if a.start_radius > 0:
+                sr = a.start_radius * c.scale
+                c.create_oval(x - sr, y - sr, x + sr, y + sr, outline=col, dash=(1, 3), fill=col, stipple="gray12")
             c.create_polygon(x, y - 10, x - 8, y + 6, x + 8, y + 6, fill=col, outline="black", width=2)
             c.create_text(x + 12, y, text=f"{a.name} (início)",
                           fill=col, anchor="w", font=("Segoe UI", 9, "bold"))
@@ -1395,13 +1478,20 @@ class BuilderApp:
                 c.create_line(x - 8, y + 8, x + 8, y - 8, fill=col, width=2)
             else:
                 c.create_oval(x - 6, y - 6, x + 6, y + 6, fill=col, outline="black", width=2)
+            if w.pos_radius > 0:                                # area de sorteio do ponto (preset)
+                pr = w.pos_radius * c.scale
+                c.create_oval(x - pr, y - pr, x + pr, y + pr, outline=col, dash=(1, 3), width=1,
+                              fill=col, stipple="gray12")
             if w.loiter_radius > 0:
                 rr = w.loiter_radius * c.scale
                 c.create_oval(x - rr, y - rr, x + rr, y + rr, outline=col, dash=(5, 3), width=2)
             if cur and i == self.sel_wp:
                 c.create_oval(x - 12, y - 12, x + 12, y + 12, outline="yellow", width=3)
             v = w.speed or a.speed
-            txt = f"{i + 1}" if not cur else f"{a.name}:{i + 1}  {v:.0f} m/s  {max(w.agl, 0):.0f} m AGL"
+            vs = f"{w.speed_min:g}–{w.speed_max:g}" if w.speed_min is not None else f"{v:.0f}"
+            ag = (f"{w.agl_min:g}–{w.agl_max:g}" if w.agl_min is not None and not w.impact
+                  else f"{max(w.agl, 0):.0f}")
+            txt = f"{i + 1}" if not cur else f"{a.name}:{i + 1}  {vs} m/s  {ag} m AGL"
             c.create_text(x + 9, y - 9, text=txt, fill="white", anchor="sw", font=("Segoe UI", 9, "bold"))
 
     def _profile(self):

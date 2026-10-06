@@ -1,0 +1,227 @@
+{
+  "version": 1,
+  "name": "missao",
+  "origin": {
+    "lat": -23.18,
+    "lon": -45.89,
+    "size_km": 14.0
+  },
+  "duration": 900.0,
+  "dt": 0.02,
+  "wind": {
+    "steady_ne": [
+      0.0,
+      0.0
+    ],
+    "gust_sigma": 0.0
+  },
+  "gusts": [],
+  "radars": [
+    {
+      "n": -5419.308240357144,
+      "e": 2663.0502521428566,
+      "name": "R1",
+      "height": 15.0,
+      "range_m": 3000.0,
+      "min_range": 300.0,
+      "scan_period": 4.0,
+      "range_sigma": 40.0,
+      "az_sigma_deg": 0.3,
+      "el_sigma_deg": 0.6,
+      "min_elev_deg": 0.0,
+      "max_elev_deg": 70.0,
+      "az_center_deg": 0.0,
+      "az_width_deg": 360.0,
+      "false_alarms": 4.0,
+      "frequency_ghz": 3.0,
+      "atm_loss_db_km": 0.02,
+      "range_bias": 0.0,
+      "az_bias_deg": 0.0,
+      "pfa": 1e-06,
+      "enabled": true
+    },
+    {
+      "n": -3095.7297260714317,
+      "e": -4314.7303192857125,
+      "name": "R2",
+      "height": 5.0,
+      "range_m": 3000.0,
+      "min_range": 300.0,
+      "scan_period": 4.0,
+      "range_sigma": 40.0,
+      "az_sigma_deg": 0.3,
+      "el_sigma_deg": 0.6,
+      "min_elev_deg": 0.0,
+      "max_elev_deg": 70.0,
+      "az_center_deg": 0.0,
+      "az_width_deg": 360.0,
+      "false_alarms": 4.0,
+      "frequency_ghz": 3.0,
+      "atm_loss_db_km": 0.02,
+      "range_bias": 0.0,
+      "az_bias_deg": 0.0,
+      "pfa": 1e-06,
+      "enabled": true
+    },
+    {
+      "n": 3787.0570410714217,
+      "e": -4138.590594999996,
+      "name": "R4",
+      "height": 15.0,
+      "range_m": 3000.0,
+      "min_range": 300.0,
+      "scan_period": 4.0,
+      "range_sigma": 40.0,
+      "az_sigma_deg": 0.3,
+      "el_sigma_deg": 0.6,
+      "min_elev_deg": 0.0,
+      "max_elev_deg": 70.0,
+      "az_center_deg": 0.0,
+      "az_width_deg": 360.0,
+      "false_alarms": 4.0,
+      "frequency_ghz": 3.0,
+      "atm_loss_db_km": 0.02,
+      "range_bias": 0.0,
+      "az_bias_deg": 0.0,
+      "pfa": 1e-06,
+      "enabled": true
+    },
+    {
+      "n": 838.3235062142785,
+      "e": 3025.2258843714285,
+      "name": "R5",
+      "height": 5.0,
+      "range_m": 3000.0,
+      "min_range": 300.0,
+      "scan_period": 4.0,
+      "range_sigma": 40.0,
+      "az_sigma_deg": 0.3,
+      "el_sigma_deg": 0.6,
+      "min_elev_deg": 0.0,
+      "max_elev_deg": 70.0,
+      "az_center_deg": 0.0,
+      "az_width_deg": 360.0,
+      "false_alarms": 4.0,
+      "frequency_ghz": 3.0,
+      "atm_loss_db_km": 0.02,
+      "range_bias": 0.0,
+      "az_bias_deg": 0.0,
+      "pfa": 1e-06,
+      "enabled": true
+    }
+  ],
+  "bases": [
+    {
+      "n": 2726.29989821428,
+      "e": -5441.92088071428,
+      "name": "B2",
+      "drones": 3
+    },
+    {
+      "n": -5246.59095892857,
+      "e": 4502.6272978571415,
+      "name": "B3",
+      "drones": 3
+    },
+    {
+      "n": -6502.455364642855,
+      "e": 444.81765122857587,
+      "name": "B4",
+      "drones": 3
+    }
+  ],
+  "zones": [
+    {
+      "n": -3612.435233160622,
+      "e": 1517.3056994818653,
+      "radius": 1000.0,
+      "name": "P1"
+    },
+    {
+      "n": -3370.4663212435235,
+      "e": 3719.222797927461,
+      "radius": 1000.0,
+      "name": "P2"
+    }
+  ],
+  "refuel": {
+    "drone_speed": 42.0,
+    "endurance": 420.0,
+    "contact_radius": 2.0,
+    "crash_penalty_priority": 10.0,
+    "crash_penalty_other": 1.0
+  },
+  "aircraft": [
+    {
+      "name": "uav1",
+      "speed": 40.0,
+      "loop": false,
+      "spline": false,
+      "rcs": 1.0,
+      "start": {
+        "n": 5558.186528497409,
+        "e": 2001.2435233160622,
+        "heading_deg": null
+      },
+      "start_radius": 0.0,
+      "waypoints": [
+        {
+          "n": 3477.2538860103627,
+          "e": -345.85492227979273,
+          "agl": 120.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 0.0,
+          "speed_min": null,
+          "speed_max": null,
+          "agl_min": null,
+          "agl_max": null
+        },
+        {
+          "n": -1168.5492227979275,
+          "e": -926.5803108808291,
+          "agl": 120.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 0.0,
+          "speed_min": null,
+          "speed_max": null,
+          "agl_min": null,
+          "agl_max": null
+        },
+        {
+          "n": -4580.310880829015,
+          "e": 259.0673575129534,
+          "agl": 120.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 0.0,
+          "speed_min": null,
+          "speed_max": null,
+          "agl_min": null,
+          "agl_max": null
+        },
+        {
+          "n": -3055.9067357512954,
+          "e": 3041.7098445595857,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 0.0,
+          "speed_min": null,
+          "speed_max": null,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    }
+  ]
+}

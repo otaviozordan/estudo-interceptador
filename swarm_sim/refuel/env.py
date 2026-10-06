@@ -9,6 +9,9 @@
 * Os drones so conhecem as pistas do ``RadarNetwork`` (``picture``): posicao/velocidade ruidosas, sem identidade
   verdadeira e so onde ha cobertura de radar, alem das zonas prioritarias (informacao de comando). A posicao
   verdadeira so decide o contato, a queda e as metricas.
+* Rendezvous: o drone voa para o ponto de interceptacao da pista de radar ate alguma aeronave entrar no alcance
+  do seu sensor proprio (``refuel.sensor_range``); dai segue a posicao verdadeira dela e, ao chegar a
+  ``refuel.contact_radius``, reabastece na hora.
 
 O decisor ve um MDP sequencial: a cada passo ha um "drone atual" ocioso na base e a acao e escolher uma pista
 (slot 0..K-1) ou esperar (slot K). O tempo so avanca quando todos os drones ociosos decidiram.
@@ -122,8 +125,10 @@ class Scenario:
         self.zones = np.array([[z.n, z.e, z.radius] for z in mission.zones], float).reshape(-1, 3)
 
     @classmethod
-    def from_file(cls, path: str, synthetic: bool = False) -> "Scenario":
-        return cls(Mission.load(path), synthetic=synthetic, name=os.path.splitext(os.path.basename(path))[0])
+    def from_file(cls, path: str, synthetic: bool = False, root: str | None = None) -> "Scenario":
+        """Nome do cenario = caminho relativo a `root` sem extensao (ex.: itajuba/1_radar/2_abastecimentos/a)."""
+        name = os.path.splitext(os.path.relpath(path, root) if root else os.path.basename(path))[0]
+        return cls(Mission.load(path), synthetic=synthetic, name=name.replace(os.sep, "/"))
 
     def zone_of(self, ne) -> int:
         """Indice da zona prioritaria que contem o ponto (-1 = fora de todas)."""
@@ -147,16 +152,24 @@ class Scenario:
 
 def load_scenarios(patterns, synthetic: bool = False, verbose: bool = True) -> list[Scenario]:
     """Carrega cenarios de arquivos/pastas/globs (ex.: 'missions'); ignora missoes sem bases ou radares."""
-    paths: list[str] = []
+    paths: list[tuple[str, str | None]] = []
     for p in ([patterns] if isinstance(patterns, str) else patterns):
-        if os.path.isdir(p):
-            paths += sorted(glob.glob(os.path.join(p, "*.json")))
+        if os.path.isdir(p):                                    # inclui subpastas (local/radares/abastecimentos)
+            paths += [(f, p) for f in sorted(glob.glob(os.path.join(p, "**", "*.json"), recursive=True))]
         else:
-            paths += sorted(glob.glob(p)) or [p]
+            paths += [(f, None) for f in (sorted(glob.glob(p)) or [p])]
     out = []
-    for p in paths:
+    terrains: dict = {}                                         # um DEM por origem (varios cenarios no mesmo local)
+    for p, root in paths:
         try:
-            out.append(Scenario.from_file(p, synthetic))
+            m = Mission.load(p)
+            key = (m.origin["lat"], m.origin["lon"], m.origin["size_km"], synthetic)
+            sc = Scenario.from_file(p, synthetic, root) if key not in terrains else None
+            if sc is None:
+                name = os.path.splitext(os.path.relpath(p, root) if root else os.path.basename(p))[0]
+                sc = Scenario(m, terrains[key], name=name.replace(os.sep, "/"))
+            terrains.setdefault(key, sc.terrain)
+            out.append(sc)
         except (ValueError, KeyError) as ex:
             if verbose:
                 print(f"  (ignorado {os.path.basename(p)}: {ex})")
@@ -171,10 +184,11 @@ class RefuelEnv:
 
     # ------------------------------------------------------------------ reset
     def reset(self, seed: int | None = None):
-        c, m = self.cfg, self.sc.m
+        c = self.cfg
         self.seed = 0 if seed is None else seed
         self.rng = np.random.default_rng(self.seed)
         r = self.rng
+        m = self.m = self.sc.m.randomized(r) if self.sc.m.is_preset else self.sc.m   # instancia sorteada do preset
         self.t = 0.0
         self.t_max = min(c.t_max, m.duration)
         self.rf = m.refuel
@@ -203,6 +217,7 @@ class RefuelEnv:
         self.n_dr = len(bases)
         self.dr_state = np.zeros(self.n_dr, int)                # 0 ocioso, 1 em missao, 2 usado, 3 falhou
         self.dr_track = np.full(self.n_dr, -1)                  # id da pista perseguida
+        self.dr_lock = np.full(self.n_dr, -1)                   # aeronave no sensor proprio (-1 = so radar)
         self.dr_fly = np.zeros(self.n_dr)
         self.dr_last = np.zeros((self.n_dr, 4))                 # ultima pista conhecida (n, e, vn, ve)
         self.dr_last_t = np.zeros(self.n_dr)
@@ -250,16 +265,24 @@ class RefuelEnv:
         self.t += dt
         self._refresh_picture()
         vd = self.rf.drone_speed
+        live = [k for k in range(self.n_ac) if self.ac_status[k] == 0]
         for d in np.where(self.dr_state == 1)[0]:
             tr = self._pic_by_id.get(self.dr_track[d])
             if tr is not None:
                 self.dr_last[d] = (tr["n"], tr["e"], tr["vn"], tr["ve"])
                 self.dr_last_t[d] = self.t
-            pn, pe, vn, ve = self.dr_last[d]
-            vel = np.array([vn, ve])
-            est = np.array([pn, pe]) + vel * (self.t - self.dr_last_t[d])
-            ti = intercept_time(est - self.dr_pos[d], vel, vd)
-            aim = est + vel * (ti if np.isfinite(ti) else 0.0)
+            # rendezvous, fase final: aeronave no alcance do sensor proprio -> segue a posicao verdadeira
+            dist = [np.linalg.norm(self.bodies[k].x[0:2] - self.dr_pos[d]) for k in live]
+            lock = live[int(np.argmin(dist))] if live and min(dist) <= self.rf.sensor_range else -1
+            self.dr_lock[d] = lock
+            if lock >= 0:
+                aim = self.bodies[lock].x[0:2].copy()            # aeronaves ja andaram neste passo
+            else:                                               # transito: ponto de interceptacao da pista de radar
+                pn, pe, vn, ve = self.dr_last[d]
+                vel = np.array([vn, ve])
+                est = np.array([pn, pe]) + vel * (self.t - self.dr_last_t[d])
+                ti = intercept_time(est - self.dr_pos[d], vel, vd)
+                aim = est + vel * (ti if np.isfinite(ti) else 0.0)
             dirv = aim - self.dr_pos[d]
             nrm = np.linalg.norm(dirv)
             if nrm > 1e-6:
@@ -267,13 +290,14 @@ class RefuelEnv:
             self.dr_fly[d] += dt
             hit = next((k for k in range(self.n_ac) if self.ac_status[k] == 0 and
                         np.linalg.norm(self.bodies[k].x[0:2] - self.dr_pos[d]) <= self.rf.contact_radius), None)
-            if hit is not None:                                  # contato (distancia VERDADEIRA)
+            if hit is not None:                                  # contato (distancia VERDADEIRA): reabastece na hora
                 self.ac_status[hit], self.ac_done_t[hit] = 1, self.t
-                self.dr_state[d] = 2
+                self.dr_state[d], self.dr_lock[d] = 2, -1
+                live = [k for k in live if k != hit]
                 self.info["refueled"] += 1
                 reward += REFUEL_REWARD
             elif self.dr_fly[d] >= self.rf.endurance:
-                self.dr_state[d] = 3
+                self.dr_state[d], self.dr_lock[d] = 3, -1
                 self.info["failed"] += 1
         return reward - float(np.sum(self.ac_status == 0)) * dt / (self.n_ac * 300.0)
 

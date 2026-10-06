@@ -84,9 +84,14 @@ def main():
     ap.add_argument("--synthetic", action="store_true", help="usa DEM fractal em vez do GeoTIFF")
     ap.add_argument("--out", default="results")
     ap.add_argument("--resim", action="store_true", help="ignora o cache e simula de novo")
+    ap.add_argument("--seed", type=int, default=0,
+                    help="semente do sorteio quando a missao e um preset aleatorio (raio de ponto, faixa de vel./AGL)")
     args = ap.parse_args()
 
     m = Mission.load(args.mission)
+    if m.is_preset:
+        m = m.randomized(args.seed)
+        print(f"preset aleatorio: instancia sorteada com --seed {args.seed}")
     dur = args.duration or m.duration
     cpath = cache_path(m, dur, args.synthetic, args.out)
     sim = None if args.resim else load_cached(cpath)

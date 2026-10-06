@@ -146,6 +146,13 @@ class Terrain:
         return cls(z, res, -half, -half, lat0, lon0)
 
     # -------------------------------------------------------------------- geodesia
+    def from_latlon(self, lat, lon):
+        """(n, e) locais de um ponto (lat, lon); None se o DEM nao e georreferenciado (sintetico)."""
+        if self.lat0 is None or self.lon0 is None:
+            return None
+        return ((np.asarray(lat) - self.lat0) * M_PER_DEG_LAT,
+                (np.asarray(lon) - self.lon0) * M_PER_DEG_LON_EQ * np.cos(np.radians(self.lat0)))
+
     def to_latlon(self, n, e):
         lat0, lon0 = self.lat0 or 0.0, self.lon0 or 0.0
         return (lat0 + np.asarray(n) / M_PER_DEG_LAT,

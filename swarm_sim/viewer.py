@@ -11,6 +11,7 @@ from tkinter import ttk
 
 import numpy as np
 
+from .landmarks import draw_landmarks, visible_landmarks
 from .mapview import MapView
 from .simulation import Simulation
 from .theme import BG, FG, LINE, MUTED, PANEL2, WARN, apply_dark
@@ -321,6 +322,9 @@ class ReplayApp:
 
     def _overlay(self, c: MapView, light: bool):
         t_cur = self.t
+        if not hasattr(self, "_landmarks"):
+            self._landmarks = visible_landmarks(self.T)
+        draw_landmarks(c, self._landmarks)                  # marcos (mapa: valem tambem na visao radar)
         if self.net and self.radar_only.get():          # visao do operador: nada da verdade-terreno
             self._draw_radar(c)
             return
