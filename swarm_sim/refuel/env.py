@@ -13,8 +13,15 @@
   do seu sensor proprio (``refuel.sensor_range``); dai segue a posicao verdadeira dela e, ao chegar a
   ``refuel.contact_radius``, reabastece na hora.
 
-O decisor ve um MDP sequencial: a cada passo ha um "drone atual" ocioso na base e a acao e escolher uma pista
-(slot 0..K-1) ou esperar (slot K). O tempo so avanca quando todos os drones ociosos decidiram.
+O decisor ve um MDP sequencial: a cada passo ha um "drone atual" e a acao e escolher uma pista (slot 0..K-1) ou
+o slot K. Decidem os drones ociosos na base (K = esperar) e os drones em transito (K = manter a pista atual), estes a
+cada ``retask_dt`` e logo que a pista perseguida some do radar: podem abandonar uma pista perdida/falsa e assumir
+outra mais proxima, no lugar de lancar um drone novo. Na rodada, os em voo decidem antes dos da base. O tempo so
+avanca quando todos os drones da rodada decidiram.
+Legitimidade: a maioria das pistas pode ser falso alarme. Cada pista tem caracteristicas so de radar que independem
+do drone (``legit_feats``: velocidade, razao de subida, AGL, incerteza, idade, vida, medidas, distancia ao radar)
+para decidir se o sinal e uma aeronave; ``plausible`` e a regra fisica (envelope de voo) usada pelas heuristicas.
+O rotulo verdadeiro (``obs["legit"]``) so serve para treinar o classificador e para as metricas.
 Recompensa: +1 por reabastecimento, -penalidade por queda e um termo pequeno de tempo
 -(aeronaves na lista) * dt / (N * 300).
 """
@@ -30,8 +37,10 @@ from ..mission import Mission, load_terrain
 from ..radar import RadarNetwork
 from ..routes import Waypoint
 
-TRACK_FEATS = 16
-GLOB_FEATS = 5
+TRACK_FEATS = 17
+GLOB_FEATS = 7
+LEGIT_FEATS = 10
+PLAUSIBLE = dict(v_min=15.0, v_max=42.0, vh_max=8.0, agl_min=-20.0, agl_max=500.0)   # envelope de voo (regra)
 REFUEL_REWARD = 1.0
 IMPACT_DIVE = 0.12      # inclinacao da rampa final ate o impacto (igual a GuidanceParams.impact_dive)
 
@@ -45,6 +54,7 @@ class RefuelConfig:
     start_frac: tuple[float, float] = (0.0, 0.5)   # sorteio do ponto de partida na rota (fracao do comprimento)
     speed_jitter: float = 0.08
     cover_radius: float = 500.0        # pista a menos disso de uma ja designada conta como "coberta"
+    retask_dt: float = 10.0            # periodo de reavaliacao do alvo de um drone em transito [s]
 
 
 def intercept_time(rel: np.ndarray, vel: np.ndarray, speed: float) -> np.ndarray:
@@ -212,17 +222,20 @@ class RefuelEnv:
         self.ac_penalty = np.where(self.ac_zone >= 0, self.rf.crash_penalty_priority, self.rf.crash_penalty_other)
         self._place_bodies()
         self.radar_net = RadarNetwork(list(m.radars), self.sc.terrain, seed=self.seed)
+        self.radar_ne = np.array([[rd.n, rd.e] for rd in m.radars], float).reshape(-1, 2)
         bases = [(b.n, b.e) for b in m.bases for _ in range(b.drones)]
         self.dr_pos = np.array(bases, float)
         self.n_dr = len(bases)
         self.dr_state = np.zeros(self.n_dr, int)                # 0 ocioso, 1 em missao, 2 usado, 3 falhou
         self.dr_track = np.full(self.n_dr, -1)                  # id da pista perseguida
         self.dr_lock = np.full(self.n_dr, -1)                   # aeronave no sensor proprio (-1 = so radar)
+        self.dr_next = np.zeros(self.n_dr)                      # proxima reavaliacao do alvo (drone em transito)
+        self.dr_lost = np.zeros(self.n_dr, bool)                # pista perseguida sumiu do quadro de radar
         self.dr_fly = np.zeros(self.n_dr)
         self.dr_last = np.zeros((self.n_dr, 4))                 # ultima pista conhecida (n, e, vn, ve)
         self.dr_last_t = np.zeros(self.n_dr)
         self.targeted: set[int] = set()
-        self.info = {"refueled": 0, "failed": 0, "crashed": 0, "crashed_priority": 0}
+        self.info = {"refueled": 0, "failed": 0, "crashed": 0, "crashed_priority": 0, "retasks": 0}
         self._pic, self._pic_by_id = [], {}
         self.queue: list[int] = []
         self.slots: list[dict | None] = [None] * c.max_tracks
@@ -271,6 +284,9 @@ class RefuelEnv:
             if tr is not None:
                 self.dr_last[d] = (tr["n"], tr["e"], tr["vn"], tr["ve"])
                 self.dr_last_t[d] = self.t
+            elif not self.dr_lost[d]:                           # acabou de perder a pista: reavalia ja
+                self.dr_next[d] = self.t
+            self.dr_lost[d] = tr is None
             # rendezvous, fase final: aeronave no alcance do sensor proprio -> segue a posicao verdadeira
             dist = [np.linalg.norm(self.bodies[k].x[0:2] - self.dr_pos[d]) for k in live]
             lock = live[int(np.argmin(dist))] if live and min(dist) <= self.rf.sensor_range else -1
@@ -293,16 +309,23 @@ class RefuelEnv:
             if hit is not None:                                  # contato (distancia VERDADEIRA): reabastece na hora
                 self.ac_status[hit], self.ac_done_t[hit] = 1, self.t
                 self.dr_state[d], self.dr_lock[d] = 2, -1
+                self.targeted.discard(int(self.dr_track[d]))
                 live = [k for k in live if k != hit]
                 self.info["refueled"] += 1
                 reward += REFUEL_REWARD
             elif self.dr_fly[d] >= self.rf.endurance:
                 self.dr_state[d], self.dr_lock[d] = 3, -1
+                self.targeted.discard(int(self.dr_track[d]))
                 self.info["failed"] += 1
         return reward - float(np.sum(self.ac_status == 0)) * dt / (self.n_ac * 300.0)
 
+    def airborne(self, d: int) -> bool:
+        return bool(self.dr_state[d] == 1)
+
     def _pending(self) -> list[int]:
-        return [int(d) for d in np.where(self.dr_state == 0)[0]]
+        """Drones que decidem nesta rodada: em transito com reavaliacao vencida (primeiro) e ociosos na base."""
+        fly = np.where((self.dr_state == 1) & (self.dr_lock < 0) & (self.dr_next <= self.t + 1e-9))[0]
+        return [int(d) for d in fly] + [int(d) for d in np.where(self.dr_state == 0)[0]]
 
     def _advance_to_decision(self, advance_first: bool = False) -> float:
         total = 0.0
@@ -324,8 +347,31 @@ class RefuelEnv:
         return self.queue[0]
 
     # ------------------------------------------------------------ observacao
-    def free_tracks(self) -> list[dict]:
-        return [p for p in self._pic if p["id"] not in self.targeted]
+    def free_tracks(self, d: int | None = None) -> list[dict]:
+        """Pistas nao designadas a outros drones (a pista do proprio drone `d` conta como livre)."""
+        own = int(self.dr_track[d]) if d is not None and self.airborne(d) else None
+        return [p for p in self._pic if p["id"] not in self.targeted or p["id"] == own]
+
+    def _agl(self, p: dict) -> float:
+        return float(p["alt"] - self.sc.terrain.height(p["n"], p["e"]))
+
+    def legit_feats(self, tracks: list[dict]) -> np.ndarray:
+        """Caracteristicas so de radar (independentes do drone) para decidir se a pista e legitima."""
+        f = np.zeros((len(tracks), LEGIT_FEATS), np.float32)
+        for i, p in enumerate(tracks):
+            sp = float(np.hypot(p["vn"], p["ve"]))
+            dr = float(np.min(np.hypot(*(self.radar_ne - [p["n"], p["e"]]).T))) if len(self.radar_ne) else 1e4
+            f[i] = (min(sp, 180.0) / 30.0, np.clip(p["vh"], -30.0, 30.0) / 5.0, min(abs(p["vh"]), 30.0) / 5.0,
+                    np.clip(self._agl(p), -300.0, 900.0) / 300.0, min(p["sigma"], 400.0) / 200.0,
+                    min(p["age"], 40.0) / 20.0, min(p["life"], 300.0) / 60.0, min(p["hits"], 30.0) / 10.0,
+                    min(p["hits"] / max(p["life"], 1.0), 1.0) * 5.0, min(dr, 15000.0) / 5000.0)
+        return f
+
+    def plausible(self, p: dict) -> bool:
+        """Regra fisica: velocidade, razao de subida e AGL dentro do envelope de uma aeronave."""
+        c = PLAUSIBLE
+        sp, agl = float(np.hypot(p["vn"], p["ve"])), self._agl(p)
+        return bool(c["v_min"] <= sp <= c["v_max"] and abs(p["vh"]) <= c["vh_max"] and c["agl_min"] <= agl <= c["agl_max"])
 
     def _build_slots(self):
         """Pistas livres (nao designadas), ordenadas pelo tempo de interceptacao do drone atual."""
@@ -334,7 +380,7 @@ class RefuelEnv:
         if self.done or not self.queue:
             return
         d = self.current_drone
-        tr = self.free_tracks()
+        tr = self.free_tracks(d)
         for p in tr:
             p["rel"] = np.array([p["n"], p["e"]]) - self.dr_pos[d]
             p["tint"] = float(intercept_time(p["rel"], np.array([p["vn"], p["ve"]]), self.rf.drone_speed))
@@ -354,14 +400,17 @@ class RefuelEnv:
         K = c.max_tracks
         f = np.zeros((K, TRACK_FEATS), np.float32)
         g = np.zeros(GLOB_FEATS, np.float32)
+        lf = np.zeros((K, LEGIT_FEATS), np.float32)
+        y = np.zeros(K, np.float32)
         if self.done or not self.queue:
-            return {"ac": f, "glob": g, "mask": np.ones(K + 1, bool)}
+            return {"ac": f, "lf": lf, "glob": g, "mask": np.ones(K + 1, bool), "legit": y}
         d = self.current_drone
         ext = self.sc.terrain.extent
         L = float(max(ext[1] - ext[0], ext[3] - ext[2]))
         T = self.t_max
+        own = int(self.dr_track[d]) if self.airborne(d) else None
         tgt = [np.array([self._pic_by_id[i]["n"], self._pic_by_id[i]["e"]]) for i in self.targeted
-               if i in self._pic_by_id]
+               if i in self._pic_by_id and i != own]
         left = self.rf.endurance - self.dr_fly[d]
         for i, p in enumerate(self.slots):
             if p is None:
@@ -378,28 +427,47 @@ class RefuelEnv:
             f[i, 8] = min(p["sigma"], 400.0) / 200.0
             f[i, 9] = float(min((np.linalg.norm(pos - q) for q in tgt), default=1e5) < c.cover_radius)
             f[i, 10] = min(self.t - self.radar_net.track_log[p["id"]][0].t, T) / T
-            agl = p["alt"] - float(self.sc.terrain.height(p["n"], p["e"]))        # altitude e descida: so do radar
+            agl = self._agl(p)                                                     # altitude e descida: so do radar
             f[i, 11] = np.clip(agl, -100.0, 600.0) / 300.0
             f[i, 12] = np.clip(p["vh"], -15.0, 15.0) / 5.0
             sd, close, inside = self.sc.zone_geometry(pos, v)                     # zonas prioritarias (comando)
             f[i, 13] = np.clip(sd, -L, L) / L
             f[i, 14] = np.clip(close, -40.0, 40.0) / 30.0
             f[i, 15] = float(inside)
+            f[i, 16] = float(p["id"] == own)                                       # alvo atual deste drone
         g[0] = len(self._pending()) / max(self.n_dr, 1)
         g[1] = np.sum([s is not None for s in self.slots]) / K
         g[2] = self.t / T
         g[3] = left / self.rf.endurance
         g[4] = np.sum(self.dr_state <= 1) / max(self.n_dr, 1)
-        return {"ac": f, "glob": g, "mask": self.mask()}
+        g[5] = float(self.airborne(d))
+        g[6] = min(self.t - self.dr_last_t[d], 60.0) / 30.0 if self.airborne(d) else 0.0   # idade da pista perseguida
+        valid = [i for i, p in enumerate(self.slots) if p is not None]
+        if valid:
+            lf[valid] = self.legit_feats([self.slots[i] for i in valid])
+            y[valid] = [self.slots[i]["truth"] is not None for i in valid]       # rotulo: so treino/metricas
+        return {"ac": f, "lf": lf, "glob": g, "mask": self.mask(), "legit": y}
 
     # ------------------------------------------------------------------ passo
     def step(self, action: int):
-        """action: slot da pista (0..K-1) ou K = esperar. Devolve (obs, recompensa, terminou)."""
+        """action: slot da pista (0..K-1) ou K = esperar (na base) / manter a pista (em voo).
+        Devolve (obs, recompensa, terminou)."""
         K = self.cfg.max_tracks
         d = self.queue.pop(0)
-        if action < K and self.slots[action] is not None:
+        if self.airborne(d):
+            self.dr_next[d] = self.t + self.cfg.retask_dt
+            p = self.slots[action] if action < K else None
+            if p is not None and p["id"] != self.dr_track[d]:      # abandona a pista atual e assume outra
+                self.targeted.discard(int(self.dr_track[d]))
+                self.dr_track[d], self.dr_lost[d] = p["id"], False
+                self.dr_last[d] = (p["n"], p["e"], p["vn"], p["ve"])
+                self.dr_last_t[d] = self.t
+                self.targeted.add(p["id"])
+                self.info["retasks"] += 1
+        elif action < K and self.slots[action] is not None:
             p = self.slots[action]
             self.dr_state[d], self.dr_track[d], self.dr_fly[d] = 1, p["id"], 0.0
+            self.dr_next[d], self.dr_lost[d] = self.t + self.cfg.retask_dt, False
             self.dr_last[d] = (p["n"], p["e"], p["vn"], p["ve"])
             self.dr_last_t[d] = self.t
             self.targeted.add(p["id"])
@@ -418,4 +486,4 @@ class RefuelEnv:
                 "n_aircraft": self.n_ac, "rate": float(ok.mean()),
                 "penalty": float(self.ac_penalty[crashed].sum()), "success": float(ok.all()),
                 "mean_t": float(self.ac_done_t[ok].mean()) if ok.any() else float("nan"),   # tempo ate reabastecer
-                "drones_failed": int((self.dr_state == 3).sum())}
+                "drones_failed": int((self.dr_state == 3).sum()), "retasks": self.info["retasks"]}

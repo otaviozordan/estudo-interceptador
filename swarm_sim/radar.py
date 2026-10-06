@@ -376,6 +376,8 @@ class TrackSample:
     confirmed: bool
     truth: str | None        # aeronave mais proxima (avaliacao)
     err: float               # erro de posicao 3D em relacao a ``truth`` [m]
+    hits: int = 0            # medidas associadas a pista ate t
+    born: float = 0.0        # instante de criacao da pista
 
 
 class RadarNetwork:
@@ -488,7 +490,7 @@ class RadarNetwork:
         truth = best if d_best < 1000.0 else None
         self.track_log.setdefault(tr.id, []).append(TrackSample(
             t, tr.x.copy(), float(np.sqrt(np.trace(tr.P[:3, :3]) / 3.0)), tr.confirmed, truth,
-            d_best if truth else float("nan")))
+            d_best if truth else float("nan"), tr.hits, tr.t_born))
 
     # ------------------------------------------------------------- consulta
     def picture(self, t: float, max_age: float | None = None) -> list[dict]:
@@ -506,7 +508,7 @@ class RadarNetwork:
             x = s.x.copy()
             x[:3] += x[3:] * (t - s.t)
             out.append({"id": tid, "n": x[0], "e": x[1], "alt": x[2], "vn": x[3], "ve": x[4], "vh": x[5],
-                        "age": t - s.t, "sigma": s.sigma, "truth": s.truth})
+                        "age": t - s.t, "sigma": s.sigma, "hits": s.hits, "life": t - s.born, "truth": s.truth})
         return out
 
     def detections_between(self, t0: float, t1: float) -> list[Detection]:

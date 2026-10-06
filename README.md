@@ -92,7 +92,17 @@ De bases espalhadas pelo mapa saem drones para reabastecer as aeronaves em voo. 
 - Cada missão com radares + bases é um **cenário** (busca recursiva em `missions/`); `python run_refuel.py` treina/avalia sobre `missions/*.json`
   (divisão treino/teste por cenário). Ambiente cinemático (as rotas da missão como ponto, DEM real para o radar), rápido o
   bastante para RL; o 6-DOF fica para validar a política depois.
-- Métodos comparados: aleatório, guloso (próximo / urgente / prioridade), húngaro (com e sem prioridade) e redes neurais
-  permutação-invariantes: imitação do húngaro (DAgger), PPO do zero e imitação + PPO.
+- **Troca de alvo em voo**: drones em trânsito decidem de novo a cada `retask_dt` (10 s) e logo que a pista perseguida some do
+  radar; podem abandonar uma pista perdida/falsa e assumir outra mais próxima em vez de lançar um drone novo (na rodada,
+  os drones em voo decidem antes dos da base).
+- **Pista legítima × falso alarme**: a maioria das pistas pode ser falsa (clutter). As heurísticas filtram pela regra física
+  do envelope de voo (`env.plausible`: velocidade, razão de subida, AGL); a rede tem uma cabeça classificadora treinada
+  com o rótulo verdadeiro da simulação (só radar como entrada) cuja probabilidade entra na escolha do alvo. As métricas
+  incluem precisão/recall da decisão legítima/falsa de cada método.
+- Métodos comparados: aleatório, guloso (próximo / urgente / prioridade), húngaro (com e sem prioridade; `hungaro_prio_sem_filtro`
+  sem filtro de legitimidade) e redes neurais permutação-invariantes: imitação do húngaro (DAgger), PPO do zero e imitação + PPO.
+- **Resultados com carimbo**: cada `python run_refuel.py` grava em `results/refuel/<AAAAMMDD_HHMMSS>/` config, log, `metricas.txt`,
+  `comparacao.json`, pesos `*.pt` e `gifs/` com um episódio do melhor heurístico e da melhor rede por cenário (+ JSON do episódio).
+  Os episódios rodam em paralelo (`--workers`, padrão nº de núcleos − 1).
 
 Demo antiga com 3 rotas: `python run_demo.py` (se presente). Imagens: © Esri, Maxar, Earthstar Geographics.
