@@ -66,6 +66,35 @@ def _waypoint(d: dict) -> Waypoint:
 
 
 @dataclass
+class DroneBase:
+    """Ponto de lancamento de drones de reabastecimento (cada drone reabastece uma unica aeronave)."""
+    n: float
+    e: float
+    name: str = "B1"
+    drones: int = 3
+
+
+@dataclass
+class PriorityZone:
+    """Area prioritaria (circular): a queda de uma aeronave nao reabastecida dentro dela e penalizada com
+    `crash_penalty_priority`; fora de qualquer zona, com a penalidade branda `crash_penalty_other`."""
+    n: float
+    e: float
+    radius: float = 1500.0
+    name: str = "P1"
+
+
+@dataclass
+class RefuelSpec:
+    """Parametros dos drones e do problema de reabastecimento (comuns a toda a missao)."""
+    drone_speed: float = 42.0          # [m/s]
+    endurance: float = 420.0           # autonomia do drone [s]
+    contact_radius: float = 60.0       # distancia de contato para reabastecer [m]
+    crash_penalty_priority: float = 10.0   # queda dentro de uma zona prioritaria (forte)
+    crash_penalty_other: float = 1.0       # queda fora das zonas prioritarias (branda)
+
+
+@dataclass
 class AircraftSpec:
     name: str
     waypoints: list[Waypoint] = field(default_factory=list)
@@ -94,6 +123,9 @@ class Mission:
     gust_sigma: float = 0.0
     gusts: list[GustZone] = field(default_factory=list)   # rajadas localizadas no mapa
     radars: list[RadarStation] = field(default_factory=list)   # estacoes de radar (unica fonte de posicao)
+    bases: list[DroneBase] = field(default_factory=list)       # bases de lancamento dos drones de reabastecimento
+    zones: list[PriorityZone] = field(default_factory=list)    # areas prioritarias (penalidade de queda forte)
+    refuel: RefuelSpec = field(default_factory=RefuelSpec)
 
     # ---------------------------------------------------------------- E/S
     def to_dict(self) -> dict:
@@ -103,6 +135,9 @@ class Mission:
             "wind": {"steady_ne": list(self.wind_steady_ne), "gust_sigma": self.gust_sigma},
             "gusts": [asdict(g) for g in self.gusts],
             "radars": [asdict(r) for r in self.radars],
+            "bases": [asdict(b) for b in self.bases],
+            "zones": [asdict(z) for z in self.zones],
+            "refuel": asdict(self.refuel),
             "aircraft": [{"name": a.name, "speed": a.speed, "loop": a.loop, "spline": a.spline, "rcs": a.rcs,
                           "start": a.start,
                           "waypoints": [asdict(w) for w in a.waypoints]} for a in self.aircraft],
@@ -123,7 +158,13 @@ class Mission:
                 wind_steady_ne=tuple(wind.get("steady_ne", (0.0, 0.0))),
                 gust_sigma=float(wind.get("gust_sigma", 0.0)),
                 gusts=[gust_from_dict(g) for g in d.get("gusts", [])],
-                radars=[radar_from_dict(r) for r in d.get("radars", [])])
+                radars=[radar_from_dict(r) for r in d.get("radars", [])],
+                bases=[DroneBase(**{k: v for k, v in b.items() if k in {f.name for f in fields(DroneBase)}})
+                       for b in d.get("bases", [])],
+                zones=[PriorityZone(**{k: v for k, v in z.items() if k in {f.name for f in fields(PriorityZone)}})
+                       for z in d.get("zones", [])],
+                refuel=RefuelSpec(**{k: v for k, v in d.get("refuel", {}).items()
+                                     if k in {f.name for f in fields(RefuelSpec)}}))
         for a in d.get("aircraft", []):
             m.aircraft.append(AircraftSpec(
                 a["name"], [_waypoint(w) for w in a.get("waypoints", [])], a.get("start"),
@@ -139,6 +180,12 @@ class Mission:
         rn = [r.name for r in self.radars]
         if len(set(rn)) != len(rn):
             raise ValueError("nomes de radares duplicados")
+        zn = [z.name for z in self.zones]
+        if len(set(zn)) != len(zn):
+            raise ValueError("nomes de zonas prioritarias duplicados")
+        bn = [b.name for b in self.bases]
+        if len(set(bn)) != len(bn):
+            raise ValueError("nomes de bases duplicados")
         for a in self.aircraft:
             if not a.waypoints:
                 raise ValueError(f"aeronave '{a.name}' sem waypoints")

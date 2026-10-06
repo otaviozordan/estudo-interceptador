@@ -5,7 +5,7 @@ Uso:
 
 Mapa:   clique esquerdo = adiciona (conforme o modo)  |  arrastar objeto = move (waypoint, inicio, fixo, pista)
         arrastar o fundo = mover o mapa  |  scroll = zoom  |  clique direito = remove o objeto mais proximo
-Modos:  1 Waypoint | 2 Chao (impacto) | 3 Loiter (orbita/espera) | 4 Inicio | 5 Rajada | 6 Radar
+Modos:  1 Waypoint | 2 Chao (impacto) | 3 Loiter (orbita/espera) | 4 Inicio | 5 Rajada | 6 Radar | 7 Base de drones | 8 Zona prioritária
 Atalhos: Ctrl+S salva, Ctrl+Z desfaz, Del remove o waypoint selecionado, Esc limpa selecao.
 Rota suave: marque 'Rota suave (spline)' na aba Aeronaves (Catmull-Rom passando por todos os waypoints).
 """
@@ -21,20 +21,22 @@ import numpy as np
 from swarm_sim.mapview import MapView
 from swarm_sim.gusts import GustZone
 from swarm_sim.radar import RadarStation, coverage_mask
-from swarm_sim.mission import PLACES, AircraftSpec, Mission, load_terrain, place_origin
+from swarm_sim.mission import PLACES, AircraftSpec, DroneBase, Mission, PriorityZone, load_terrain, place_origin
 from swarm_sim.routes import Waypoint
 from swarm_sim.theme import FG, LINE, MUTED, PANEL2, apply_dark
 
 # paleta
 COLORS = ["#4aa3ff", "#ff6b6b", "#4cd98a", "#c792ea", "#ffb454", "#2ee6d6", "#f4e04d", "#ff8fd1"]
 MODES = [("Waypoint", "➤ Waypoint"), ("Chao", "✖ Chão"), ("Loiter", "⟳ Loiter"),
-         ("Inicio", "▲ Início"), ("Rajada", "≋ Rajada"), ("Radar", "📡 Radar")]
+         ("Inicio", "▲ Início"), ("Rajada", "≋ Rajada"), ("Radar", "📡 Radar"), ("Base", "⛽ Base"), ("Zona", "◎ Prioridade")]
 MODE_HELP = {
     "Waypoint": "clique no mapa para adicionar waypoints (perto de um fixo, encaixa nele)",
     "Chao": "waypoint no chão: a aeronave mergulha e colide com o terreno",
     "Loiter": "órbita/espera: configure raio, voltas e sentido na aba Rota",
     "Inicio": "define a posição inicial da aeronave atual (rumo = primeiro waypoint)",
     "Radar": "estação de radar: clique no mapa para posicionar (quantas quiser); arraste para mover; configure na aba Radares",
+    "Zona": "zona prioritária (círculo): queda de aeronave nao reabastecida aqui tem penalidade forte; fora, branda",
+    "Base": "base de drones de reabastecimento: clique para posicionar; arraste para mover; configure na aba Reabast.",
     "Rajada": "rajada de vento localizada: clique no mapa (perto de um waypoint, encaixa nele); arraste a ponta da seta para girar",
 }
 
@@ -59,6 +61,8 @@ RADAR_FIELDS = {
     "r_fa": ("Falsos alarmes / varredura", "false_alarms", 1.0),
 }
 RADAR_COLOR = "#ff9f43"
+BASE_COLOR = "#7bed9f"
+ZONE_COLOR = "#ff4d4d"
 
 
 def nice_step(m_per_px: float, px: float = 110.0) -> float:
@@ -79,7 +83,7 @@ class MissionEditor:
         self.cur = 0
         self.mode = "Waypoint"
         self.params = {"agl": 120.0, "speed": 25.0, "radius": 300.0, "turns": 1.0, "dir": 1.0,
-                       "g_speed": 10.0, "g_dir": 90.0, "g_radius": 400.0, "g_up": 0.0,
+                       "g_speed": 10.0, "g_dir": 90.0, "g_radius": 400.0, "g_up": 0.0, "b_drones": 3.0, "z_radius": 1500.0,
                        **{k: getattr(RadarStation(0, 0), attr) / sc for k, (_l, attr, sc) in RADAR_FIELDS.items()}}
 
     @property
@@ -137,6 +141,20 @@ class MissionEditor:
     def click(self, n: float, e: float, snap: float = 0.0):
         """Aplica um clique (n, e em metros) conforme o modo atual."""
         p = self.params
+        if self.mode == "Zona":
+            names = {z.name for z in self.m.zones}
+            k = len(names) + 1
+            while f"P{k}" in names:
+                k += 1
+            self.m.zones.append(PriorityZone(n, e, radius=float(p["z_radius"]), name=f"P{k}"))
+            return
+        if self.mode == "Base":
+            names = {b.name for b in self.m.bases}
+            k = len(names) + 1
+            while f"B{k}" in names:
+                k += 1
+            self.m.bases.append(DroneBase(n, e, name=f"B{k}", drones=int(p["b_drones"])))
+            return
         if self.mode == "Radar":
             kw = {attr: p[k] * sc for k, (_l, attr, sc) in RADAR_FIELDS.items()}
             k = len(self.m.radars) + 1
@@ -180,12 +198,24 @@ class MissionEditor:
             for i, rd in enumerate(self.m.radars):
                 consider("radar", i, rd.n, rd.e)
 
+        def bases():
+            for i, b in enumerate(self.m.bases):
+                consider("base", i, b.n, b.e)
+
+        def zones():
+            for i, z in enumerate(self.m.zones):
+                consider("zone", i, z.n, z.e)
+
         def gusts():
             for i, g in enumerate(self.m.gusts):
                 h = np.radians(g.dir_deg)
                 L = 0.7 * g.radius
                 consider("gtip", i, g.n + L * np.cos(h), g.e + L * np.sin(h))
                 consider("gust", i, g.n, g.e)
+        if self.mode == "Zona":
+            zones()
+        if self.mode == "Base":
+            bases()
         if self.mode == "Radar":
             radars()
         if self.mode == "Rajada":
@@ -198,6 +228,10 @@ class MissionEditor:
             gusts()
         if self.mode != "Radar":
             radars()
+        if self.mode != "Base":
+            bases()
+        if self.mode != "Zona":
+            zones()
         return best[1:] if best else None
 
     def move(self, kind: str, idx: int, n: float, e: float):
@@ -209,6 +243,12 @@ class MissionEditor:
         elif kind == "radar":
             rd = self.m.radars[idx]
             rd.n, rd.e = n, e
+        elif kind == "base":
+            b = self.m.bases[idx]
+            b.n, b.e = n, e
+        elif kind == "zone":
+            z = self.m.zones[idx]
+            z.n, z.e = n, e
         elif kind == "gust":
             g = self.m.gusts[idx]
             g.n, g.e = self.snap_waypoint(n, e, 0.0)
@@ -225,6 +265,10 @@ class MissionEditor:
             self.m.gusts.pop(idx)
         elif kind == "radar":
             self.m.radars.pop(idx)
+        elif kind == "base":
+            self.m.bases.pop(idx)
+        elif kind == "zone":
+            self.m.zones.pop(idx)
 
     def apply_wp(self, idx: int, agl=None, speed=None, radius=None, turns=None, direction=None):
         """Altera parametros de um waypoint (speed = velocidade do ar do trecho ate ele)."""
@@ -282,6 +326,8 @@ class BuilderApp:
         self.sel_wp: int | None = None
         self.sel_gust: int | None = None
         self.sel_radar: int | None = None
+        self.sel_base: int | None = None
+        self.sel_zone: int | None = None
         self.show_cov = tk.BooleanVar(value=True)
         self._cov_cache = {}
         self._loading = False
@@ -367,16 +413,18 @@ class BuilderApp:
         nb = ttk.Notebook(side)
         nb.pack(fill="both", expand=True, padx=(0, 2), pady=2)
         self.nb = nb
-        tabs = {k: ttk.Frame(nb, padding=8) for k in ("ac", "route", "gust", "radar", "map")}
+        tabs = {k: ttk.Frame(nb, padding=8) for k in ("ac", "route", "gust", "radar", "refuel", "map")}
         nb.add(tabs["ac"], text="Aeronaves")
         nb.add(tabs["route"], text="Rota")
         nb.add(tabs["gust"], text="Rajadas")
         nb.add(tabs["radar"], text="Radares")
+        nb.add(tabs["refuel"], text="Reabast.")
         nb.add(tabs["map"], text="Mapa / Arquivo")
         self._tab_aircraft(tabs["ac"])
         self._tab_route(tabs["route"])
         self._tab_gust(tabs["gust"])
         self._tab_radar(tabs["radar"])
+        self._tab_refuel(tabs["refuel"])
         self._tab_map(tabs["map"])
 
         # --- area do mapa + perfil
@@ -626,6 +674,113 @@ class BuilderApp:
         if not self._loading:
             self.map.redraw()
 
+    def _tab_refuel(self, f):
+        ttk.Label(f, text="BASES DE DRONES (modo ⛽, tecla 7)", style="Head.TLabel").pack(anchor="w")
+        self.blb = ttk.Treeview(f, columns=("nome", "dr", "pos"), show="headings", height=5, selectmode="browse")
+        for c, w, t in (("nome", 60, "Nome"), ("dr", 60, "Drones"), ("pos", 130, "N / E [m]")):
+            self.blb.heading(c, text=t)
+            self.blb.column(c, width=w, anchor="center")
+        self.blb.pack(fill="x", pady=4)
+        self.blb.bind("<<TreeviewSelect>>", self._on_base_select)
+        ttk.Button(f, text="Excluir selecionada", command=self._del_base).pack(fill="x", pady=2)
+        self.b_drones = self._num_var(self.ed.params["b_drones"], lambda v: self._base_drones(v))
+        self._field(f, "Drones (nova / selecionada)", self.b_drones, 6)
+        ttk.Separator(f).pack(fill="x", pady=6)
+        ttk.Label(f, text="ZONAS PRIORITÁRIAS (modo ◎, tecla 8)", style="Head.TLabel").pack(anchor="w")
+        self.zlb = ttk.Treeview(f, columns=("nome", "raio", "pos"), show="headings", height=4, selectmode="browse")
+        for c, w, t in (("nome", 60, "Nome"), ("raio", 60, "Raio m"), ("pos", 130, "N / E [m]")):
+            self.zlb.heading(c, text=t)
+            self.zlb.column(c, width=w, anchor="center")
+        self.zlb.pack(fill="x", pady=4)
+        self.zlb.bind("<<TreeviewSelect>>", self._on_zone_select)
+        ttk.Button(f, text="Excluir selecionada", command=self._del_zone).pack(fill="x", pady=2)
+        self.z_radius = self._num_var(self.ed.params["z_radius"], lambda v: self._zone_radius(v))
+        self._field(f, "Raio (nova / selecionada) [m]", self.z_radius, 7)
+        ttk.Separator(f).pack(fill="x", pady=6)
+        ttk.Label(f, text="DRONES (toda a missão)", style="Head.TLabel").pack(anchor="w")
+        self.rf_vars = {}
+        for key, label in (("drone_speed", "Vel. do drone [m/s]"), ("endurance", "Autonomia do drone [s]"),
+                           ("contact_radius", "Raio de contato [m]"),
+                           ("crash_penalty_priority", "Queda em zona prioritária"),
+                           ("crash_penalty_other", "Queda fora das zonas")):
+            self.rf_vars[key] = self._num_var(getattr(self.ed.m.refuel, key), lambda v, k=key: self._refuel_param(k, v))
+            self._field(f, label, self.rf_vars[key])
+        ttk.Label(f, text="Cada drone reabastece UMA aeronave e cada aeronave recebe UM drone;\n"
+                          "a aeronave reabastecida sai da simulação. Os drones só conhecem as\n"
+                          "pistas de radar (nunca a posição verdadeira). As aeronaves têm\n"
+                          "combustível infinito: o objetivo é reabastecer todas o mais rápido.\n"
+                          "Treino: python run_refuel.py (usa as missões de missions/).",
+                  style="Muted.TLabel", justify="left").pack(anchor="w", pady=8)
+
+    def _refuel_param(self, key, var):
+        v = self._num(var)
+        if v is not None and v > 0:
+            setattr(self.ed.m.refuel, key, v)
+
+    def _base_drones(self, var):
+        v = self._num(var)
+        if v is None or v < 0:
+            return
+        self.ed.params["b_drones"] = v
+        if self.sel_base is not None and self.sel_base < len(self.ed.m.bases):
+            self.ed.m.bases[self.sel_base].drones = int(v)
+            self.changed()
+
+    def _select_base(self, i):
+        self.sel_base = i
+        if i is not None and i < len(self.ed.m.bases):
+            self._loading = True
+            self.b_drones.set(f"{self.ed.m.bases[i].drones:g}")
+            self._loading = False
+            self.nb.select(4)
+        self._refresh_lists()
+        self.map.redraw()
+
+    def _on_base_select(self, _ev):
+        if self._loading:
+            return
+        sel = self.blb.selection()
+        if sel and int(sel[0]) != self.sel_base:
+            self._select_base(int(sel[0]))
+
+    def _del_base(self):
+        if self.sel_base is not None and self.sel_base < len(self.ed.m.bases):
+            self.ed.m.bases.pop(self.sel_base)
+            self.sel_base = None
+            self.changed()
+
+    def _zone_radius(self, var):
+        v = self._num(var)
+        if v is None or v <= 0:
+            return
+        self.ed.params["z_radius"] = v
+        if self.sel_zone is not None and self.sel_zone < len(self.ed.m.zones):
+            self.ed.m.zones[self.sel_zone].radius = v
+            self.changed()
+
+    def _select_zone(self, i):
+        self.sel_zone = i
+        if i is not None and i < len(self.ed.m.zones):
+            self._loading = True
+            self.z_radius.set(f"{self.ed.m.zones[i].radius:g}")
+            self._loading = False
+            self.nb.select(4)
+        self._refresh_lists()
+        self.map.redraw()
+
+    def _on_zone_select(self, _ev):
+        if self._loading:
+            return
+        sel = self.zlb.selection()
+        if sel and int(sel[0]) != self.sel_zone:
+            self._select_zone(int(sel[0]))
+
+    def _del_zone(self):
+        if self.sel_zone is not None and self.sel_zone < len(self.ed.m.zones):
+            self.ed.m.zones.pop(self.sel_zone)
+            self.sel_zone = None
+            self.changed()
+
     def _tab_map(self, f):
         ttk.Label(f, text="SIMULAÇÃO", style="Head.TLabel").pack(anchor="w")
         m = self.ed.m
@@ -684,6 +839,8 @@ class BuilderApp:
         self.loop_var.set(a.loop)
         self.spline_var.set(a.spline)
         self.rcs_var.set(f"{a.rcs:g}")
+        for k, v in self.rf_vars.items():
+            v.set(f"{getattr(m.refuel, k):g}")
         self.wind_n.set(f"{m.wind_steady_ne[0]:g}")
         self.wind_e.set(f"{m.wind_steady_ne[1]:g}")
         self.gust.set(f"{m.gust_sigma:g}")
@@ -694,6 +851,8 @@ class BuilderApp:
             self.geo[k].set(f"{m.origin[k]:g}")
         self.sel_gust = None
         self.sel_radar = None
+        self.sel_base = None
+        self.sel_zone = None
         self._loading = False
 
     def changed(self, lists: bool = True):
@@ -736,6 +895,16 @@ class BuilderApp:
                                                            f"{rd.n:.0f} / {rd.e:.0f}"))
         if self.sel_radar is not None and self.sel_radar < len(ed.m.radars):
             self.rlb.selection_set(str(self.sel_radar))
+        self.blb.delete(*self.blb.get_children())
+        for i, b in enumerate(ed.m.bases):
+            self.blb.insert("", "end", iid=str(i), values=(b.name, b.drones, f"{b.n:.0f} / {b.e:.0f}"))
+        if self.sel_base is not None and self.sel_base < len(ed.m.bases):
+            self.blb.selection_set(str(self.sel_base))
+        self.zlb.delete(*self.zlb.get_children())
+        for i, z in enumerate(ed.m.zones):
+            self.zlb.insert("", "end", iid=str(i), values=(z.name, f"{z.radius:g}", f"{z.n:.0f} / {z.e:.0f}"))
+        if self.sel_zone is not None and self.sel_zone < len(ed.m.zones):
+            self.zlb.selection_set(str(self.sel_zone))
         self._loading = False
 
     # ------------------------------------------------------------ eventos (mapa)
@@ -769,6 +938,10 @@ class BuilderApp:
             self._select_gust(h[1])
         elif h[0] == "radar":
             self._select_radar(h[1])
+        elif h[0] == "base":
+            self._select_base(h[1])
+        elif h[0] == "zone":
+            self._select_zone(h[1])
 
     def _on_click(self, n, e):
         self.sel_wp = None
@@ -779,13 +952,17 @@ class BuilderApp:
             self.sel_gust = len(self.ed.m.gusts) - 1
         elif self.ed.mode == "Radar":
             self._select_radar(len(self.ed.m.radars) - 1)
+        elif self.ed.mode == "Base":
+            self._select_base(len(self.ed.m.bases) - 1)
+        elif self.ed.mode == "Zona":
+            self._select_zone(len(self.ed.m.zones) - 1)
         self.changed()
 
     def _on_right(self, n, e):
         h = self.ed.hit(n, e, 25 / self.map.scale)
         if h:
             self.ed.remove(*h)
-            self.sel_wp = self.sel_gust = self.sel_radar = None
+            self.sel_wp = self.sel_gust = self.sel_radar = self.sel_base = self.sel_zone = None
             self.changed()
 
     def _on_motion(self, n, e):
@@ -1049,6 +1226,10 @@ class BuilderApp:
             self._draw_radar(c, i, rd)
         for i, g in enumerate(self.ed.m.gusts):
             self._draw_gust(c, i, g)
+        for i, z in enumerate(self.ed.m.zones):
+            self._draw_zone(c, i, z)
+        for i, b in enumerate(self.ed.m.bases):
+            self._draw_base(c, i, b)
         for k, a in enumerate(self.ed.m.aircraft):
             self._draw_route(c, k, a)
 
@@ -1101,6 +1282,24 @@ class BuilderApp:
             c.create_oval(x - 16, y - 16, x + 16, y + 16, outline="yellow", width=3)
         txt = f"{rd.name}  {rd.range_m / 1000:g} km  {rd.scan_period:g}s"
         c.create_text(x + 13, y - 10, text=txt, fill="white", anchor="sw", font=("Segoe UI", 9, "bold"))
+
+    def _draw_zone(self, c: MapView, i: int, z: PriorityZone):
+        x, y = c.w2s(z.n, z.e)
+        R = z.radius * c.scale
+        sel = i == self.sel_zone
+        c.create_oval(x - R, y - R, x + R, y + R, fill=ZONE_COLOR, stipple="gray12", outline=ZONE_COLOR,
+                      width=3 if sel else 2, dash=(10, 5))
+        c.create_text(x, y - R - 6, text=f"{z.name}  prioridade  r={z.radius:g} m", fill="white", anchor="s",
+                      font=("Segoe UI", 9, "bold"))
+
+    def _draw_base(self, c: MapView, i: int, b: DroneBase):
+        x, y = c.w2s(b.n, b.e)
+        c.create_rectangle(x - 9, y - 9, x + 9, y + 9, fill=BASE_COLOR, outline="black", width=2)
+        c.create_text(x, y, text=str(b.drones), fill="black", font=("Segoe UI", 9, "bold"))
+        if i == self.sel_base:
+            c.create_oval(x - 17, y - 17, x + 17, y + 17, outline="yellow", width=3)
+        c.create_text(x + 13, y - 10, text=f"{b.name}  {b.drones} drones", fill="white", anchor="sw",
+                      font=("Segoe UI", 9, "bold"))
 
     def _draw_gust(self, c: MapView, i: int, g: GustZone):
         sel = i == self.sel_gust

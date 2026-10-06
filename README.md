@@ -69,4 +69,20 @@ Controladores/interceptadores devem usar apenas `sim.radar_net.picture(t)` (pist
 `run_mission.py` imprime por aeronave a % de tempo rastreada, 1ª pista e erro RMS; o replay mostra radares, plots (+), pistas (quadrados) e o gráfico de erro.
 No replay, **Visão radar** esconde a verdade (aeronaves, rotas, rajadas, telemetria) e mostra só radares, plots e uma tabela de pistas; o seletor *Parâmetros do radar* exibe a configuração interna do radar escolhido e o estado da última varredura. Relevo íngreme bloqueia muito: com antena a 20 m do solo e alvo a 100 m AGL, radares no vale não veem nada — posicione-os em morros.
 
+### Reabastecimento com drones (`swarm_sim/refuel/`, `run_refuel.py`)
+De bases espalhadas pelo mapa saem drones para reabastecer as aeronaves em voo. Regras:
+- **1 drone ↔ 1 aeronave**, drones descartáveis. A aeronave reabastecida **sai da lista** da simulação.
+- Aeronaves têm combustível infinito; o **último ponto da rota é um impacto no solo**: se chegarem a ele sem ser
+  reabastecidas, caem. Penalidade **forte** se o ponto de queda está numa **zona prioritária** (círculo desenhado no
+  construtor), **branda** fora dela (`refuel.crash_penalty_priority` / `crash_penalty_other`). Rotas em loop nunca caem.
+- Os drones só têm as **pistas de radar** (`RadarNetwork.picture`: ruidosas, sem identidade, só com cobertura) mais as zonas
+  prioritárias; a posição verdadeira só decide contato, queda e métricas.
+- Construtor: modo **⛽ Base** (tecla 7), **◎ Prioridade** (tecla 8) e aba *Reabast.* (drones por base, velocidade, autonomia,
+  raio de contato, penalidades). O formato JSON ganhou `bases`, `zones` e `refuel`.
+- Cada missão com radares + bases é um **cenário**; `python run_refuel.py` treina/avalia sobre `missions/*.json`
+  (divisão treino/teste por cenário). Ambiente cinemático (as rotas da missão como ponto, DEM real para o radar), rápido o
+  bastante para RL; o 6-DOF fica para validar a política depois.
+- Métodos comparados: aleatório, guloso (próximo / urgente / prioridade), húngaro (com e sem prioridade) e redes neurais
+  permutação-invariantes: imitação do húngaro (DAgger), PPO do zero e imitação + PPO.
+
 Demo antiga com 3 rotas: `python run_demo.py` (se presente). Imagens: © Esri, Maxar, Earthstar Geographics.
