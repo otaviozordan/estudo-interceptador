@@ -49,7 +49,8 @@ class Log:
 
 
 def table(title, specs, scs, pool, episodes, res, log):
-    log(f"\n== {title}: {len(scs)} cenario(s) x {episodes} episodios (sementes identicas para todos os metodos)")
+    n_ep = sum(episodes or max(s.m.refuel.runs, 1) for s in scs)
+    log(f"\n== {title}: {len(scs)} cenario(s), {n_ep} episodios (sementes identicas para todos os metodos)")
     log(f"{'metodo':24s} {'sucesso':>8s} {'reabast.':>9s} {'caidas':>7s} {'c/prior.':>9s} {'penal.':>7s} "
         f"{'t_reab[s]':>10s} {'trocas':>7s} {'retorno':>8s} {'legit P/R':>11s}")
     for k, spec in specs.items():
@@ -69,7 +70,8 @@ def main():
     ap.add_argument("--test-frac", type=float, default=0.25, help="fracao dos cenarios reservada ao teste")
     ap.add_argument("--il-iters", type=int, default=5)
     ap.add_argument("--ppo-updates", type=int, default=40)
-    ap.add_argument("--eval-episodes", type=int, default=5, help="episodios por cenario na avaliacao")
+    ap.add_argument("--eval-episodes", type=int, default=None,
+                    help="episodios por cenario na avaliacao (padrao: refuel.runs de cada missao)")
     ap.add_argument("--gif-scenarios", type=int, default=3, help="max. de cenarios de avaliacao com GIF (0 = sem GIF)")
     ap.add_argument("--gif-seed", type=int, default=10_000, help="semente do episodio gravado")
     ap.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) - 1),

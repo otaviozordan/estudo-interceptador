@@ -91,7 +91,9 @@ def net_policy(net: AllocNet, greedy: bool = True):
 
 
 def _pick(scenarios: list[Scenario], seed: int) -> Scenario:
-    return scenarios[int(np.random.default_rng(seed).integers(len(scenarios)))]
+    """Cenario do episodio, com peso = refuel.runs da missao."""
+    w = np.array([max(sc.m.refuel.runs, 1) for sc in scenarios], float)
+    return scenarios[int(np.random.default_rng(seed).choice(len(scenarios), p=w / w.sum()))]
 
 
 def dagger_episode(env: RefuelEnv, pol, expert) -> tuple[list[dict], list[int]]:

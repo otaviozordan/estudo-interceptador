@@ -60,11 +60,12 @@ class EpisodePool:
     def map(self, tasks: list) -> list:
         return self.pool.map(_task, tasks, chunksize=1) if self.pool else [_task(t) for t in tasks]
 
-    def evaluate(self, spec, scenarios: list[Scenario], episodes_per_scenario: int = 5, seed0: int = 10_000) -> dict:
-        """Igual a baselines.evaluate, com os episodios em paralelo."""
+    def evaluate(self, spec, scenarios: list[Scenario], episodes_per_scenario: int | None = None,
+                 seed0: int = 10_000) -> dict:
+        """Igual a baselines.evaluate, com os episodios em paralelo (None = refuel.runs de cada missao)."""
         from .baselines import aggregate
-        return aggregate(self.map([("eval", self.index(sc), seed0 + k, spec)
-                                   for sc in scenarios for k in range(episodes_per_scenario)]))
+        return aggregate(self.map([("eval", self.index(sc), seed0 + k, spec) for sc in scenarios
+                                   for k in range(episodes_per_scenario or max(sc.m.refuel.runs, 1))]))
 
     def close(self):
         if self.pool:

@@ -23,6 +23,7 @@ from swarm_sim.landmarks import draw_landmarks, visible_landmarks
 from swarm_sim.mapview import MapView
 from swarm_sim.gusts import GustZone
 from swarm_sim.radar import RadarStation, coverage_mask
+from swarm_sim.missionmap import save_mission_map
 from swarm_sim.mission import PLACES, AircraftSpec, DroneBase, Mission, PriorityZone, load_terrain, place_origin
 from swarm_sim.routes import Waypoint
 from swarm_sim.theme import FG, LINE, MUTED, PANEL2, apply_dark
@@ -337,6 +338,9 @@ class MissionEditor:
             inside = os.path.commonpath([old, os.path.abspath(root)]) == os.path.abspath(root)
             if inside and os.path.normcase(old) != os.path.normcase(new):
                 os.remove(old)
+                png = os.path.splitext(old)[0] + ".png"
+                if os.path.exists(png):
+                    os.remove(png)
         return path
 
     def load(self, path: str):
@@ -749,6 +753,7 @@ class BuilderApp:
         for key, label in (("drone_speed", "Vel. do drone [m/s]"), ("endurance", "Autonomia do drone [s]"),
                            ("contact_radius", "Raio de contato [m]"),
                            ("sensor_range", "Alcance do sensor do drone [m]"),
+                           ("runs", "Execuções (sorteios) da missão"),
                            ("crash_penalty_priority", "Queda em zona prioritária"),
                            ("crash_penalty_other", "Queda fora das zonas")):
             self.rf_vars[key] = self._num_var(getattr(self.ed.m.refuel, key), lambda v, k=key: self._refuel_param(k, v))
@@ -764,7 +769,7 @@ class BuilderApp:
     def _refuel_param(self, key, var):
         v = self._num(var)
         if v is not None and v > 0:
-            setattr(self.ed.m.refuel, key, v)
+            setattr(self.ed.m.refuel, key, max(1, int(round(v))) if key == "runs" else v)
 
     def _base_drones(self, var):
         v = self._num(var)
@@ -1255,6 +1260,10 @@ class BuilderApp:
             return
         self.path = path
         self.path_var.set(path)
+        try:                                                    # mapa da missao ao lado do JSON
+            save_mission_map(self.ed.m, self.T, os.path.splitext(path)[0] + ".png")
+        except Exception as ex:                                 # noqa: BLE001 (o JSON ja foi salvo)
+            print(f"mapa da missao nao salvo: {ex}")
         extra = "\npreset aleatório: cada simulação/episódio sorteia os pontos" if self.ed.m.is_preset else ""
         self.status.set(f"salvo em {os.path.relpath(path)}\nsimule: python run_mission.py {os.path.relpath(path)}{extra}")
 

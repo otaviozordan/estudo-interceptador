@@ -128,6 +128,7 @@ class RefuelSpec:
     sensor_range: float = 300.0        # alcance do sensor proprio do drone (fase final do rendezvous) [m]
     crash_penalty_priority: float = 10.0   # queda dentro de uma zona prioritaria (forte)
     crash_penalty_other: float = 1.0       # queda fora das zonas prioritarias (branda)
+    runs: int = 10                     # execucoes (sorteios) desta missao: episodios de avaliacao e peso no treino
 
 
 @dataclass

@@ -101,6 +101,13 @@ De bases espalhadas pelo mapa saem drones para reabastecer as aeronaves em voo. 
   incluem precisão/recall da decisão legítima/falsa de cada método.
 - Métodos comparados: aleatório, guloso (próximo / urgente / prioridade), húngaro (com e sem prioridade; `hungaro_prio_sem_filtro`
   sem filtro de legitimidade) e redes neurais permutação-invariantes: imitação do húngaro (DAgger), PPO do zero e imitação + PPO.
+- **Bateria de missões**: `python make_battery.py [--place "Sao Jose dos Campos"] [--n 16] [--runs 10] [--seed 0] [--prefix bateria]`
+  gera missões com 1–4 aeronaves e 3–5 radares (nos morros que mais cobrem as rotas), zonas prioritárias e bases sorteadas,
+  todas como preset aleatório (ponto, velocidade, AGL e início sorteados a cada execução).
+- **Mapa da missão**: toda missão salva (bateria ou Ctrl+S no construtor) ganha um `.png` ao lado do `.json` com relevo,
+  cobertura dos radares a 120 m AGL, rotas, áreas de sorteio, impactos, zonas, bases e radares.
+- **Execuções por missão**: `refuel.runs` (aba *Reabast.*, "Execuções (sorteios) da missão", padrão 10) = quantos sorteios da
+  missão entram na avaliação e o peso dela no sorteio dos episódios de treino (`--eval-episodes` sobrescreve na avaliação).
 - **Resultados com carimbo**: cada `python run_refuel.py` grava em `results/refuel/<AAAAMMDD_HHMMSS>/` config, log, `metricas.txt`,
   `comparacao.json`, pesos `*.pt` e `gifs/` com um episódio do melhor heurístico e da melhor rede por cenário (+ JSON do episódio).
   Os episódios rodam em paralelo (`--workers`, padrão nº de núcleos − 1).

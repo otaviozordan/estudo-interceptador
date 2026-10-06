@@ -185,9 +185,9 @@ def aggregate(rows: list[dict]) -> dict:
     return out
 
 
-def evaluate(policy, scenarios: list[Scenario], cfg: RefuelConfig, episodes_per_scenario: int = 5,
+def evaluate(policy, scenarios: list[Scenario], cfg: RefuelConfig, episodes_per_scenario: int | None = None,
              seed0: int = 10_000) -> dict:
     """Mesmas sementes/cenarios para todos os metodos. Devolve medias globais e por cenario e, se a politica
     decide legitimidade (``policy.classify``), a matriz de confusao legitima x falsa sobre o quadro de radar."""
     return aggregate([run_episode(policy, sc, cfg, seed0 + k)
-                      for sc in scenarios for k in range(episodes_per_scenario)])
+                      for sc in scenarios for k in range(episodes_per_scenario or max(sc.m.refuel.runs, 1))])
