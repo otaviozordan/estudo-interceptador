@@ -1,0 +1,61 @@
+% =====================================================================================================
+\section{Resultados}\label{sec:resultados}
+
+\subsection{Validação das implementações}\label{sec:validacao}
+Antes de comparar desempenho, é preciso confirmar que as implementações estão corretas. Uma forma objetiva de fazê-lo é
+usar as equivalências que a teoria garante: certos pares de algoritmos, embora funcionem de modo diferente, devem chegar
+à mesma solução. Em 320 rodadas de decisão de 8 cenários, todos os algoritmos resolveram exatamente a mesma instância
+(Tabela~\ref{tab:equivalencia}).
+
+Os três pares teoricamente equivalentes --- leilão e húngaro ponderado (M9 e M7, mesmo problema de atribuição), CBAA com
+grafo completo e guloso global (M11 e M10) e MILP e húngaro sobre o WTA (M15 e M14, mesmo problema linear) --- atingem o
+mesmo valor do objetivo em 100\,\% das rodadas. A designação coincide em 99,6, 100 e 96,8\,\% dos interceptadores,
+respectivamente; as diferenças vêm de soluções alternativas com o mesmo valor (empates), e não de erros.
+
+Entre os métodos que otimizam o valor esperado~\eqref{eq:F}, o MMR fica em média a 0,1\,\% do melhor valor encontrado
+na rodada, mas chega a ficar 7,6\,\% abaixo em algumas; a busca local é a que mais se aproxima do melhor (99,99\,\% em
+média, pior caso 98,6\,\%). O custo varia em duas ordens de grandeza: atribuição, leilão, MMR e busca local resolvem uma
+rodada em 4 a 6~ms (mediana), o MILP em 16~ms, o algoritmo genético em 93~ms, o recozimento simulado em 234~ms e a colônia
+de formigas em 487~ms.
+
+\inp{tabelas/equivalencia}
+
+\subsection{Escolha da guiagem terminal}\label{sec:res_guiagem}
+A guiagem é um componente fixo do benchmark, mas precisa ser escolhida. Um experimento 1$\times$1 --- um interceptador
+contra uma aeronave, 300 encontros por combinação, os mesmos para todas as leis --- comparou leis de guiagem contra cada
+perfil evasivo (Tabela~\ref{tab:guiagem}), com dois objetivos: fixar a lei usada no benchmark e medir a probabilidade
+$P_T$ de contato na primeira passagem, usada no modelo de sucesso~\eqref{eq:q}. A navegação proporcional com constante
+$N'=4$ teve a maior taxa de contato na primeira passagem contra as manobras não reativas, e é a lei usada; sua taxa média
+de contato na primeira passagem, 0,85, é o valor de $P_T$.
+A guiagem preditiva (MPC), que supõe velocidade constante do alvo ao longo do horizonte, ficou abaixo da navegação
+proporcional contra as manobras (por exemplo, 71 contra 88\,\% de contato na primeira passagem contra zigue-zague, com
+30~m/s$^2$) e custou ordens de grandeza mais tempo por passo --- um primeiro indício, no nível de um único encontro, de
+que a hipótese de velocidade constante é frágil diante de alvos evasivos.
+
+\inp{tabelas/guiagem}
+
+\subsection{Comparação dos métodos de alocação}\label{sec:res_alocacao}
+\todo{comentar as tabelas principais (teste e treino): ranking por dano e por custo, quem desperdiça interceptadores em
+iscas, significância contra M7.}
+
+\inp{tabelas/principal_teste}
+\inp{tabelas/principal_treino}
+
+\subsection{Efeito da composição do enxame, da cidade e da escala}\label{sec:res_perfil}
+\todo{comentar: quais métodos sofrem mais com a saturação por iscas (desperdício) e com a composição tática (FPV e
+munições vagantes, lentas e baixas); diferença entre cidades de treino e de teste; crescimento do dano com $N$.}
+
+\inp{tabelas/composicao}
+\inp{tabelas/cidade}
+\inp{tabelas/tamanho}
+\IfFileExists{figs/dano_vs_n.pdf}{\begin{figure}[t]\centering\includegraphics[width=0.7\textwidth]{figs/dano_vs_n.pdf}
+\caption{Dano médio nas missões de teste em função do número de ameaças.}\label{fig:dano_n}\end{figure}}{}
+
+\subsection{Ablações: troca de alvo, salvas, comunicação e guiagem}\label{sec:res_ablacao}
+Uma \conceito{ablação} remove ou altera um componente de um método para medir quanto ele contribui.
+\todo{comentar.}
+
+\inp{tabelas/ablacao}
+
+\subsection{Métodos aprendidos}\label{sec:res_redes}
+\todo{comentar imitação, PPO do zero e refinado, DeepSets $\times$ atenção, variância entre sementes, generalização.}

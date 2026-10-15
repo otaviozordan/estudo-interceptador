@@ -1,0 +1,238 @@
+% =====================================================================================================
+\section{Formulação do problema}\label{sec:problema}
+
+Esta seção descreve o cenário, escreve o problema de decisão em linguagem matemática, explica por que ele não pode ser
+resolvido exatamente, mostra como os métodos práticos o decompõem e define as grandezas que quase todos os métodos usam.
+
+\subsection{Cenário}
+Uma região contém \conceito{zonas prioritárias} $\mathcal{Z}$ --- círculos que representam ativos importantes, como uma
+base, uma usina ou uma subestação --- e \conceito{bases de interceptadores}, de onde partem os defensores. Um conjunto
+$\mathcal{A}$ de $N$ ameaças entra na região em ondas e segue rotas que terminam num \conceito{ponto de impacto}, onde a
+ameaça mergulha contra o alvo. Cada ameaça pertence a uma \conceito{classe} --- drone de ataque de longo alcance,
+munição vagante, drone FPV ou \conceito{isca} --- que determina a sua velocidade, altura, manobra e o \conceito{valor de
+dano} $\nu_a$ da sua carga: $\nu_a=1$, $0{,}5$ e $0{,}25$ para as três classes armadas e $\nu_a=0$ para a isca, que não
+carrega explosivo e existe só para atrair interceptadores. Se uma ameaça chega ao impacto sem ser interceptada, causa um
+dano $w_a=\nu_a\,w_P$, com $w_P=10$, se o impacto é dentro de uma zona prioritária, e $w_a=\nu_a\,w_O$, com $w_O=1$, fora
+dela; a razão de 10 para 1 expressa que proteger os ativos defendidos é muito mais valioso que evitar impactos em ativos
+secundários.
+
+O defensor tem $M\ge N$ interceptadores. Cada um voa a velocidade $v_d$, tem autonomia $T_d$ (tempo máximo de voo) e um
+\conceito{sensor próprio} de curto alcance $r_s$: enquanto está longe da ameaça, o interceptador depende das pistas de radar
+para saber para onde ir; quando chega a menos de $r_s$, passa a ver a ameaça diretamente. Um interceptador neutraliza a
+ameaça quando passa a menos de $r_c$ dela (\conceito{contato}) e é consumido nesse contato. Um interceptador que é
+lançado e não neutraliza uma ameaça armada --- porque esgota a autonomia sem contato, porque abate uma isca ou porque
+ainda voa sem uso quando o ataque termina --- é \conceito{desperdiçado}: foi gasto sem proteger nada. A
+Tabela~\ref{tab:notacao} resume a notação.
+
+\begin{table}[t]
+\centering
+\caption{Notação principal.}
+\label{tab:notacao}
+\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Símbolo & Significado \\
+\midrule
+$\mathcal{A}$, $N$; $\mathcal{D}$, $M$ & aeronaves e seu número; interceptadores e seu número \\
+$\nu_a$; $w_a$; $w_P=10$, $w_O=1$ & valor de dano da classe (isca: 0); dano da ameaça $a$; peso dentro e fora de zona prioritária \\
+$W$, $\eta=0{,}2$ & interceptadores desperdiçados num episódio; penalidade por desperdício \\
+$v_d$, $T_d$, $r_s$, $r_c$ & velocidade, autonomia, alcance do sensor e raio de contato do interceptador \\
+$\mathcal{P}(t)=\{p_j\}$ & quadro de radar: pistas com posição $\bm{x}_j$, velocidade $\bm{v}_j$, incerteza, idade \\
+$\mathcal{D}_t$ & fila de interceptadores que decidem na rodada $t$ \\
+$x_{ij}\in\{0,1\}$ & designação do interceptador $i$ à pista $j$ (1 se designado) \\
+$t^\star_{ij}$, $c_{ij}$ & tempo previsto de interceptação; custo com histerese (E2) \\
+$w_j$, $t^Z_j$ & peso de prioridade e tempo até a zona inferidos da pista (E3) \\
+$q_{ij}$, $V_j$, $S_j$ & probabilidade de sucesso, valor e sobrevivência da pista (E4) \\
+$F(\bm{x})$ & valor esperado destruído numa rodada \eqref{eq:F} \\
+$D$, $C$ & dano normalizado \eqref{eq:dano} e custo \eqref{eq:custo_ep} de um episódio \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{O que o defensor observa}
+O defensor não vê as aeronaves. A cada instante ele recebe o \conceito{quadro de radar} $\mathcal{P}(t)$, a lista de
+pistas mantida pelo rastreador. Cada pista $p_j$ traz uma posição estimada $\bm{x}_j$, uma velocidade estimada $\bm{v}_j$,
+uma medida da incerteza dessas estimativas, a idade (há quanto tempo foi atualizada) e o número de medidas que a
+sustentam. Três coisas \emph{não} são observadas e precisam ser inferidas ou ignoradas: (i) qual aeronave uma pista
+representa, ou se representa alguma (pode ser falso alarme); (ii) o ponto de impacto e, portanto, se a ameaça vai cair
+numa zona prioritária; e (iii) a classe da ameaça --- em particular, se é uma isca, que voa como as demais e tem
+assinatura de radar parecida. Além disso, ameaças escondidas pelo relevo simplesmente não aparecem no quadro.
+
+\subsection{Formulação como processo de decisão parcialmente observável}
+Um \conceito{processo de decisão de Markov} (MDP) descreve um sistema que evolui no tempo sob as ações de um decisor: em
+cada instante o sistema está num \emph{estado}; o decisor escolhe uma \emph{ação}; o sistema passa a um novo estado de
+forma possivelmente aleatória (a \emph{transição}), e isso gera um custo ou uma recompensa. ``De Markov'' significa que o
+próximo estado depende só do estado e da ação atuais, e não de todo o passado. Quando o decisor não vê o estado, mas
+apenas uma \emph{observação} parcial e ruidosa dele, o processo é \conceito{parcialmente observável} (POMDP). Nesse caso, a
+melhor decisão depende de todo o histórico de observações, porque é desse histórico que o decisor infere o estado. Uma
+\conceito{política} é a regra que associa a cada histórico uma ação, e resolver o problema é encontrar a política de menor
+custo esperado.
+
+O nosso problema é um POMDP com decisões a cada $\Delta_d=2$~s (as \conceito{rodadas de decisão}):
+\begin{itemize}
+  \item \textbf{Estado} $s_t$: posição, velocidade, rota, classe e situação (viva, interceptada ou caída) de cada
+        ameaça; posição, autonomia restante, alvo e situação (na base, em voo ou consumido) de cada interceptador; e o
+        estado interno do rastreador.
+  \item \textbf{Observação} $o_t$: o quadro de radar $\mathcal{P}(t)$, o estado dos próprios interceptadores e as zonas
+        prioritárias.
+  \item \textbf{Ação} $a_t$: em cada rodada decide a \conceito{fila} $\mathcal{D}_t$, formada pelos interceptadores ociosos
+        nas bases e pelos interceptadores em voo cuja reavaliação venceu. Cada um recebe uma pista ou a \emph{ação nula}
+        (esperar na base ou manter o alvo atual). A ação é uma matriz binária $\bm{x}$, com $x_{ij}=1$ se o interceptador
+        $i$ é designado à pista $j$, sujeita a
+        \begin{equation}
+          \sum_j x_{ij}\le1\quad\forall i,\qquad \sum_i x_{ij}+n_j^0\le\bar n\quad\forall j .
+          \label{eq:restr}
+        \end{equation}
+        A primeira restrição diz que cada interceptador persegue no máximo uma pista; a segunda, que cada pista recebe no
+        máximo $\bar n$ interceptadores, contando os $n_j^0$ que já a perseguem ($\bar n=1$ por padrão).
+  \item \textbf{Transição}: as ameaças avançam pelas rotas (as FPV manobram e algumas reagem ao interceptador); os interceptadores em trânsito voam
+        em direção ao ponto previsto de encontro com a sua pista e, ao entrar no alcance do sensor, passam a perseguir a
+        aeronave diretamente; os radares medem e o rastreador atualiza as pistas. Há contato quando um interceptador passa
+        a menos de $r_c$ de uma aeronave, e impacto quando uma aeronave chega ao fim da rota.
+  \item \textbf{Objetivo}: minimizar o valor esperado do \conceito{dano normalizado},
+        \begin{equation}
+          \min_{\pi}\ \mathbb{E}_\pi[D],\qquad
+          D = \frac{\sum_{a\in\mathcal{A}} w_a\,\mathbf{1}\{a\text{ atinge o impacto}\}}{\sum_{a\in\mathcal{A}} w_a}\in[0,1],
+          \label{eq:dano}
+        \end{equation}
+        em que $\mathbf{1}\{\cdot\}$ vale 1 se a condição é verdadeira e 0 caso contrário. $D$ é a fração do dano possível
+        que de fato ocorreu: vale 0 se todas as ameaças armadas foram interceptadas e 1 se nenhuma foi. A normalização
+        permite comparar cenários com números diferentes de ameaças. As iscas não entram em~\eqref{eq:dano}, porque
+        $w_a=0$, mas pesam no \conceito{custo}, que soma ao dano a penalidade dos interceptadores desperdiçados:
+        \begin{equation}
+          C = \frac{\sum_{a\in\mathcal{A}} w_a\,\mathbf{1}\{a\text{ atinge o impacto}\} + \eta\,W}{\sum_{a\in\mathcal{A}} w_a},
+          \qquad \eta=0{,}2 .
+          \label{eq:custo_ep}
+        \end{equation}
+        Um interceptador desperdiçado custa um quinto do impacto de uma ameaça plena num ativo não defendido. Com
+        $\eta=0$, $C=D$; com $\eta>0$, um método que dispara contra tudo o que aparece --- e, portanto, contra as iscas ---
+        é penalizado mesmo que não deixe passar nada. Reportamos as duas grandezas: $D$ mede a proteção, e $C$, a
+        proteção descontado o gasto.
+\end{itemize}
+
+\paragraph{Por que não resolver o POMDP diretamente.} Resolver exatamente um POMDP exige raciocinar sobre a distribuição
+de probabilidade de todos os estados possíveis, o que só é viável em problemas minúsculos. Aqui, o estado é contínuo e de
+alta dimensão (posições e velocidades de dezenas de aeronaves e interceptadores), o espaço de ações é combinatório (as
+designações possíveis entre dezenas de interceptadores e pistas) e a classe e o comportamento de cada ameaça não são
+conhecidos pelo defensor. Todos os métodos práticos, inclusive os aprendidos, recorrem a aproximações: decompõem o
+problema e resolvem cada parte com informação local.
+
+\subsection{Decomposição em camadas}
+A decisão completa se decompõe naturalmente em três camadas, que correspondem às comunidades da literatura:
+\begin{enumerate}
+  \item \textbf{Avaliação de ameaças}: decidir quais pistas são aeronaves reais, quão perigosas são e quanto tempo há até
+        que causem dano.
+  \item \textbf{Alocação}: dada essa avaliação, decidir qual interceptador vai contra qual pista nesta rodada, quais ficam
+        esperando e quais trocam de alvo.
+  \item \textbf{Guiagem}: dado o alvo, levar o interceptador até ele.
+\end{enumerate}
+Este artigo compara técnicas da camada de \emph{alocação}. As outras duas são mantidas fixas e iguais para todos os
+métodos: a avaliação de ameaças é uma regra física comum, descrita abaixo, ou um classificador aprendido (nas redes
+neurais); a guiagem é uma lei fixa, escolhida por um experimento separado (Seção~\ref{sec:res_guiagem}). Fixar as outras
+camadas garante que as diferenças medidas venham da alocação.
+
+\subsection{Relação com o WTA clássico}
+Se considerarmos uma única rodada, a alocação é uma instância do WTA estático~\cite{manne1958}: designar armas $i$ a alvos
+$j$ de valor $V_j$, com probabilidade de abate $q_{ij}$, minimizando o valor esperado que sobrevive,
+\begin{equation}
+  \min_{x}\ \sum_{j} V_j \prod_{i} (1-q_{ij})^{x_{ij}}\quad\text{s.a. \eqref{eq:restr}}.
+  \label{eq:wta}
+\end{equation}
+A leitura é direta: $(1-q_{ij})$ é a chance de a arma $i$ falhar contra o alvo $j$; o expoente $x_{ij}$ faz o fator
+aparecer só se a arma foi designada; o produto sobre $i$ é, portanto, a chance de \emph{todas} as armas designadas a $j$
+falharem, isto é, de $j$ sobreviver; multiplicada pelo valor $V_j$ e somada sobre os alvos, dá o valor sobrevivente
+esperado. O produto é o que torna o problema não linear e difícil.
+
+O nosso problema difere do WTA clássico em três pontos. É \emph{dinâmico}: a alocação se repete a cada rodada e pode
+ser revista, como no WTA dinâmico~\cite{hosein1990}. É \emph{parcialmente observável}: alocam-se pistas, que podem ser
+falsas ou estar erradas, e não alvos conhecidos. E é \emph{acoplado à cinemática}: a probabilidade de sucesso $q_{ij}$
+não é dada, e depende de quanto tempo o interceptador leva para chegar e de como o alvo manobra. No caso particular em que
+cada alvo recebe no máximo um interceptador e todas as probabilidades são próximas de 1, o produto em~\eqref{eq:wta}
+desaparece, e o problema se torna um \emph{problema de atribuição linear}, que pode ser resolvido exatamente e
+rapidamente~\cite{kuhn1955} (Seção~\ref{sec:met_atrib}).
+
+\subsection{Elementos comuns a todos os métodos}\label{sec:comuns}
+Quatro grandezas, calculadas apenas a partir das observações, são usadas por quase todos os métodos. Definimo-las aqui
+uma única vez; os métodos da Seção~\ref{sec:metodos} se referem a elas como (E1) a (E4).
+
+\paragraph{(E1) Filtro de plausibilidade.} Se cada pista recebesse um interceptador, os falsos alarmes consumiriam boa
+parte da frota. A forma mais simples de \emph{avaliação de ameaças} é uma regra física: as classes de ameaça conhecidas
+voam dentro de um envelope de velocidade, razão de subida e altura; uma pista fora desse envelope provavelmente é falsa.
+O envelope precisa cobrir todas as classes, inclusive o mergulho final, e por isso é largo. Os métodos só consideram
+pistas com
+\begin{equation}
+  \Pi(p_j)=\mathbf{1}\{12\le\|\bm{v}_{j}^{h}\|\le75\}\;\mathbf{1}\{|v_{j}^{z}|\le60\}\;\mathbf{1}\{-50\le h_j^{\mathrm{AGL}}\le2500\}=1,
+  \label{eq:plaus}
+\end{equation}
+em que $\bm{v}_j^h$ é a velocidade horizontal estimada (m/s), $v_j^z$ a vertical (m/s) e $h_j^{\mathrm{AGL}}$ a altura
+sobre o terreno (m). Os falsos alarmes do modelo de radar tendem a ter velocidades incoerentes, porque resultam de
+associações espúrias entre medidas; uma aeronave que manobra forte pode, por sua vez, ser momentaneamente rejeitada, que
+é o custo dessa regra. Note que o filtro separa aeronaves de falsos alarmes, mas não separa iscas de drones armados:
+uma isca é uma aeronave e passa no filtro. As redes neurais trocam~\eqref{eq:plaus} por um classificador aprendido.
+
+\paragraph{(E2) Custo de interceptação e histerese.} A grandeza física central da alocação é o tempo que um interceptador
+leva para alcançar uma pista. Se o interceptador $i$ está em $\bm{x}_i$ e a pista $j$ está em $\bm{x}_j$ com velocidade
+$\bm{v}_j$, e supondo que a pista mantém essa velocidade, o encontro ocorre no instante $t$ em que a distância percorrida
+pelo interceptador, $v_d\,t$, iguala a distância até a posição futura da pista, $\|\bm{x}_j+\bm{v}_jt-\bm{x}_i\|$. Elevando
+ao quadrado, $t$ é a menor raiz positiva de
+\begin{equation}
+  (\|\bm{v}_j\|^2-v_d^2)\,t^2+2\,(\bm{r}_{ij}\!\cdot\!\bm{v}_j)\,t+\|\bm{r}_{ij}\|^2=0,\qquad \bm{r}_{ij}=\bm{x}_j-\bm{x}_i,
+  \label{eq:tint}
+\end{equation}
+que chamamos de \conceito{tempo previsto de interceptação} $t^\star_{ij}$. Essa previsão supõe \emph{velocidade
+constante}: é exatamente a hipótese que uma manobra evasiva viola, e o erro aparece como pistas que ``fogem'' do ponto
+previsto. O custo usado pelos métodos é
+\begin{equation}
+  c_{ij} = \begin{cases} \kappa^{\mathbf{1}\{j=j_i\}}\,t^\star_{ij}, & t^\star_{ij}\le T_d-\tau_i,\\ \infty, & \text{caso contrário,}\end{cases}
+  \label{eq:custo}
+\end{equation}
+em que $\tau_i$ é o tempo que o interceptador já voou: se o encontro exigir mais autonomia do que resta, o par é
+inviável (custo infinito). O fator $\kappa=0{,}7$ é uma \conceito{histerese}, termo que designa a tendência de um sistema
+de permanecer no estado em que está. Para um interceptador já em voo, a sua pista atual $j_i$ entra com custo
+multiplicado por 0,7, como se estivesse 30\,\% mais perto. Assim, ele só troca de alvo se a alternativa for claramente
+melhor. Sem histerese, duas pistas a distâncias parecidas, cujas estimativas oscilam com o ruído do radar, fariam o
+interceptador trocar de alvo a cada rodada e não chegar a nenhum. Por exemplo, se a pista atual está a 50~s e outra a
+40~s, o custo atual é $0{,}7\times50=35<40$, e o interceptador mantém o alvo; se a outra estiver a 30~s, ele troca.
+
+\paragraph{(E3) Peso de prioridade e tempo até a zona.} O defensor não sabe onde cada aeronave vai cair, mas pode inferir
+a prioridade pela geometria da pista em relação às zonas. Sejam $d_j$ a distância da pista à borda da zona prioritária
+mais próxima (negativa se já está dentro) e $\dot d_j$ a velocidade com que ela se aproxima do centro dessa zona. Definimos
+o \conceito{peso de prioridade} e o \conceito{tempo até a zona}
+\begin{equation}
+  w_j=\begin{cases} w_P, & d_j\le 0,\\ (w_P+w_O)/2, & \dot d_j>5\text{ m/s e } d_j<3\text{ km},\\ w_O, & \text{caso contrário;}\end{cases}
+  \qquad
+  t^Z_j=\begin{cases}0, & d_j\le0,\\ d_j/\dot d_j, & \dot d_j>1\text{ m/s},\\ \infty,&\text{caso contrário.}\end{cases}
+  \label{eq:peso}
+\end{equation}
+Uma pista dentro de uma zona recebe o peso máximo; uma pista fora, mas que se aproxima depressa de uma zona próxima,
+recebe um peso intermediário; as demais, o peso mínimo. O tempo até a zona é a distância dividida pela velocidade de
+aproximação, e é infinito para pistas que não se aproximam. Rotas planejadas sobre o relevo, que passam perto de ativos
+que não são o seu alvo (Seção~\ref{sec:dataset}), enganam exatamente essa inferência.
+
+\paragraph{(E4) Modelo de sucesso e objetivo de valor esperado.} Os métodos derivados do WTA precisam de uma
+probabilidade de sucesso $q_{ij}$, que o problema não fornece. Estimamo-la por
+\begin{equation}
+  q_{ij} = P_T\,e^{-c_{ij}/\tau_q}\,\mathbf{1}\{c_{ij}<\infty\},\qquad P_T=0{,}85,\ \tau_q=600\text{ s}.
+  \label{eq:q}
+\end{equation}
+O fator $P_T$ é a chance de contato quando o interceptador chega perto do alvo, medida no experimento de guiagem
+(Seção~\ref{sec:res_guiagem}). O fator exponencial reduz essa chance para trânsitos longos, porque quanto mais tempo o
+interceptador voa guiado pelo radar, mais a pista envelhece, mais o alvo pode manobrar ou sair da cobertura. Com esses
+valores, um encontro a 30~s tem $q\approx0{,}81$, e um a 300~s tem $q\approx0{,}52$.
+
+Cada pista tem valor $V_j=w_j$. Se já há interceptadores em voo contra a pista $j$ (o conjunto $\mathcal{F}_j$, que não
+decide nesta rodada), a chance de ela ainda sobreviver é $S_j=\prod_{k\in\mathcal{F}_j}(1-q_{kj})$, a
+\conceito{sobrevivência atual}. O objetivo de uma rodada é o \conceito{valor esperado destruído},
+\begin{equation}
+  F(\bm{x}) = \underbrace{\sum_j V_j S_j\Big[1-\prod_{i}(1-q_{ij})^{x_{ij}}\Big]}_{\text{valor esperado destruído}}
+  - \underbrace{\sum_{i}\ell_i\sum_j x_{ij}}_{\text{custo de lançamento}}
+  - \underbrace{M\sum_j\max\!\Big(0,\ n_j^0+\sum_i x_{ij}-\bar n\Big)}_{\text{penalidade de capacidade}} .
+  \label{eq:F}
+\end{equation}
+O primeiro termo é~\eqref{eq:wta} reescrito como ganho: para cada pista, o valor ainda em risco ($V_jS_j$) vezes a
+chance de que pelo menos um dos novos interceptadores acerte. O segundo termo cobra $\ell_i=0{,}05$ por interceptador
+lançado da base (zero para os que já estão em voo). Sem esse custo, como cada lançamento sempre aumenta um pouco o
+primeiro termo, o ótimo seria lançar todos os interceptadores contra qualquer pista, sem guardar nenhum para as ondas
+seguintes. O valor 0,05 corresponde a 5\,\% do valor de uma pista comum: só se lança se a chance de ganho compensar. O
+terceiro termo impõe a restrição de capacidade~\eqref{eq:restr} como penalidade ($M=10$), forma conveniente para os
+métodos de busca, que podem então explorar soluções inviáveis sem quebrar.

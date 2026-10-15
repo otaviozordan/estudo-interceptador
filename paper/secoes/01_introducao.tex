@@ -1,0 +1,123 @@
+% =====================================================================================================
+\section{Introdução}\label{sec:intro}
+
+\subsection{O problema em uma frase}
+Um conjunto de aeronaves hostis se aproxima de uma região a ser defendida. O defensor dispõe de um conjunto de
+\emph{interceptadores} --- pequenas aeronaves capazes de alcançar e neutralizar uma ameaça --- distribuídos em bases, e
+de uma rede de radares que detecta as ameaças. A cada instante, o defensor precisa decidir \emph{quais interceptadores
+lançar, contra quais ameaças e quando}, sabendo que cada interceptador só pode ser usado uma vez e que as ameaças
+mais perigosas são as que se dirigem às áreas mais importantes. Este artigo trata dessa decisão, que chamamos de
+\emph{alocação de interceptadores}.
+
+\subsection{Origem histórica: o problema de atribuição arma--alvo}
+A pergunta ``quais armas devem engajar quais alvos?'' é um dos problemas mais antigos da pesquisa operacional, a
+disciplina que aplica modelos matemáticos a decisões de alocação de recursos. Ela foi formalizada no fim da década de
+1950, no contexto da defesa contra bombardeiros e mísseis, como o problema de \conceito{atribuição arma--alvo}
+(\emph{weapon--target assignment}, WTA)~\cite{manne1958}. Na forma clássica, há um conjunto de armas e um conjunto de
+alvos; cada alvo tem um \emph{valor} (quanto dano causa se sobreviver) e cada par arma--alvo tem uma
+\emph{probabilidade de abate} (a chance de aquela arma destruir aquele alvo). Quer-se escolher qual arma vai contra qual
+alvo de modo a minimizar o valor esperado dos alvos que sobrevivem.
+
+Um exemplo mínimo dá a intuição. Suponha dois alvos, um de valor 10 e outro de valor 1, e duas armas, cada uma com
+probabilidade 0,8 de destruir qualquer alvo. Mandar uma arma contra cada alvo deixa sobreviver, em média,
+$10\times0{,}2+1\times0{,}2=2{,}2$. Mandar as duas contra o alvo valioso deixa sobreviver
+$10\times0{,}2\times0{,}2+1=1{,}4$, porque o alvo de valor 10 só sobrevive se as duas armas falharem. A melhor decisão
+depende, portanto, dos valores e das probabilidades, e não é óbvia mesmo em instâncias pequenas.
+
+Nos anos seguintes surgiram as primeiras heurísticas --- regras práticas que dão boas soluções sem garantia de serem as
+melhores ---, como o \emph{máximo retorno marginal}, que designa uma arma de cada vez ao alvo em que ela mais reduz o
+valor sobrevivente~\cite{denbroeder1959}. Na década de 1980, a defesa contra mísseis balísticos motivou a versão
+\conceito{dinâmica} do problema, em que os engajamentos ocorrem em estágios e o defensor observa o resultado de um
+estágio antes de decidir o próximo~\cite{hosein1990}. Na mesma época, provou-se que o WTA é \conceito{NP-completo}: não
+se conhece algoritmo que o resolva exatamente em tempo que cresça só polinomialmente com o número de armas e
+alvos~\cite{lloyd1986}, o que, na prática, significa que instâncias grandes só podem ser resolvidas aproximadamente.
+Três revisões consolidaram a área: \citet{cai2006} sobre a versão dinâmica, \citet{roux2007} sobre sistemas de avaliação
+de ameaças e atribuição de armas (TEWA, na sigla em inglês) e \citet{kline2019} sobre formulações e algoritmos exatos e
+heurísticos.
+
+\subsection{O problema hoje: enxames baratos que chegam em ondas}
+Na última década, o problema mudou de escala e de natureza. Aeronaves não tripuladas baratas permitem ao atacante
+lançar dezenas a centenas de vetores de uma vez, e a defesa tradicional, baseada em poucos mísseis caros, deixa de ser
+economicamente viável: não faz sentido gastar um míssil de alto custo contra um drone que custa uma pequena fração dele.
+Alguns casos ilustram a progressão:
+\begin{itemize}
+  \item Em janeiro de 2018, treze pequenos drones de construção rudimentar atacaram a base aérea russa de Khmeimim e o
+        ponto naval de Tartus, na Síria; segundo o relato russo, foram neutralizados por guerra eletrônica e defesa
+        antiaérea~\cite{bellingcat2018}. Foi um dos primeiros ataques amplamente noticiados com vários drones
+        coordenados.
+  \item Em setembro de 2019, o ataque às instalações de petróleo de Abqaiq e Khurais, na Arábia Saudita, combinou 18
+        drones e cerca de sete mísseis de cruzeiro e interrompeu temporariamente cerca de metade da produção saudita, com
+        a defesa praticamente sem engajar~\cite{idsa2019}. Mostrou que poucas dezenas de vetores baratos podem causar dano
+        estratégico.
+  \item Em abril de 2024, o ataque iraniano contra Israel empregou mais de 300 vetores --- cerca de 170 drones, mais de
+        30 mísseis de cruzeiro e mais de 120 balísticos ---, e, segundo as forças israelenses, 99\,\% foram interceptados por
+        uma defesa multinacional coordenada~\cite{pbs2024}. Nesse caso, a coordenação de muitos efetores contra muitas
+        ameaças foi o fator decisivo.
+  \item Na guerra na Ucrânia, ataques noturnos com centenas de drones do tipo Shahed levaram, a partir de 2024--2025, ao
+        uso em massa de \emph{drones interceptadores}: aeronaves baratas lançadas contra as ameaças a partir das
+        indicações do radar~\cite{pravda2025}.
+\end{itemize}
+O último caso é exatamente o cenário deste artigo: muitos interceptadores baratos e \emph{descartáveis} (cada um
+neutraliza uma única ameaça e é consumido), despachados a partir de um quadro de radar comum contra muitas ameaças que
+chegam em \conceito{ondas} --- grupos sucessivos, separados por alguns minutos, que tentam \conceito{saturar} a defesa,
+isto é, apresentar mais ameaças simultâneas do que ela consegue tratar. Nesse regime, a qualidade da \emph{alocação}
+decide quantas ameaças passam: a mesma frota de interceptadores, mal distribuída, deixa passar ameaças que uma
+distribuição melhor teria detido.
+
+\subsection{Por que a alocação é difícil}
+Três fatores tornam a decisão difícil.
+\begin{enumerate}
+  \item \textbf{Explosão combinatória.} Com 48 ameaças e 60 interceptadores, o número de maneiras de designar
+        interceptadores a ameaças é astronômico (maior que $10^{60}$), e a decisão precisa ser tomada em fração de
+        segundo e refeita continuamente.
+  \item \textbf{Informação imperfeita.} O defensor não vê as aeronaves; vê \conceito{pistas de radar}. Uma pista é a
+        estimativa, produzida por um algoritmo de rastreamento a partir das medidas dos radares, da posição e da
+        velocidade de algo que se move. Essa estimativa tem erro; não traz a identidade da aeronave; desaparece quando a
+        aeronave se esconde atrás do relevo; e pode ser um \conceito{falso alarme} --- uma pista que não corresponde a
+        aeronave nenhuma, criada por ruído ou por reflexos do terreno. Nos nossos cenários, a maioria das pistas pode ser
+        falsa.
+  \item \textbf{Ameaças heterogêneas e iscas.} Um ataque real mistura vetores muito diferentes: drones de ataque de
+        longo alcance, rápidos e de rota pré-programada; munições vagantes, que orbitam o alvo antes de mergulhar; drones
+        FPV, lentos, rentes ao solo e pilotados, capazes de manobrar; e \conceito{iscas}, aeronaves baratas sem carga
+        explosiva, com assinatura de radar parecida, lançadas para atrair interceptadores. Parte das ameaças voa baixo
+        para se esconder do radar no relevo. Quase todos os métodos de alocação estimam onde a ameaça estará supondo que
+        ela mantém a velocidade atual, e nenhum tem como saber se uma pista é um drone armado ou uma isca --- e cada
+        interceptador gasto numa isca é um a menos para a próxima ameaça real.
+\end{enumerate}
+
+\subsection{Lacunas da literatura}
+A literatura recente oferece muitas propostas, mas três lacunas impedem saber qual usar:
+\begin{enumerate}
+  \item \textbf{Hipóteses otimistas.} A maior parte da literatura de WTA supõe alvos conhecidos e probabilidades de abate
+        dadas; trabalhos de robótica e controle supõem consciência situacional perfeita e ameaças em linha reta ou com
+        velocidade constante. Nenhuma dessas hipóteses vale contra um enxame misto, com iscas, visto por radar.
+  \item \textbf{Escala pequena e cenários abstratos.} Os trabalhos brasileiros mais próximos, do Instituto Tecnológico
+        de Aeronáutica~\cite{ricardo2023,feitosa2025,afonso2020,cruz2025}, modelam com cuidado a dinâmica dos defensores,
+        mas usam de 3 a 6 ameaças. Em geral, os cenários da literatura são sintéticos: alvos e rotas sorteados, e radares
+        posicionados sabendo de onde o ataque virá.
+  \item \textbf{Comparações incomparáveis.} Os trabalhos de aprendizado por reforço~\cite{liu2023drones,palmas2025,jia2026}
+        e de contra-enxame~\cite{strickland2018} usam simuladores, métricas e linhas de base próprios --- muitas vezes uma
+        só linha de base. Não é possível saber, a partir da literatura, se uma política aprendida supera o método húngaro,
+        ou se uma árvore de comportamento supera um leilão.
+\end{enumerate}
+
+\subsection{Contribuições e organização}
+Este artigo contribui com:
+\begin{itemize}
+  \item uma \textbf{formulação} do problema como processo de decisão parcialmente observável, decomposta em avaliação de
+        ameaças, alocação e guiagem, que explicita o que cada família de métodos supõe sobre a informação e sobre o alvo
+        (Seção~\ref{sec:problema});
+  \item uma \textbf{revisão} das técnicas de alocação em oito famílias, da pesquisa operacional ao aprendizado por
+        reforço, explicando a ideia de cada uma e comparando os trabalhos mais próximos (Seção~\ref{sec:revisao});
+  \item a \textbf{implementação de todas as técnicas revisadas} numa interface comum --- 29 métodos, cada um descrito por
+        origem, funcionamento, adaptações e parâmetros ---, com a verificação de que as implementações reproduzem as
+        equivalências teóricas conhecidas (Seção~\ref{sec:metodos});
+  \item um \textbf{conjunto de missões realistas} e aberto: 192 missões em seis cidades brasileiras, com enxames de até
+        48 vetores que misturam drones de ataque de longo alcance, iscas, munições vagantes e FPV (parâmetros de fontes
+        abertas), atacando ativos reais de infraestrutura do OpenStreetMap por rotas planejadas sobre o relevo, contra
+        uma defesa montada sem conhecer o ataque (Seção~\ref{sec:dataset});
+  \item uma \textbf{avaliação reprodutível} num simulador aberto (Seção~\ref{sec:ambiente}), com divisão treino/teste
+        por cidade, sementes pareadas e testes estatísticos, que mede tanto o dano quanto o desperdício de
+        interceptadores (Seções~\ref{sec:protocolo} e~\ref{sec:resultados}).
+\end{itemize}
+A Seção~\ref{sec:discussao} discute os resultados, as limitações e as recomendações.

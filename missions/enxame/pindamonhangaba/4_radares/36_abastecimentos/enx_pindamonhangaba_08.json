@@ -1,0 +1,2348 @@
+{
+  "version": 1,
+  "name": "enx_pindamonhangaba_08",
+  "origin": {
+    "lat": -22.923,
+    "lon": -45.462,
+    "size_km": 12.0
+  },
+  "duration": 900.0,
+  "dt": 0.02,
+  "wind": {
+    "steady_ne": [
+      0.0,
+      0.0
+    ],
+    "gust_sigma": 0.0
+  },
+  "gusts": [],
+  "radars": [
+    {
+      "n": 900.0,
+      "e": 1170.0,
+      "name": "R1",
+      "height": 15.0,
+      "range_m": 4000.0,
+      "min_range": 300.0,
+      "scan_period": 4.0,
+      "range_sigma": 40.0,
+      "az_sigma_deg": 0.3,
+      "el_sigma_deg": 0.6,
+      "min_elev_deg": 0.0,
+      "max_elev_deg": 70.0,
+      "az_center_deg": 0.0,
+      "az_width_deg": 360.0,
+      "false_alarms": 2.3675803919170204,
+      "frequency_ghz": 3.0,
+      "atm_loss_db_km": 0.02,
+      "range_bias": 0.0,
+      "az_bias_deg": 0.0,
+      "pfa": 1e-06,
+      "enabled": true
+    },
+    {
+      "n": -870.0,
+      "e": -4530.0,
+      "name": "R2",
+      "height": 15.0,
+      "range_m": 4000.0,
+      "min_range": 300.0,
+      "scan_period": 4.0,
+      "range_sigma": 40.0,
+      "az_sigma_deg": 0.3,
+      "el_sigma_deg": 0.6,
+      "min_elev_deg": 0.0,
+      "max_elev_deg": 70.0,
+      "az_center_deg": 0.0,
+      "az_width_deg": 360.0,
+      "false_alarms": 2.3675803919170204,
+      "frequency_ghz": 3.0,
+      "atm_loss_db_km": 0.02,
+      "range_bias": 0.0,
+      "az_bias_deg": 0.0,
+      "pfa": 1e-06,
+      "enabled": true
+    },
+    {
+      "n": -3750.0,
+      "e": 1890.0,
+      "name": "R3",
+      "height": 15.0,
+      "range_m": 4000.0,
+      "min_range": 300.0,
+      "scan_period": 4.0,
+      "range_sigma": 40.0,
+      "az_sigma_deg": 0.3,
+      "el_sigma_deg": 0.6,
+      "min_elev_deg": 0.0,
+      "max_elev_deg": 70.0,
+      "az_center_deg": 0.0,
+      "az_width_deg": 360.0,
+      "false_alarms": 2.3675803919170204,
+      "frequency_ghz": 3.0,
+      "atm_loss_db_km": 0.02,
+      "range_bias": 0.0,
+      "az_bias_deg": 0.0,
+      "pfa": 1e-06,
+      "enabled": true
+    },
+    {
+      "n": 5070.0,
+      "e": -3360.0,
+      "name": "R4",
+      "height": 15.0,
+      "range_m": 4000.0,
+      "min_range": 300.0,
+      "scan_period": 4.0,
+      "range_sigma": 40.0,
+      "az_sigma_deg": 0.3,
+      "el_sigma_deg": 0.6,
+      "min_elev_deg": 0.0,
+      "max_elev_deg": 70.0,
+      "az_center_deg": 0.0,
+      "az_width_deg": 360.0,
+      "false_alarms": 2.3675803919170204,
+      "frequency_ghz": 3.0,
+      "atm_loss_db_km": 0.02,
+      "range_bias": 0.0,
+      "az_bias_deg": 0.0,
+      "pfa": 1e-06,
+      "enabled": true
+    }
+  ],
+  "bases": [
+    {
+      "n": 3404.7384891490856,
+      "e": -13.396679834379938,
+      "name": "B1",
+      "drones": 15
+    },
+    {
+      "n": -300.29902977629536,
+      "e": 1787.3768484654493,
+      "name": "B2",
+      "drones": 15
+    },
+    {
+      "n": -2352.8866040834905,
+      "e": 3915.137338076571,
+      "name": "B3",
+      "drones": 15
+    }
+  ],
+  "zones": [
+    {
+      "n": -2994.078207384089,
+      "e": -1325.4367821277565,
+      "radius": 1024.3096557900712,
+      "name": "P1"
+    },
+    {
+      "n": 3469.5004473591544,
+      "e": -1787.8662442126686,
+      "radius": 909.3703910413849,
+      "name": "P2"
+    },
+    {
+      "n": 2102.848190561612,
+      "e": 2883.9165481070395,
+      "radius": 1220.126581652393,
+      "name": "P3"
+    }
+  ],
+  "refuel": {
+    "drone_speed": 42.0,
+    "endurance": 420.0,
+    "contact_radius": 3.0,
+    "sensor_range": 300.0,
+    "crash_penalty_priority": 10.0,
+    "crash_penalty_other": 1.0,
+    "runs": 5
+  },
+  "aircraft": [
+    {
+      "name": "uav1",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.4019791502311305,
+      "start": {
+        "n": -5500.0,
+        "e": -679.2379371545394,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 28.868087277379612,
+      "waypoints": [
+        {
+          "n": -341.217964446947,
+          "e": 1957.3660441371794,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 244.7320767914279,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3345.289026454519,
+          "e": -1581.3975044463828,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav2",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.599665257084879,
+      "start": {
+        "n": -268.02199336460035,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 18.76371139712169,
+      "waypoints": [
+        {
+          "n": 3725.9460679726144,
+          "e": 3100.6748978289515,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 359.2335072418836,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -796.6117253518191,
+          "e": 3609.4891735298497,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 204.11223759311466,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 1909.891577409771,
+          "e": 2891.51925510233,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 366.0379744957179,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav3",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.6554863710408049,
+      "start": {
+        "n": -5500.0,
+        "e": 3153.5163285478066,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 36.17727304750686,
+      "waypoints": [
+        {
+          "n": -1893.8167981130014,
+          "e": -610.5641822413545,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 346.59510482971075,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 1520.8042932413036,
+          "e": 2998.8725176584157,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 366.0379744957179,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav4",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.6481723269423283,
+      "start": {
+        "n": -5500.0,
+        "e": 4384.737938468044,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 5.255471768009992,
+      "waypoints": [
+        {
+          "n": -3414.641448648433,
+          "e": -231.91741170591376,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 341.997774651049,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -3044.0374386807403,
+          "e": -1187.037291152939,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav5",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.9804132568702917,
+      "start": {
+        "n": -5500.0,
+        "e": -304.6844650274734,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 11.00222004580242,
+      "waypoints": [
+        {
+          "n": -791.7271085660695,
+          "e": 3534.8060257460475,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 243.77255108566698,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2295.932927894736,
+          "e": -3456.381846255207,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.0,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav6",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.3923467553307607,
+      "start": {
+        "n": 1490.7421286375256,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 8.649987470989577,
+      "waypoints": [
+        {
+          "n": 3264.548807506457,
+          "e": 2194.4165278595337,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 365.02702879198864,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2354.926807794949,
+          "e": 2378.3713527591367,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 366.0379744957179,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav7",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 1.1214621831633262,
+      "start": {
+        "n": 3692.2623612232073,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 21.00622753093503,
+      "waypoints": [
+        {
+          "n": -2092.4224753233602,
+          "e": -1502.2408168228517,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 277.88660394697933,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -3001.053547696893,
+          "e": -1464.7570876449395,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav8",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.6280091084871855,
+      "start": {
+        "n": -420.76982858671545,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 34.28252468310549,
+      "waypoints": [
+        {
+          "n": 4213.36871859768,
+          "e": -1252.6737423993295,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 241.7797799334613,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2234.7359464779247,
+          "e": -2103.180519221516,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 349.5268818135806,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 1736.0571769605976,
+          "e": -297.48221083398676,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.0,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav9",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 1.1399100543889369,
+      "start": {
+        "n": 5500.0,
+        "e": -4636.679907403094,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 10.578880022137902,
+      "waypoints": [
+        {
+          "n": 558.5611669993732,
+          "e": -2682.4140625548666,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 315.48990008546923,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 174.06456575554148,
+          "e": 1263.2802697553825,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.5213390514607,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 1244.357293434051,
+          "e": -571.7818197386932,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.0,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav10",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.8300703654105264,
+      "start": {
+        "n": 853.4127161928291,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 15.109410251199854,
+      "waypoints": [
+        {
+          "n": 160.31460738584246,
+          "e": -2282.6162338683785,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 341.7722175066282,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -2899.185435906278,
+          "e": -1540.688898227678,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav11",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.7455850936945101,
+      "start": {
+        "n": -157.15007315012826,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 31.724304292698026,
+      "waypoints": [
+        {
+          "n": -529.2804887700945,
+          "e": -4477.285539940777,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 346.5063575457808,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -1688.21317315452,
+          "e": -503.595447922482,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.0,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav12",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 1.0842355425443104,
+      "start": {
+        "n": -5500.0,
+        "e": -1596.4970396367999,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 12.011987330051435,
+      "waypoints": [
+        {
+          "n": 2694.412028868077,
+          "e": 982.4319607289717,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 329.3687349492559,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3635.6909295498053,
+          "e": -2101.6101539341485,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav13",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 1.013655751231384,
+      "start": {
+        "n": 295.5215135825383,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 29.578075718275993,
+      "waypoints": [
+        {
+          "n": 3024.819120797247,
+          "e": -4183.745913939118,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 247.88795432222327,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3138.512009173649,
+          "e": -4106.649291735584,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 352.48494274575273,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3915.7684842583853,
+          "e": -2017.5047294174337,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav14",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.9921061500303732,
+      "start": {
+        "n": 2984.0742081199296,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 19.612470322331674,
+      "waypoints": [
+        {
+          "n": 4327.975851517223,
+          "e": 1293.62705654206,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 395.4916487303029,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -3069.330432961589,
+          "e": -1516.5373294851943,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav15",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.5123297270076608,
+      "start": {
+        "n": -2327.7952603964363,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 22.051576718251027,
+      "waypoints": [
+        {
+          "n": -298.86315003427444,
+          "e": 680.2134660340644,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 330.2891058631663,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2082.92400662816,
+          "e": -1076.6929254246238,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 291.50474356310673,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -2889.7344657289805,
+          "e": -1281.8078888973,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav16",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.8088371009537025,
+      "start": {
+        "n": -5500.0,
+        "e": -224.47709252477762,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 0.11457774362850337,
+      "waypoints": [
+        {
+          "n": 3642.533080223533,
+          "e": 1882.65437701449,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 268.4967772307108,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3369.7852136657607,
+          "e": -1964.2444029861936,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav17",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.37457874572379857,
+      "start": {
+        "n": 5500.0,
+        "e": -1467.9906650541725,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 7.8175840229696725,
+      "waypoints": [
+        {
+          "n": -95.33124025852158,
+          "e": 888.6886525139198,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 219.56131882475063,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -2912.956781680102,
+          "e": -1721.0061456855126,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav18",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.39345701860723725,
+      "start": {
+        "n": 2624.5010048438453,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 35.36719352250095,
+      "waypoints": [
+        {
+          "n": 733.6200015076884,
+          "e": 1216.4426807716036,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 345.46139759656137,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -1878.0405383446569,
+          "e": -2964.427721458479,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.0,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav19",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.5442240468995598,
+      "start": {
+        "n": -2088.315176138635,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 15.469660050584825,
+      "waypoints": [
+        {
+          "n": -3841.320795870274,
+          "e": 4005.1959124234218,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 397.80705748663223,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -351.15507407981295,
+          "e": 2339.769073115809,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 274.49025248705476,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3376.319657086437,
+          "e": -1987.3125515737747,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav20",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 1.0390596732851347,
+      "start": {
+        "n": 2271.254630926489,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 12.710965648612461,
+      "waypoints": [
+        {
+          "n": 3127.2752480203535,
+          "e": -1721.0637041669834,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 355.77441155471195,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 268.85751868401076,
+          "e": 3687.154211339256,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 379.1279857325958,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -1937.2689187236747,
+          "e": 4219.175102471994,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.0,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav21",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.6479421640422234,
+      "start": {
+        "n": 3778.1180994192055,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 2.204109182086511,
+      "waypoints": [
+        {
+          "n": 4308.938992758165,
+          "e": -2406.0732527461187,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 304.2319419252379,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 1523.1442734407074,
+          "e": -4302.851710688408,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 383.57385293897073,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2340.8800123784963,
+          "e": 2989.5684518119533,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 366.0379744957179,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav22",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 1.1399610567488545,
+      "start": {
+        "n": -1545.0549237918785,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 35.79786996924321,
+      "waypoints": [
+        {
+          "n": 1608.20847731112,
+          "e": 2143.5011264492177,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 397.49224167428827,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 4360.493733770611,
+          "e": 2222.363654656124,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.0,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav23",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 1.1469008120592712,
+      "start": {
+        "n": -5500.0,
+        "e": -146.8625750914589,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 27.075327227841036,
+      "waypoints": [
+        {
+          "n": 3548.415088913709,
+          "e": -27.063482494733762,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 332.90116699444684,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2277.1629405256617,
+          "e": 2600.4724930742127,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 366.0379744957179,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav24",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.48651723171385863,
+      "start": {
+        "n": 1916.8291339614107,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 19.20901326960888,
+      "waypoints": [
+        {
+          "n": -2078.745494379161,
+          "e": -862.1753895457923,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 219.35030625600643,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 868.1625515502528,
+          "e": 1992.2556332885688,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 331.1060027052869,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -221.63657972935835,
+          "e": 3602.747217447055,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 300.0,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav25",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.8761243847804623,
+      "start": {
+        "n": 4765.338895759367,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 27.068156426098785,
+      "waypoints": [
+        {
+          "n": 2639.4344450194294,
+          "e": -3294.225765999331,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 257.9467087841286,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2517.5577404670676,
+          "e": -2084.580175004992,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 325.5478412076628,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3669.1101681729006,
+          "e": -1576.8721901661188,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav26",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.8356294746836457,
+      "start": {
+        "n": 2936.0342288693173,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 16.069836835472813,
+      "waypoints": [
+        {
+          "n": -43.045443495158,
+          "e": 3452.1077050195163,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 398.1455477701621,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 4486.048919265553,
+          "e": -490.7022105892938,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 268.3385996321756,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3743.1871691335173,
+          "e": -1846.6082088201463,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav27",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.9779939849273895,
+      "start": {
+        "n": 5500.0,
+        "e": -79.2525888516675,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 37.80475003046814,
+      "waypoints": [
+        {
+          "n": -3020.0809812727393,
+          "e": -3303.8839039077884,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 395.6964438976969,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -3112.7641601969,
+          "e": -1186.5072327956402,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav28",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.7165509977251552,
+      "start": {
+        "n": -1324.3047015103384,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 23.41881922831768,
+      "waypoints": [
+        {
+          "n": 3732.478405143642,
+          "e": -2199.742635601843,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 351.52065704455276,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3368.0622253824513,
+          "e": -1876.3107821023061,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav29",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.7054573490809294,
+      "start": {
+        "n": -1335.6676556288012,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 35.91608770038078,
+      "waypoints": [
+        {
+          "n": -3354.520520807504,
+          "e": -2584.3443315031445,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 329.5137579913188,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 1772.8799062321514,
+          "e": -2627.800307926865,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 326.6729614502826,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -3048.4150459808243,
+          "e": -1378.778560083211,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav30",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.7328687567391676,
+      "start": {
+        "n": -286.68363901975863,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 16.385567120873343,
+      "waypoints": [
+        {
+          "n": -3495.47916884123,
+          "e": 9.645949430881046,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 321.8128161465548,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2098.664309338773,
+          "e": 2828.8696630772024,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 366.0379744957179,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav31",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.8993237557583647,
+      "start": {
+        "n": 56.58732204854732,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 15.975038309906719,
+      "waypoints": [
+        {
+          "n": 479.7663704854358,
+          "e": 1853.863883974379,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 218.47107606593693,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3778.2962445414532,
+          "e": -1617.1027154241808,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav32",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 1.133391746352502,
+      "start": {
+        "n": -3889.738309644325,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 12.44596554906301,
+      "waypoints": [
+        {
+          "n": -610.9447735936651,
+          "e": 295.95303001773937,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 339.8298372236653,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -3380.342063792333,
+          "e": -887.2620220272906,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav33",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.339049609915438,
+      "start": {
+        "n": 76.44574087274123,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 29.035220746184542,
+      "waypoints": [
+        {
+          "n": -3804.556522482991,
+          "e": 3492.176920436734,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 259.2062618983447,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2041.4409533014546,
+          "e": 3215.8213561943307,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 366.0379744957179,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav34",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.33841009386801757,
+      "start": {
+        "n": -2425.603283259693,
+        "e": 5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 22.17617359737792,
+      "waypoints": [
+        {
+          "n": -2743.9177357154713,
+          "e": 2234.3965663298904,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 223.08722198932435,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 3742.564802213174,
+          "e": -2044.7378752070172,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 272.81111731241543,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav35",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.6945680533595266,
+      "start": {
+        "n": -5500.0,
+        "e": -59.863819619918104,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "jink": [
+          60,
+          150
+        ],
+        "jink_dt": [
+          2.0,
+          6.0
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 10.32119918220172,
+      "waypoints": [
+        {
+          "n": 3135.421802191261,
+          "e": -1990.3083521219282,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 311.46744090315576,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": 2401.679894948364,
+          "e": 2853.8627320499286,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 366.0379744957179,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    },
+    {
+      "name": "uav36",
+      "speed": 25.0,
+      "loop": false,
+      "spline": true,
+      "rcs": 0.762912599230626,
+      "start": {
+        "n": 1827.7057836996928,
+        "e": -5500.0,
+        "heading_deg": null
+      },
+      "start_radius": 300.0,
+      "evasion": {
+        "weave": [
+          60,
+          150
+        ],
+        "period": [
+          8,
+          16
+        ],
+        "a_max": 10.0,
+        "speed_var": 0.15
+      },
+      "delay": 32.36389286986667,
+      "waypoints": [
+        {
+          "n": -629.4374678003919,
+          "e": -646.5127562758034,
+          "agl": 140.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 292.343329029542,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": 80.0,
+          "agl_max": 200.0
+        },
+        {
+          "n": -2649.724742313617,
+          "e": -1471.4096646371775,
+          "agl": 0.0,
+          "speed": 25.0,
+          "loiter_radius": 0.0,
+          "loiter_turns": 0.0,
+          "loiter_dir": 1,
+          "pos_radius": 307.29289673702135,
+          "speed_min": 22.0,
+          "speed_max": 32.0,
+          "agl_min": null,
+          "agl_max": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}Introdução}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}O problema em uma frase}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Origem histórica: o problema de atribuição arma--alvo}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}O problema hoje: enxames baratos que chegam em ondas}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Por que a alocação é difícil}{5}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Lacunas da literatura}{6}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Contribuições e organização}{6}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Formulação do problema}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Cenário}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}O que o defensor observa}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Formulação como processo de decisão parcialmente observável}{8}{subsection.2.3}%
+\contentsline {paragraph}{Por que não resolver o POMDP diretamente.}{9}{paragraph*.2}%
+\contentsline {subsection}{\numberline {2.4}Decomposição em camadas}{9}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Relação com o WTA clássico}{10}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Elementos comuns a todos os métodos}{10}{subsection.2.6}%
+\contentsline {paragraph}{(E1) Filtro de plausibilidade.}{10}{paragraph*.3}%
+\contentsline {paragraph}{(E2) Custo de interceptação e histerese.}{11}{paragraph*.4}%
+\contentsline {paragraph}{(E3) Peso de prioridade e tempo até a zona.}{11}{paragraph*.5}%
+\contentsline {paragraph}{(E4) Modelo de sucesso e objetivo de valor esperado.}{12}{paragraph*.6}%
+\contentsline {section}{\numberline {3}Revisão da literatura}{12}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Como a revisão foi feita}{12}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Regras gulosas e sistemas TEWA}{13}{subsection.3.2}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{13}{paragraph*.8}%
+\contentsline {subsection}{\numberline {3.3}Atribuição ótima}{14}{subsection.3.3}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{14}{paragraph*.9}%
+\contentsline {subsection}{\numberline {3.4}WTA e retorno marginal}{14}{subsection.3.4}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{15}{paragraph*.10}%
+\contentsline {subsection}{\numberline {3.5}Metaheurísticas}{15}{subsection.3.5}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{16}{paragraph*.11}%
+\contentsline {subsection}{\numberline {3.6}Alocação distribuída}{16}{subsection.3.6}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{16}{paragraph*.12}%
+\contentsline {subsection}{\numberline {3.7}Alocação dinâmica}{17}{subsection.3.7}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{17}{paragraph*.13}%
+\contentsline {subsection}{\numberline {3.8}Alocação integrada à trajetória}{17}{subsection.3.8}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{18}{paragraph*.14}%
+\contentsline {subsection}{\numberline {3.9}Arquiteturas comportamentais}{18}{subsection.3.9}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{18}{paragraph*.15}%
+\contentsline {subsection}{\numberline {3.10}Aprendizado de máquina}{18}{subsection.3.10}%
+\contentsline {paragraph}{Imitação.}{19}{paragraph*.16}%
+\contentsline {paragraph}{Reforço com política centralizada.}{19}{paragraph*.17}%
+\contentsline {paragraph}{Reforço multiagente.}{19}{paragraph*.18}%
+\contentsline {paragraph}{Pontos fortes e limitações.}{19}{paragraph*.19}%
+\contentsline {subsection}{\numberline {3.11}Guiagem e rastreamento}{19}{subsection.3.11}%
+\contentsline {subsection}{\numberline {3.12}Síntese}{20}{subsection.3.12}%
+\contentsline {section}{\numberline {4}Métodos implementados}{20}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Interface comum}{20}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Catálogo}{21}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Exemplo ilustrativo}{21}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Regras simples (M1--M5)}{23}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Atribuição ótima (M6--M9)}{24}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Alocação distribuída (M10--M12)}{26}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}WTA: retorno marginal, solução exata e busca local (M13--M16)}{27}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Metaheurísticas (M17--M20)}{29}{subsection.4.8}%
+\contentsline {paragraph}{O que esperar das metaheurísticas.}{31}{paragraph*.24}%
+\contentsline {subsection}{\numberline {4.9}Alocação dinâmica (M21 e variantes)}{31}{subsection.4.9}%
+\contentsline {paragraph}{\emph {Shoot--look--shoot} e salvas.}{32}{paragraph*.25}%
+\contentsline {subsection}{\numberline {4.10}Arquiteturas comportamentais (M22, M23)}{32}{subsection.4.10}%
+\contentsline {subsection}{\numberline {4.11}Políticas aprendidas (M24--M29)}{33}{subsection.4.11}%
+\contentsline {paragraph}{Ideia geral.}{33}{paragraph*.26}%
+\contentsline {paragraph}{Observação e ação.}{33}{paragraph*.27}%
+\contentsline {paragraph}{Classificador de legitimidade.}{33}{paragraph*.28}%
+\contentsline {subsection}{\numberline {4.12}Resumo de custo e garantias}{36}{subsection.4.12}%
+\contentsline {section}{\numberline {5}Ambiente de simulação}{36}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Radares}{37}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Rastreador}{37}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Ameaças}{38}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Interceptadores}{38}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Rodadas de decisão e fim do episódio}{38}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Conjunto de missões}{39}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Cidades e ativos}{39}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Defesa}{40}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Classes de ameaça}{40}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Ataque}{40}{subsection.6.4}%
+\contentsline {paragraph}{Eixo de ameaça.}{40}{paragraph*.33}%
+\contentsline {paragraph}{Alvos.}{41}{paragraph*.34}%
+\contentsline {paragraph}{Rotas sobre o relevo.}{41}{paragraph*.35}%
+\contentsline {paragraph}{Chegada coordenada.}{41}{paragraph*.36}%
+\contentsline {subsection}{\numberline {6.5}Aleatoriedade e delineamento}{41}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Treino e teste}{42}{subsection.6.6}%
+\contentsline {section}{\numberline {7}Protocolo experimental}{43}{section.7}%
+\contentsline {paragraph}{Sementes pareadas.}{43}{paragraph*.38}%
+\contentsline {paragraph}{O que é avaliado.}{43}{paragraph*.39}%
+\contentsline {paragraph}{Métricas.}{43}{paragraph*.40}%
+\contentsline {paragraph}{Intervalos de confiança.}{43}{paragraph*.41}%
+\contentsline {paragraph}{Testes de significância.}{43}{paragraph*.42}%
+\contentsline {paragraph}{Custo computacional.}{43}{paragraph*.43}%
+\contentsline {section}{\numberline {8}Resultados}{43}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Validação das implementações}{43}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Escolha da guiagem terminal}{44}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Comparação dos métodos de alocação}{45}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Efeito da composição do enxame, da cidade e da escala}{45}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Ablações: troca de alvo, salvas, comunicação e guiagem}{46}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}Métodos aprendidos}{46}{subsection.8.6}%
+\contentsline {section}{\numberline {9}Discussão}{46}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Limitações}{46}{subsection.9.1}%
+\contentsline {section}{\numberline {10}Conclusão}{47}{section.10}%

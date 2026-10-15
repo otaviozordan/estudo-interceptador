@@ -1,0 +1,373 @@
+% =====================================================================================================
+\section{Revisão da literatura}\label{sec:revisao}
+
+\subsection{Como a revisão foi feita}
+Esta é uma revisão narrativa estruturada: em vez de enumerar exaustivamente todos os trabalhos publicados, ela organiza a
+literatura em famílias de técnicas, explica a ideia de cada família e seleciona os trabalhos que a definiram ou que mais
+se aproximam do nosso problema. A busca usou Google Scholar, IEEE Xplore, ScienceDirect e arXiv, com combinações dos termos
+\emph{weapon--target assignment}, \emph{dynamic weapon--target assignment}, \emph{threat evaluation and weapon assignment},
+\emph{counter-UAV}, \emph{counter-swarm}, \emph{interceptor allocation}, \emph{task allocation}, \emph{auction},
+\emph{consensus}, \emph{behavior tree} e \emph{reinforcement learning}, complementada pelas referências dos trabalhos
+encontrados e por trabalhos brasileiros recentes do Instituto Tecnológico de Aeronáutica. Os critérios de seleção foram:
+(i) propor ou consolidar uma técnica de alocação usada na prática ou em pesquisa; (ii) tratar defesa contra múltiplas
+ameaças aéreas; ou (iii) servir de linha de base comum na área. A Tabela~\ref{tab:linha_tempo} situa os marcos no tempo.
+
+\begin{table}[t]
+\centering
+\caption{Linha do tempo dos marcos revisados.}
+\label{tab:linha_tempo}
+\small
+\begin{tabularx}{\textwidth}{@{}l X l@{}}
+\toprule
+Ano & Marco & Ref. \\
+\midrule
+1955--1957 & Método húngaro para o problema de atribuição & \cite{kuhn1955,munkres1957} \\
+1958--1959 & Formulação do WTA e heurística de máximo retorno marginal & \cite{manne1958,denbroeder1959} \\
+1960 & Modelos de detecção de alvos com seção radar flutuante & \cite{swerling1960} \\
+1986 & Prova de que o WTA é NP-completo & \cite{lloyd1986} \\
+1988 & Algoritmo de leilão; filtro IMM para rastreamento & \cite{bertsekas1988,blom1988} \\
+1990 & WTA dinâmico e \emph{shoot--look--shoot} & \cite{hosein1990} \\
+2002--2003 & Colônia de formigas e algoritmo genético com sementes gulosas para o WTA & \cite{lee2002aco,lee2003ga} \\
+2004 & Taxonomia da alocação de tarefas em robótica multiagente & \cite{gerkey2004} \\
+2006--2007 & Revisões do WTA dinâmico e de sistemas TEWA; solução exata e VLSN para o WTA & \cite{cai2006,roux2007,ahuja2007} \\
+2009 & Leilões por consenso (CBAA/CBBA) & \cite{choi2009} \\
+2011 & Imitação iterativa (DAgger) & \cite{ross2011} \\
+2017 & PPO; DeepSets; Transformer & \cite{schulman2017,zaheer2017,vaswani2017} \\
+2018 & Contra-enxame contra ataques de saturação & \cite{strickland2018} \\
+2019 & Revisão do WTA; atenção para problemas combinatórios & \cite{kline2019,kool2019} \\
+2020 & Alocação e trajetória por MILP de horizonte deslizante & \cite{afonso2020} \\
+2023 & Reforço para alocação em enxames; árvores de comportamento contra kamikazes & \cite{liu2023drones,ricardo2023} \\
+2025--2026 & Reforço para priorização de interceptações; árvore com utilidade; MIQP contra ameaças aéreas; atenção em grafos + MAPPO & \cite{palmas2025,feitosa2025,cruz2025,jia2026} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Regras gulosas e sistemas TEWA}
+
+\begin{conceitobox}{algoritmo guloso}
+Um algoritmo guloso constrói a solução por uma sequência de escolhas, cada uma a melhor \emph{no momento}, sem nunca
+voltar atrás. É rápido e simples de entender, mas \emph{míope}: uma escolha boa agora pode impedir escolhas melhores
+depois. Na alocação, se o primeiro interceptador a decidir fica com uma ameaça que seria muito mais fácil para outro, o
+segundo fica com o que sobrou (Seção~\ref{sec:exemplo}).
+\end{conceitobox}
+
+Os primeiros sistemas automatizados de defesa aérea, e muitos dos atuais, são organizados como sistemas de
+\conceito{avaliação de ameaças e atribuição de armas} (TEWA). A decisão é dividida em duas etapas. Na
+\emph{avaliação de ameaças}, cada alvo detectado recebe uma nota de perigo, calculada a partir de grandezas como o tempo até
+atingir um ativo defendido, a distância do ponto de maior aproximação a esse ativo e a capacidade inferida do alvo pela
+sua velocidade, altitude e perfil de voo. Na \emph{atribuição}, os efetores são designados aos alvos na ordem dessas
+notas, tipicamente o efetor que alcança o alvo mais cedo~\cite{roux2007}.
+
+\citet{roux2007} revisaram os modelos de avaliação de ameaças e os algoritmos de atribuição usados em sistemas TEWA e
+distinguiram abordagens baseadas em regras, em lógica nebulosa, em redes bayesianas e em otimização. \citet{johansson2010}
+estudou como avaliar o desempenho desses sistemas e mostrou que a qualidade da avaliação de ameaças condiciona fortemente a
+da atribuição. Uma conclusão recorrente é que, na prática operacional, predominam regras simples e transparentes, porque são
+rápidas e podem ser auditadas e corrigidas por um operador humano.
+
+\paragraph{Pontos fortes e limitações.} As regras gulosas são instantâneas e previsíveis. Mas decidem uma ameaça ou um
+efetor de cada vez, de modo que o resultado depende da ordem; não percebem que dois efetores poderiam trocar de alvo com
+ganho para ambos; e preveem o alvo com velocidade constante.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Atribuição ótima}
+
+\begin{conceitobox}{problema de atribuição linear}
+Dados $n$ agentes, $m$ tarefas e o custo de cada par, o problema de atribuição linear escolhe os pares de modo que cada
+agente e cada tarefa apareçam no máximo uma vez e a soma dos custos seja mínima. Embora o número de atribuições possíveis
+cresça fatorialmente (com 20 agentes e 20 tarefas há $20!\approx2{,}4\times10^{18}$), o problema tem uma estrutura especial
+que permite resolvê-lo exatamente em \emph{tempo polinomial}: o número de operações cresce como uma potência do tamanho
+($n^3$, no caso do húngaro), e não exponencialmente.
+\end{conceitobox}
+
+Quando cada alvo recebe no máximo um efetor e o custo de um par não depende dos outros pares, a alocação de uma rodada é um
+problema de atribuição linear. O \conceito{método húngaro}, publicado por Kuhn em 1955~\cite{kuhn1955} e tornado algoritmo
+eficiente por Munkres em 1957~\cite{munkres1957}, foi um dos primeiros algoritmos de otimização combinatória de tempo
+polinomial. Ele se baseia em duas observações: subtrair uma constante de todos os custos de uma linha ou coluna não muda
+qual atribuição é a melhor; e, se existe uma atribuição completa usando só custos zero, ela é ótima. O algoritmo subtrai
+constantes até encontrar essa atribuição. Por ser exato, rápido e amplamente disponível, o húngaro tornou-se a linha de base
+natural de trabalhos que propõem métodos aprendidos~\cite{liu2023drones}.
+
+O \conceito{algoritmo de leilão}, proposto por Bertsekas em 1988~\cite{bertsekas1988}, resolve o mesmo problema por uma
+analogia econômica: os agentes dão lances pelas tarefas, cujos preços sobem até que nenhum agente queira trocar. A
+importância do leilão está em que cada lance usa só os preços correntes, o que permite paralelizar o algoritmo e
+distribuí-lo entre agentes que só trocam mensagens sobre preços; por isso, ele é a ponte entre a atribuição ótima e a
+alocação distribuída (Seção~\ref{sec:rev_distrib}).
+
+\paragraph{Pontos fortes e limitações.} Solução exata para a rodada, em milissegundos para as escalas deste trabalho. A
+limitação é a miopia \emph{temporal}: a solução é ótima para a rodada atual, não para o episódio inteiro; além disso, o
+custo só pode depender do par, o que exclui efeitos como salvas.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{WTA e retorno marginal}
+
+\begin{conceitobox}{problema NP-completo}
+Um problema é NP-completo quando pertence a uma classe de problemas para os quais não se conhece algoritmo exato de tempo
+polinomial, e encontrar um seria um avanço de grande impacto na teoria da computação. Na prática, o tempo das melhores
+soluções exatas conhecidas cresce exponencialmente com o tamanho, de modo que, a partir de algumas dezenas de elementos,
+recorre-se a heurísticas ou a métodos exatos que funcionam bem só em parte das instâncias.
+\end{conceitobox}
+
+Quando há probabilidades de abate e um alvo pode receber vários efetores, o objetivo~\eqref{eq:wta} passa a ter produtos e
+deixa de ser linear. \citet{lloyd1986} provaram que esse WTA é NP-completo. O problema foi formulado por \citet{manne1958}
+e, no ano seguinte, \citet{denbroeder1959} propuseram o \conceito{máximo retorno marginal} (MMR): a cada passo, designar o par
+arma--alvo que mais reduz o valor sobrevivente, levando em conta o que já foi designado. O MMR é ótimo quando todas as
+armas são idênticas e, até hoje, é o ponto de partida da maioria das heurísticas para o WTA.
+
+\begin{conceitobox}{\emph{branch-and-bound} e busca em vizinhança}
+\emph{Branch-and-bound} (ramificação e limitação) resolve problemas combinatórios exatamente por enumeração inteligente:
+divide o problema em subproblemas (ramos) e descarta os ramos que, por um limitante calculado rapidamente, não podem conter
+uma solução melhor que a melhor já conhecida. Uma \emph{busca em vizinhança} parte de uma solução e procura uma melhor entre
+as suas ``vizinhas'', obtidas por pequenas modificações; uma \emph{busca em vizinhança de grande escala} usa vizinhanças
+enormes, exploradas por algoritmos eficientes em vez de enumeradas.
+\end{conceitobox}
+
+\citet{ahuja2007} apresentaram o estudo mais completo de algoritmos exatos e heurísticos para o WTA estático. Para a
+solução exata, desenvolveram limitantes por programação linear, programação inteira e fluxo em rede e os usaram num
+\emph{branch-and-bound}, resolvendo à otimalidade instâncias de até 80 armas e 80 alvos. Para instâncias maiores, propuseram
+uma construção por fluxo em rede seguida de uma busca em vizinhança de grande escala (VLSN), cujos movimentos reatribuem
+várias armas em cadeia, e obtiveram soluções quase ótimas para instâncias de 200 armas e 200 alvos em segundos.
+\citet{kline2019} revisaram essas e outras formulações, exatas e heurísticas, e observaram que a maior parte da literatura
+trata o caso estático, com alvos e probabilidades conhecidos.
+
+\paragraph{Pontos fortes e limitações.} O WTA modela explicitamente o valor dos alvos e a chance de sucesso, e por isso
+entende salvas e a decisão de não engajar. Em contrapartida, precisa de probabilidades de abate que, no nosso problema,
+não são dadas e precisam ser estimadas (E4), e supõe alvos conhecidos.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Metaheurísticas}
+
+\begin{conceitobox}{metaheurística}
+Uma metaheurística é um procedimento genérico de busca que não depende da estrutura do problema: basta saber avaliar a
+qualidade de uma solução candidata. Todas equilibram \emph{diversificação} (visitar regiões novas do espaço de soluções,
+para não ficar preso num ótimo local) e \emph{intensificação} (refinar as melhores soluções encontradas). Em troca da
+generalidade, não oferecem garantia de qualidade nem de tempo.
+\end{conceitobox}
+
+As metaheurísticas formam a família mais numerosa na literatura de WTA~\cite{kline2019}. Quatro se destacam, cada uma
+inspirada num processo natural:
+\begin{itemize}
+  \item \textbf{Algoritmos genéticos} imitam a seleção natural: mantêm uma população de soluções, selecionam as melhores
+        como pais, combinam-nas por cruzamento e introduzem mutações. \citet{lee2003ga} mostraram que, no WTA, semear a
+        população inicial com soluções gulosas (o que chamaram de ``eugenia gulosa'') acelera muito a convergência.
+  \item \textbf{Colônias de formigas} imitam o reforço de trilhas de feromônio: soluções são construídas passo a passo,
+        com escolhas guiadas por uma memória coletiva que favorece as decisões presentes nas boas soluções anteriores.
+        \citet{lee2002aco} combinaram colônia de formigas com mecanismos inspirados no sistema imunológico para o WTA.
+  \item \textbf{Recozimento simulado} imita o resfriamento lento de um metal: aceita soluções piores com uma probabilidade
+        que diminui ao longo da busca, o que permite escapar de ótimos locais no início e convergir no fim.
+  \item \textbf{Enxame de partículas} imita o movimento de bandos: soluções candidatas se deslocam no espaço de busca,
+        atraídas pela melhor posição de cada uma e pela melhor do bando.
+\end{itemize}
+
+\paragraph{Pontos fortes e limitações.} Tratam objetivos e restrições arbitrários --- por exemplo, múltiplos tipos de
+armas, janelas de tempo ou custos não lineares --- sem reformular o problema. As limitações são a ausência de garantias e
+um tempo de execução difícil de limitar, o que pesa num problema que exige uma nova otimização a cada rodada, em fração de
+segundo.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Alocação distribuída}\label{sec:rev_distrib}
+
+\begin{conceitobox}{consenso}
+Em sistemas distribuídos, consenso é o processo pelo qual agentes que só se comunicam com os vizinhos chegam a uma
+informação comum. Por exemplo, se cada agente repassa aos vizinhos o maior número que conhece, depois de tantas rodadas
+quanto o maior número de saltos entre dois agentes, todos conhecem o maior número do grupo.
+\end{conceitobox}
+
+Em enxames, pode não haver um decisor central, ou a comunicação com ele pode ser lenta ou falhar. Na
+\conceito{alocação distribuída}, cada agente decide a sua tarefa trocando mensagens só com os vizinhos ao alcance.
+\citet{gerkey2004} propuseram a taxonomia mais usada para esses problemas em robótica, que os classifica pelo número de
+tarefas que um robô executa ao mesmo tempo, pelo número de robôs que uma tarefa exige e pelo horizonte de planejamento;
+interceptadores descartáveis são o caso mais simples, ``uma tarefa por robô, um robô por tarefa, atribuição instantânea''.
+
+\citet{choi2009} propuseram o CBAA (\emph{consensus-based auction algorithm}) e a sua extensão para pacotes de tarefas, o
+CBBA. Cada agente dá lances pelas tarefas com base apenas na sua própria informação; em seguida, numa fase de consenso, os
+agentes trocam com os vizinhos o que sabem sobre os maiores lances, até que todos concordem sobre quem venceu cada
+tarefa. Os autores provam que o processo converge para uma atribuição sem conflitos com pelo menos 50\,\% do valor ótimo,
+mesmo quando os agentes têm visões inconsistentes da situação --- uma propriedade importante quando cada agente vê os alvos
+por sensores diferentes. Com comunicação completa e uma tarefa por agente, o CBAA produz a mesma atribuição que o guloso
+global, que fixa repetidamente o par de maior lance.
+
+\paragraph{Pontos fortes e limitações.} Robustez a falhas de comunicação e à ausência de decisor central, com garantia de
+qualidade. A contrapartida é que a qualidade é a de um guloso, não a de um ótimo, e que, com comunicação muito limitada,
+podem surgir conflitos temporários.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Alocação dinâmica}
+
+\begin{conceitobox}{horizonte deslizante}
+Numa política de horizonte deslizante, a cada instante resolve-se um problema de otimização que olha para um trecho do
+futuro, aplica-se só a primeira decisão e, no instante seguinte, resolve-se tudo de novo com a informação atualizada. É a
+forma prática de lidar com problemas cujo futuro é incerto ou longo demais para ser otimizado de uma vez.
+\end{conceitobox}
+
+O WTA estático decide tudo de uma vez. Na prática, porém, as armas são disparadas em estágios, e o defensor observa o
+resultado de cada estágio antes do próximo. \citet{hosein1990} formalizaram esse \conceito{WTA dinâmico} no contexto da
+defesa contra mísseis balísticos e obtiveram resultados analíticos para casos particulares, e \citet{cai2006} revisaram os
+modelos e algoritmos dessa linha. Duas lições dessa literatura são diretamente aplicáveis aqui. A primeira é o valor da
+\emph{reserva}: quando as ameaças chegam em ondas, gastar todos os efetores na primeira onda é subótimo. A segunda é o
+esquema \conceito{\emph{shoot--look--shoot}} (``atirar, olhar, atirar''): em vez de mandar vários efetores contra o mesmo
+alvo de uma vez (uma \emph{salva}), manda-se um, observa-se o resultado e só se manda outro se o primeiro falhar, o que
+economiza efetores ao custo de tempo. Como o WTA dinâmico exato é ainda mais difícil que o estático, a aproximação usual é o
+horizonte deslizante.
+
+\paragraph{Pontos fortes e limitações.} Captura a dimensão temporal que o WTA estático ignora. A limitação é que a política
+ótima depende do que virá depois --- quantas ameaças, quando --- e isso é desconhecido.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Alocação integrada à trajetória}
+
+\begin{conceitobox}{programação inteira mista e controle preditivo}
+Um \emph{programa linear inteiro misto} (MILP) é um problema de otimização com função objetivo e restrições lineares em
+que algumas variáveis só podem assumir valores inteiros --- por exemplo, variáveis binárias que valem 1 se o agente $i$ vai
+contra o alvo $j$ e 0 caso contrário. Se o objetivo é quadrático, fala-se em MIQP. O \emph{controle preditivo} (MPC)
+aplica o horizonte deslizante ao controle: a cada passo, otimiza a trajetória de um sistema ao longo de um horizonte
+futuro, a partir de um modelo que prevê como o sistema evolui, aplica só o primeiro comando e repete.
+\end{conceitobox}
+
+Uma alternativa a separar alocação e guiagem é resolvê-las juntas por otimização matemática: as designações são variáveis
+binárias, as trajetórias são variáveis contínuas sujeitas a limites de velocidade, aceleração e obstáculos, e o problema é
+resolvido em horizonte deslizante. \citet{afonso2020} formularam desse modo a alocação de tarefas e o planejamento de
+trajetória de múltiplos agentes, como um MILP que inclui obstáculos e restrições de conectividade de comunicação entre os
+agentes. \citet{cruz2025} levou a ideia à neutralização de ameaças aéreas, com um MIQP tridimensional que inclui limites
+de velocidade e aceleração, obstáculos, o nível de bateria de cada agente na métrica de alocação e uma restrição de
+alinhamento entre a velocidade final do agente e a do alvo; a proposta foi validada em simulação e em realidade mista, com
+três drones reais e alvos simulados.
+
+\paragraph{Pontos fortes e limitações.} A alocação e as trajetórias resultantes são ótimas e viáveis para o modelo, e
+restrições operacionais complexas entram de forma natural. As limitações são duas. O número de variáveis binárias cresce
+com agentes $\times$ alvos $\times$ passos do horizonte, de modo que o tempo de solução cresce rapidamente com a escala ---
+o próprio autor aponta esse tempo como o obstáculo à operação em malha fechada e sugere aproximações por aprendizado. E a
+previsão do alvo ao longo do horizonte supõe velocidade constante, justamente a hipótese que uma manobra evasiva viola.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Arquiteturas comportamentais}
+
+\begin{conceitobox}{árvore de comportamento}
+Uma árvore de comportamento organiza a lógica de decisão de um agente como uma árvore percorrida da raiz às folhas a cada
+ciclo. As folhas são \emph{condições} (``há uma ameaça detectada?'') ou \emph{ações} (``avançar contra a ameaça''). Os
+nós internos combinam os filhos: um \emph{seletor} tenta os filhos em ordem até que um tenha sucesso (uma lista de
+alternativas por prioridade); uma \emph{sequência} executa os filhos em ordem enquanto todos têm sucesso (uma lista de
+passos). Originárias dos jogos digitais, as árvores de comportamento se difundiram na robótica pela legibilidade --- é fácil
+ver por que o agente tomou uma decisão --- e pela modularidade --- é fácil trocar um ramo sem mexer no resto.
+\end{conceitobox}
+
+\citet{ricardo2023} aplicaram árvores de comportamento ao engajamento cooperativo de ameaças com enxames de drones: um
+grupo de defensores protege um drone líder contra ameaças kamikaze, numa arquitetura líder--seguidor, com alocação por
+distância (cada defensor engaja a ameaça mais próxima) e um simulador físico com dinâmica de multirrotores e controle de
+baixo nível. \citet{feitosa2025} estenderam essa linha para uma arquitetura sem líder e com decisão baseada em
+\emph{utilidade}: cada defensor decide avançar sobre uma ameaça quando uma função afim --- uma soma ponderada mais uma
+constante --- do tempo de deslocamento, da ameaça do alvo e da ameaça total sobre a defesa é positiva. Os quatro
+coeficientes da utilidade foram ajustados por algoritmo genético para maximizar o tempo de sobrevivência do enxame. Com 3
+defensores armados contra 6 ameaças que voam em linha reta para o centro, e com consciência situacional completa fornecida
+por um radar central, a defesa resistiu a nove cenários de dificuldade crescente. Num contexto relacionado,
+\citet{strickland2018} discutiram táticas de contra-enxame contra ataques de saturação, de estratégias de
+perseguição--evasão a modelos de atrito de Lanchester.
+
+\paragraph{Pontos fortes e limitações.} Políticas legíveis, modulares e baratas, que decidem não só contra quem, mas
+\emph{se} engajar. As limitações são que cada agente decide sozinho, sem otimizar o conjunto, e que os parâmetros ajustados
+para um tipo de cenário podem não valer para outros.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Aprendizado de máquina}
+
+\begin{conceitobox}{imitação, reforço e invariância à ordem}
+Na \emph{aprendizagem por imitação}, uma rede neural é treinada para reproduzir as decisões de um especialista a partir de
+exemplos. No \emph{aprendizado por reforço}, a rede aprende por tentativa e erro, recebendo recompensas e punições pelas
+consequências das suas decisões, sem especialista. Uma rede é \emph{invariante à ordem} quando a sua saída não muda se os
+elementos da entrada forem listados em outra ordem --- propriedade necessária quando a entrada é um conjunto de ameaças de
+tamanho variável.
+\end{conceitobox}
+
+Os métodos aprendidos substituem a regra escrita à mão por uma rede neural treinada. Há três vertentes.
+
+\paragraph{Imitação.} A rede aprende a reproduzir um especialista, tipicamente um algoritmo ótimo, porém mais lento. O
+problema da imitação ingênua é a \emph{mudança de distribuição}: pequenos erros levam a rede a situações que o especialista
+nunca produziu, onde ela erra mais, e os erros se acumulam. \citet{ross2011} propuseram o DAgger, que alterna deixar a rede
+conduzir e pedir ao especialista que rotule as situações que ela visitou, e mostraram que isso limita o acúmulo de erros.
+
+\paragraph{Reforço com política centralizada.} Uma rede escolhe a ação a partir do conjunto de ameaças. Como esse número
+varia, a rede precisa ser invariante à ordem. Isso se obtém por \emph{agregação} --- codificar cada ameaça com a mesma rede e
+combinar os códigos por uma operação simétrica, como a média, ideia formalizada pelo DeepSets~\cite{zaheer2017} --- ou por
+\emph{atenção}~\cite{vaswani2017}, um mecanismo em que cada elemento pondera os demais segundo a relevância;
+\citet{kool2019} mostraram que redes de atenção treinadas por reforço resolvem bem problemas combinatórios como o do caixeiro
+viajante. O algoritmo de reforço mais usado nessa linha é o PPO~\cite{schulman2017}, que limita o tamanho de cada atualização
+da política para estabilizar o treino. \citet{liu2023drones} treinaram uma política de reforço para a alocação de tarefas
+em enxames e relataram vantagens sobre o método húngaro em tolerância a falhas e tempo de execução. \citet{palmas2025}
+formulou a priorização de interceptações em defesa contra enxames como um processo de decisão parcialmente observável,
+treinou uma política de reforço num simulador com efetores de taxa de tiro limitada e relatou menos dano que uma regra
+manual.
+
+\paragraph{Reforço multiagente.} Cada agente tem a sua política e aprende considerando os demais. \citet{jia2026} combinaram
+redes de atenção em grafos, para a alocação, com o algoritmo multiagente MAPPO, para a manobra, operando em escalas de tempo
+separadas, e relataram ganho sobre as linhas de base de reforço consideradas.
+
+\paragraph{Pontos fortes e limitações.} Decisões rápidas depois de treinadas e capacidade, em princípio, de aprender
+regularidades que as regras ignoram. As limitações são o custo e a instabilidade do treino, a falta de garantias e a
+dificuldade de saber se a política generaliza para situações diferentes das de treino. Em todos os trabalhos citados, a
+comparação é feita com uma ou duas linhas de base, em simulador próprio.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Guiagem e rastreamento}
+A eficácia de uma designação depende de dois componentes fora da alocação. A \conceito{guiagem terminal} determina se o
+interceptador consegue fechar o contato com o alvo; as leis clássicas e suas variantes são tratadas
+em~\cite{shneydor1998,zarchan2012,palumbo2010}, inclusive para drones~\cite{pliska2024}. O \conceito{rastreamento} transforma
+medidas de radar em pistas; os padrões são o filtro IMM~\cite{blom1988}, a associação de dados entre medidas e
+pistas~\cite{barshalom2001} e os modelos de detecção de alvos cuja seção radar flutua~\cite{swerling1960}. Neste trabalho,
+ambos são componentes fixos do simulador, iguais para todos os métodos (Seção~\ref{sec:ambiente}).
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Síntese}
+A Tabela~\ref{tab:sintese} resume as famílias, e a Tabela~\ref{tab:relacionados} compara os trabalhos mais próximos do
+nosso. Três observações motivam o restante do artigo. Primeiro, todas as famílias, de um modo ou de outro, preveem o alvo
+com velocidade constante ou supõem que ele é conhecido; nenhuma foi avaliada contra alvos evasivos vistos por radar.
+Segundo, as famílias otimizam critérios diferentes --- tempo, valor esperado, utilidade, recompensa ---, e não é óbvio qual
+critério produz menos dano no problema real. Terceiro, os trabalhos que propõem métodos novos comparam-nos com uma ou duas
+linhas de base, em escalas pequenas e em simuladores diferentes, de modo que não é possível ordenar as famílias a partir da
+literatura.
+
+\begin{table}[t]
+\centering
+\caption{Síntese das famílias de técnicas de alocação.}
+\label{tab:sintese}
+\scriptsize
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright}p{2.1cm}>{\raggedright}X>{\raggedright}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Família & Ideia & Pontos fortes & Limitações \\
+\midrule
+Gulosa / TEWA & melhor escolha local, uma de cada vez & instantânea, auditável & míope, depende da ordem \\
+Atribuição ótima & ótimo exato de um par por alvo & exata e rápida & míope no tempo; não entende salvas \\
+WTA & maximizar valor esperado destruído & modela valor, salvas e a decisão de esperar & precisa de probabilidades de abate \\
+Metaheurística & busca genérica guiada pela qualidade & objetivos arbitrários & sem garantia; tempo imprevisível \\
+Distribuída & lances locais + consenso & sem decisor central; robusta a falhas & qualidade de guloso \\
+Dinâmica & reserva, observar antes de reengajar & considera o tempo & depende do futuro desconhecido \\
+Integrada à trajetória & otimizar alocação e trajetória juntas & viável e ótima para o modelo & custo cresce com a escala; previsão de velocidade constante \\
+Comportamental & árvore de regras com utilidade & legível, decide se engaja & sem otimização conjunta; parâmetros específicos \\
+Aprendizado & rede treinada por imitação ou reforço & decisão rápida; pode aprender regularidades & treino caro; sem garantia; generalização incerta \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Comparação dos trabalhos mais próximos. Escala: defensores $\times$ ameaças. Informação: o que o decisor
+observa. Alvo: modelo de movimento das ameaças.}
+\label{tab:relacionados}
+\scriptsize
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright}p{2.2cm}>{\raggedright}p{2.6cm}>{\raggedright}p{1.6cm}>{\raggedright}p{2.2cm}>{\raggedright}p{2.0cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Trabalho & Método & Escala & Informação & Alvo & Comparação \\
+\midrule
+Ricardo Jr et al.~\cite{ricardo2023} & árvore, alocação por distância & poucos & completa & kamikaze em linha reta & simulador físico próprio \\
+Feitosa et al.~\cite{feitosa2025} & árvore com utilidade, GA & $3\times6$ & completa (radar central) & linha reta & 9 cenários, sem linha de base \\
+Afonso et al.~\cite{afonso2020} & MILP de horizonte deslizante & poucos & completa & tarefas fixas & cenários de demonstração \\
+Cruz~\cite{cruz2025} & MIQP de horizonte deslizante & $3\times3$ & posição e velocidade por radar & velocidade constante & simulação e realidade mista \\
+Liu et al.~\cite{liu2023drones} & reforço profundo & enxame & completa & -- & húngaro \\
+Palmas~\cite{palmas2025} & reforço profundo & configurável & ruidosa e parcial & rotas pré-definidas & regra manual \\
+Jia et al.~\cite{jia2026} & atenção em grafos + MAPPO & enxame & -- & intrusão dinâmica & linhas de base de reforço \\
+\midrule
+Este trabalho & 29 métodos de 8 famílias & até $60\times48$ & radar com falsos alarmes, relevo e vieses & 4 classes reais, com iscas, contra ativos reais & todos contra todos, testes pareados \\
+\bottomrule
+\end{tabularx}
+\end{table}

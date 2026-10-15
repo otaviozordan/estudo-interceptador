@@ -1,0 +1,362 @@
+\begin{thebibliography}{53}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Manne(1958)]{manne1958}
+Alan~S. Manne.
+\newblock A target-assignment problem.
+\newblock \emph{Operations Research}, 6\penalty0 (3):\penalty0 346--351, 1958.
+
+\bibitem[den Broeder et~al.(1959)den Broeder, Ellison, e
+  Emerling]{denbroeder1959}
+G.~G. den Broeder, R.~E. Ellison, e L.~Emerling.
+\newblock On optimum target assignments.
+\newblock \emph{Operations Research}, 7\penalty0 (3):\penalty0 322--326, 1959.
+
+\bibitem[Hosein e Athans(1990)]{hosein1990}
+Patrick~A. Hosein e Michael Athans.
+\newblock Some analytical results for the dynamic weapon-target allocation
+  problem.
+\newblock Technical Report LIDS-P-1944, MIT Laboratory for Information and
+  Decision Systems, 1990.
+
+\bibitem[Lloyd e Witsenhausen(1986)]{lloyd1986}
+Stuart~P. Lloyd e Hans~S. Witsenhausen.
+\newblock Weapons allocation is {NP}-complete.
+\newblock In \emph{Proceedings of the 1986 Summer Computer Simulation
+  Conference}, pages 1054--1058, 1986.
+
+\bibitem[Cai et~al.(2006)Cai, Liu, Chen, e Wang]{cai2006}
+Huaiping Cai, Jingxu Liu, Yingwu Chen, e Hao Wang.
+\newblock Survey of the research on dynamic weapon-target assignment problem.
+\newblock \emph{Journal of Systems Engineering and Electronics}, 17\penalty0
+  (3):\penalty0 559--565, 2006.
+
+\bibitem[Roux e van Vuuren(2007)]{roux2007}
+J.~N. Roux e J.~H. van Vuuren.
+\newblock Threat evaluation and weapon assignment decision support: A review of
+  the state of the art.
+\newblock \emph{ORiON}, 23\penalty0 (2):\penalty0 151--187, 2007.
+
+\bibitem[Kline et~al.(2019)Kline, Ahner, e Hill]{kline2019}
+Alexander Kline, Darryl Ahner, e Raymond Hill.
+\newblock The weapon-target assignment problem.
+\newblock \emph{Computers \& Operations Research}, 105:\penalty0 226--236,
+  2019.
+
+\bibitem[{Bellingcat}(2018)]{bellingcat2018}
+{Bellingcat}.
+\newblock The poor man's air force? rebel drones attack russia's airbase in
+  syria.
+\newblock
+  \url{https://www.bellingcat.com/news/middle-east/2018/01/12/the_poor_mans_airforce/},
+  2018.
+\newblock Acesso em out. 2026.
+
+\bibitem[{Manohar Parrikar Institute for Defence Studies and
+  Analyses}(2019)]{idsa2019}
+{Manohar Parrikar Institute for Defence Studies and Analyses}.
+\newblock Saudi drone attacks: A preliminary military evaluation.
+\newblock
+  \url{https://idsa.in/publisher/comments/saudi-drone-attacks-a-preliminary-military-evaluation},
+  2019.
+\newblock Acesso em out. 2026.
+
+\bibitem[{PBS NewsHour}(2024)]{pbs2024}
+{PBS NewsHour}.
+\newblock Israel says it intercepted 99 percent of iran's drones and missiles.
+\newblock
+  \url{https://www.pbs.org/newshour/world/live-updates-israel-says-it-intercepted-99-percent-of-irans-drones-and-missiles},
+  2024.
+\newblock Acesso em out. 2026.
+
+\bibitem[{Ukrainska Pravda}(2025)]{pravda2025}
+{Ukrainska Pravda}.
+\newblock Ukrainian darknode unit's interceptor drones down first hundred
+  russian shaheds.
+\newblock \url{https://www.pravda.com.ua/eng/news/2025/05/19/7512894}, 2025.
+\newblock Acesso em out. 2026.
+
+\bibitem[Ricardo~Jr et~al.(2023)Ricardo~Jr, Giacomossi, Trentin, Brancalion,
+  Maximo, e Santos]{ricardo2023}
+Jorge~A. Ricardo~Jr, Leonardo Giacomossi, Jo{\~a}o F.~S. Trentin, Jo{\~a}o
+  F.~B. Brancalion, Marcos R. O.~A. Maximo, e Davi~A. Santos.
+\newblock Cooperative threat engagement using drone swarms.
+\newblock \emph{IEEE Access}, 11:\penalty0 9529--9546, 2023.
+
+\bibitem[Feitosa et~al.(2025)Feitosa, Ricardo~Jr, e Santos]{feitosa2025}
+Arthur V.~B. Feitosa, Jorge~A. Ricardo~Jr, e Davi~A. Santos.
+\newblock Behavior tree-based decision-making for aerial threat engagement
+  using a drone swarm.
+\newblock In \emph{Proceedings of the 28th ABCM International Congress of
+  Mechanical Engineering (COBEM 2025)}, Curitiba, PR, Brazil, 2025.
+\newblock COB-2025-0063.
+
+\bibitem[Afonso et~al.(2020)Afonso, Maximo, e Galv{\~a}o]{afonso2020}
+Rubens J.~M. Afonso, Marcos R. O.~A. Maximo, e Roberto K.~H. Galv{\~a}o.
+\newblock Task allocation and trajectory planning for multiple agents in the
+  presence of obstacle and connectivity constraints with mixed-integer linear
+  programming.
+\newblock \emph{International Journal of Robust and Nonlinear Control},
+  30\penalty0 (14):\penalty0 5464--5491, 2020.
+
+\bibitem[Cruz(2025)]{cruz2025}
+Benicio~Barbosa Cruz.
+\newblock Planejamento Ótimo de trajetórias para neutralização de ameaças
+  aéreas com sistema multidrones e recursos limitados.
+\newblock Dissertação de mestrado, Instituto Tecnológico de Aeronáutica,
+  São José dos Campos, SP, 2025.
+
+\bibitem[Liu et~al.(2023)Liu, Wang, Li, Zhao, Pan, e Wang]{liu2023drones}
+Bo~Liu, Shulei Wang, Qinghua Li, Xinyang Zhao, Yunqing Pan, e Changhong Wang.
+\newblock Task assignment of {UAV} swarms based on deep reinforcement learning.
+\newblock \emph{Drones}, 7\penalty0 (5):\penalty0 297, 2023.
+\newblock \doi{10.3390/drones7050297}.
+
+\bibitem[Palmas(2025)]{palmas2025}
+Alessandro Palmas.
+\newblock Reinforcement learning for decision-level interception prioritization
+  in drone swarm defense.
+\newblock \emph{arXiv preprint arXiv:2508.00641}, 2025.
+
+\bibitem[Jia et~al.(2026)Jia, Wang, Bu, Wang, e Wang]{jia2026}
+Dianbo Jia, Ganliang Wang, Hongfei Bu, Junwei Wang, e Zhengkai Wang.
+\newblock Graph attention network-enhanced multi-agent reinforcement learning
+  for dynamic interception task allocation in counter-drone defense.
+\newblock \emph{Scientific Reports}, 2026.
+\newblock \doi{10.1038/s41598-026-55576-9}.
+
+\bibitem[Strickland et~al.(2018)Strickland, Day, DeMarco, Squires, e
+  Pippin]{strickland2018}
+Laura Strickland, Michael~A. Day, Kevin~J. DeMarco, Eric Squires, e Charles
+  Pippin.
+\newblock Responding to unmanned aerial swarm saturation attacks with
+  autonomous counter-swarms.
+\newblock In \emph{Proceedings of SPIE, Unmanned Systems Technology XX}, 2018.
+
+\bibitem[Kuhn(1955)]{kuhn1955}
+Harold~W. Kuhn.
+\newblock The {H}ungarian method for the assignment problem.
+\newblock \emph{Naval Research Logistics Quarterly}, 2\penalty0
+  (1--2):\penalty0 83--97, 1955.
+
+\bibitem[Munkres(1957)]{munkres1957}
+James Munkres.
+\newblock Algorithms for the assignment and transportation problems.
+\newblock \emph{Journal of the Society for Industrial and Applied Mathematics},
+  5\penalty0 (1):\penalty0 32--38, 1957.
+
+\bibitem[Swerling(1960)]{swerling1960}
+Peter Swerling.
+\newblock Probability of detection for fluctuating targets.
+\newblock \emph{IRE Transactions on Information Theory}, 6\penalty0
+  (2):\penalty0 269--308, 1960.
+
+\bibitem[Bertsekas(1988)]{bertsekas1988}
+Dimitri~P. Bertsekas.
+\newblock The auction algorithm: A distributed relaxation method for the
+  assignment problem.
+\newblock \emph{Annals of Operations Research}, 14:\penalty0 105--123, 1988.
+
+\bibitem[Blom e Bar-Shalom(1988)]{blom1988}
+Henk A.~P. Blom e Yaakov Bar-Shalom.
+\newblock The interacting multiple model algorithm for systems with {M}arkovian
+  switching coefficients.
+\newblock \emph{IEEE Transactions on Automatic Control}, 33\penalty0
+  (8):\penalty0 780--783, 1988.
+
+\bibitem[Lee et~al.(2002)Lee, Lee, e Su]{lee2002aco}
+Zne-Jung Lee, Chou-Yuan Lee, e Shun-Feng Su.
+\newblock An immunity-based ant colony optimization algorithm for solving
+  weapon-target assignment problem.
+\newblock \emph{Applied Soft Computing}, 2\penalty0 (1):\penalty0 39--47, 2002.
+
+\bibitem[Lee et~al.(2003)Lee, Su, e Lee]{lee2003ga}
+Zne-Jung Lee, Shun-Feng Su, e Chou-Yuan Lee.
+\newblock Efficiently solving general weapon-target assignment problem by
+  genetic algorithms with greedy eugenics.
+\newblock \emph{IEEE Transactions on Systems, Man, and Cybernetics, Part B},
+  33\penalty0 (1):\penalty0 113--121, 2003.
+
+\bibitem[Gerkey e Matari\'c(2004)]{gerkey2004}
+Brian~P. Gerkey e Maja~J. Matari\'c.
+\newblock A formal analysis and taxonomy of task allocation in multi-robot
+  systems.
+\newblock \emph{The International Journal of Robotics Research}, 23\penalty0
+  (9):\penalty0 939--954, 2004.
+
+\bibitem[Ahuja et~al.(2007)Ahuja, Kumar, Jha, e Orlin]{ahuja2007}
+Ravindra~K. Ahuja, Arvind Kumar, Krishna~C. Jha, e James~B. Orlin.
+\newblock Exact and heuristic algorithms for the weapon-target assignment
+  problem.
+\newblock \emph{Operations Research}, 55\penalty0 (6):\penalty0 1136--1146,
+  2007.
+
+\bibitem[Choi et~al.(2009)Choi, Brunet, e How]{choi2009}
+Han-Lim Choi, Luc Brunet, e Jonathan~P. How.
+\newblock Consensus-based decentralized auctions for robust task allocation.
+\newblock \emph{IEEE Transactions on Robotics}, 25\penalty0 (4):\penalty0
+  912--926, 2009.
+\newblock \doi{10.1109/TRO.2009.2022423}.
+
+\bibitem[Ross et~al.(2011)Ross, Gordon, e Bagnell]{ross2011}
+St\'ephane Ross, Geoffrey Gordon, e Drew Bagnell.
+\newblock A reduction of imitation learning and structured prediction to
+  no-regret online learning.
+\newblock In \emph{Proceedings of the 14th International Conference on
+  Artificial Intelligence and Statistics (AISTATS)}, pages 627--635, 2011.
+
+\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, e
+  Klimov]{schulman2017}
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, e Oleg Klimov.
+\newblock Proximal policy optimization algorithms.
+\newblock \emph{arXiv preprint arXiv:1707.06347}, 2017.
+
+\bibitem[Zaheer et~al.(2017)Zaheer, Kottur, Ravanbakhsh, P\'oczos,
+  Salakhutdinov, e Smola]{zaheer2017}
+Manzil Zaheer, Satwik Kottur, Siamak Ravanbakhsh, Barnab\'as P\'oczos, Ruslan
+  Salakhutdinov, e Alexander Smola.
+\newblock Deep sets.
+\newblock In \emph{Advances in Neural Information Processing Systems 30}, 2017.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, e Polosukhin]{vaswani2017}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, {\L}ukasz Kaiser, e Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems 30}, 2017.
+
+\bibitem[Kool et~al.(2019)Kool, van Hoof, e Welling]{kool2019}
+Wouter Kool, Herke van Hoof, e Max Welling.
+\newblock Attention, learn to solve routing problems!
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2019.
+
+\bibitem[Johansson(2010)]{johansson2010}
+Fredrik Johansson.
+\newblock \emph{Evaluating the Performance of {TEWA} Systems}.
+\newblock PhD thesis, \"Orebro University, 2010.
+
+\bibitem[Shneydor(1998)]{shneydor1998}
+N.~A. Shneydor.
+\newblock \emph{Missile Guidance and Pursuit: Kinematics, Dynamics and
+  Control}.
+\newblock Horwood Publishing, 1998.
+
+\bibitem[Zarchan(2012)]{zarchan2012}
+Paul Zarchan.
+\newblock \emph{Tactical and Strategic Missile Guidance}.
+\newblock American Institute of Aeronautics and Astronautics, 6 edition, 2012.
+
+\bibitem[Palumbo et~al.(2010)Palumbo, Blauwkamp, e Lloyd]{palumbo2010}
+Neil~F. Palumbo, Ross~A. Blauwkamp, e Justin~M. Lloyd.
+\newblock Basic principles of homing guidance.
+\newblock \emph{Johns Hopkins APL Technical Digest}, 29\penalty0 (1):\penalty0
+  25--41, 2010.
+
+\bibitem[Pliska et~al.(2024)Pliska, Vrba, B\'a\v{c}a, e Saska]{pliska2024}
+Michal Pliska, Matou\v{s} Vrba, Tom\'a\v{s} B\'a\v{c}a, e Martin Saska.
+\newblock Towards safe mid-air drone interception: Strategies for tracking \&
+  capture.
+\newblock \emph{IEEE Robotics and Automation Letters}, 9\penalty0 (10), 2024.
+
+\bibitem[Bar-Shalom et~al.(2001)Bar-Shalom, Li, e Kirubarajan]{barshalom2001}
+Yaakov Bar-Shalom, X.~Rong Li, e Thiagalingam Kirubarajan.
+\newblock \emph{Estimation with Applications to Tracking and Navigation}.
+\newblock Wiley, 2001.
+
+\bibitem[{Wild Hornets}(s.d.)]{whSting}
+{Wild Hornets}.
+\newblock Sting interceptor.
+\newblock \url{https://wildhornets.com/en/sting-interceptor}, s.d.
+\newblock Acesso em out. 2026.
+
+\bibitem[{Unmanned Airspace}(2025)]{uaSting}
+{Unmanned Airspace}.
+\newblock Wild hornets' sting interceptor reaches 315 km/h, shoots down over
+  200 shaheds and gerberas.
+\newblock \url{https://www.unmannedairspace.info/?p=34271}, 2025.
+\newblock Acesso em out. 2026.
+
+\bibitem[{European Space Agency}(2021)]{copernicusDEM}
+{European Space Agency}.
+\newblock Copernicus {DEM} -- global and european digital elevation model
+  ({GLO-30}).
+\newblock \url{https://doi.org/10.5270/ESA-c5d3d65}, 2021.
+\newblock Acesso em out. 2026.
+
+\bibitem[{OpenStreetMap contributors}(2026)]{osm}
+{OpenStreetMap contributors}.
+\newblock Openstreetmap.
+\newblock \url{https://www.openstreetmap.org}, 2026.
+\newblock Dados obtidos pela Overpass API em 15 out. 2026; licença ODbL.
+
+\bibitem[{Diretoria Principal de Inteligência da Ucrânia
+  (GUR)}(s.d.)]{gurShahed}
+{Diretoria Principal de Inteligência da Ucrânia (GUR)}.
+\newblock {GERAN-2 (Shahed-136)} -- war \& sanctions.
+\newblock \url{https://war-sanctions.gur.gov.ua/en/uav/336}, s.d.
+\newblock Acesso em out. 2026.
+
+\bibitem[{GlobalSecurity.org}(s.d.{\natexlab{a}})]{gsGeran2}
+{GlobalSecurity.org}.
+\newblock Geran-2.
+\newblock
+  \url{https://www.globalsecurity.org/military/world/russia/geran-2.html},
+  s.d.{\natexlab{a}}.
+\newblock Acesso em out. 2026.
+
+\bibitem[{Drone Warfare}(s.d.)]{dwShahed}
+{Drone Warfare}.
+\newblock Shahed-136 and the geran family: Variants, production, guidance and
+  employment.
+\newblock \url{https://drone-warfare.com/research/shahed-136/}, s.d.
+\newblock Acesso em out. 2026.
+
+\bibitem[{Institute for Science and International Security}(s.d.)]{isisGerbera}
+{Institute for Science and International Security}.
+\newblock Russian decoy drones that depend on western parts pose a great
+  challenge to ukrainian defenses.
+\newblock
+  \url{https://isis-online.org/isis-reports/russian-decoy-drones-that-depend-on-western-parts-pose-a-great-challenge/},
+  s.d.
+\newblock Acesso em out. 2026.
+
+\bibitem[{Centre for Air Power Studies}(2025)]{capssGerbera}
+{Centre for Air Power Studies}.
+\newblock Low-cost gerbera drones: The key player in russia--ukraine conflict.
+\newblock \url{https://capssindia.org/?p=16521}, 2025.
+\newblock Acesso em out. 2026.
+
+\bibitem[{defence-network.com}(s.d.)]{dnGerbera}
+{defence-network.com}.
+\newblock Gerbera: Russlands günstige täuschungsdrohne.
+\newblock
+  \url{https://defence-network.com/gerbera-russland-taeuschungsdrohne/}, s.d.
+\newblock Acesso em out. 2026.
+
+\bibitem[{Grey Dynamics}(s.d.)]{gdLancet}
+{Grey Dynamics}.
+\newblock Lancet 3: Russia's spear in the sky.
+\newblock \url{https://greydynamics.com/lancet-3-russias-spear-in-the-sky},
+  s.d.
+\newblock Acesso em out. 2026.
+
+\bibitem[{GlobalSecurity.org}(s.d.{\natexlab{b}})]{gsLancet}
+{GlobalSecurity.org}.
+\newblock Lancet -- specifications.
+\newblock
+  \url{https://www.globalsecurity.org/military/world/russia/lancet-specs.htm},
+  s.d.{\natexlab{b}}.
+\newblock Acesso em out. 2026.
+
+\bibitem[{Kyiv Post}(2024)]{kyivpostFPV}
+{Kyiv Post}.
+\newblock `can chase a helicopter' -- ukrainian fpv drone reaches 325 km/h.
+\newblock \url{https://kyivpost.com/post/39057}, 2024.
+\newblock Acesso em out. 2026.
+
+\end{thebibliography}

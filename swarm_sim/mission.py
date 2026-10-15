@@ -47,6 +47,9 @@ PLACES = {
     "Sao Jose dos Campos": (-23.1800, -45.8900, 14.0),
     "Sao Jose dos Campos (ITA / INPE / aeroporto)": (-23.2150, -45.8680, 10.0),
     "Vale do Paraiba (padrao)": (-22.9000, -45.4000, 30.0),
+    "Sao Paulo": (-23.5505, -46.6333, 14.0),              # centro (Se); DEM: tile S24 W047
+    "Rio de Janeiro": (-22.9068, -43.1729, 14.0),         # centro; DEM: tile S23 W044
+    "Brasilia": (-15.7939, -47.8828, 14.0),               # Plano Piloto; DEM: tile S16 W048
 }
 
 
@@ -129,6 +132,12 @@ class RefuelSpec:
     crash_penalty_priority: float = 10.0   # queda dentro de uma zona prioritaria (forte)
     crash_penalty_other: float = 1.0       # queda fora das zonas prioritarias (branda)
     runs: int = 10                     # execucoes (sorteios) desta missao: episodios de avaliacao e peso no treino
+    # envelope de voo das ameacas conhecido pelo defensor (filtro de plausibilidade E1); None = o padrao do
+    # ambiente (refuel/env.py: PLAUSIBLE). Chaves: v_min, v_max [m/s], vh_max [m/s], agl_min, agl_max [m]
+    envelope: dict | None = None
+    # penalidade por interceptador desperdicado (lancado e sem neutralizar ameaca real: sem autonomia, abateu isca ou
+    # ainda em voo sem uso no fim), na unidade das penalidades de queda; 0 = sem penalidade (conjuntos antigos)
+    waste_penalty: float = 0.0
 
 
 @dataclass
@@ -141,6 +150,11 @@ class AircraftSpec:
     spline: bool = False               # suaviza a rota por spline (Catmull-Rom) ao simular
     rcs: float = 1.0                   # secao reta radar media [m2]
     start_radius: float = 0.0          # posicao inicial sorteada num disco deste raio (preset de treino) [m]
+    evasion: dict | None = None        # manobra evasiva no ambiente de reabastecimento (refuel/evasion.py)
+    delay: float = 0.0                 # entra no mapa apos este tempo [s] (ondas coordenadas)
+    classe: str = ""                   # classe da ameaca (missoes realistas): ataque, isca, vagante, fpv
+    valor: float = 1.0                 # multiplicador do dano do impacto (isca = 0: nao causa dano)
+    dive: float = 0.0                  # inclinacao do mergulho final (dAGL/ds); 0 = padrao do ambiente
 
     def route_waypoints(self, spacing: float = 150.0) -> list[Waypoint]:
         """Waypoints efetivos: os de controle, ou a spline densificada."""
@@ -177,7 +191,8 @@ class Mission:
             "zones": [asdict(z) for z in self.zones],
             "refuel": asdict(self.refuel),
             "aircraft": [{"name": a.name, "speed": a.speed, "loop": a.loop, "spline": a.spline, "rcs": a.rcs,
-                          "start": a.start, "start_radius": a.start_radius,
+                          "start": a.start, "start_radius": a.start_radius, "evasion": a.evasion,
+                          "delay": a.delay, "classe": a.classe, "valor": a.valor, "dive": a.dive,
                           "waypoints": [asdict(w) for w in a.waypoints]} for a in self.aircraft],
         }
 
@@ -207,7 +222,9 @@ class Mission:
             m.aircraft.append(AircraftSpec(
                 a["name"], [_waypoint(w) for w in a.get("waypoints", [])], a.get("start"),
                 float(a.get("speed", 25.0)), bool(a.get("loop", False)),
-                bool(a.get("spline", False)), float(a.get("rcs", 1.0)), float(a.get("start_radius", 0.0))))
+                bool(a.get("spline", False)), float(a.get("rcs", 1.0)), float(a.get("start_radius", 0.0)),
+                a.get("evasion"), float(a.get("delay", 0.0)), str(a.get("classe", "")),
+                float(a.get("valor", 1.0)), float(a.get("dive", 0.0))))
         return m
 
     # ------------------------------------------------- presets aleatorios
@@ -240,8 +257,8 @@ class Mission:
 
     # ------------------------------------------------- organizacao em pastas
     def organized_path(self, root: str | None = None) -> str:
-        """missions/<local>/<n>_radar(es)/<n>_abastecimento(s)/<nome>.json (abastecimentos = aeronaves)."""
-        root = root or os.path.join(ROOT, "missions")
+        """missions/reabastecimento/<local>/<n>_radar(es)/<n>_abastecimento(s)/<nome>.json (abastecimentos = aeronaves)."""
+        root = root or os.path.join(ROOT, "missions", "reabastecimento")
         radars = sum(1 for r in self.radars if r.enabled)
         return os.path.join(root, place_slug(self.origin), _plural(radars, "radar", "radares"),
                             _plural(len(self.aircraft), "abastecimento", "abastecimentos"), f"{slug(self.name)}.json")

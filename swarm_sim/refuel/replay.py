@@ -16,22 +16,10 @@ from matplotlib import patheffects as pe
 from matplotlib.colors import LightSource
 from matplotlib.patches import Circle
 
-from .baselines import BASELINES
 from .env import RefuelEnv
 
 DR_COLOR = {0: "#9e9e9e", 1: "#ff9800", 4: "#e040fb", 2: "#2e7d32", 3: "#b71c1c"}
 DR_LABEL = {0: "na base", 1: "transito (radar)", 4: "rendezvous (sensor)", 2: "reabasteceu", 3: "sem autonomia"}
-
-
-def make_policy(spec: str):
-    """Nome de uma linha de base ou caminho de pesos .pt (AllocNet)."""
-    if spec in BASELINES:
-        return BASELINES[spec]
-    import torch
-    from .learn import AllocNet, net_policy
-    net = AllocNet()
-    net.load_state_dict(torch.load(spec, map_location="cpu"))
-    return net_policy(net)
 
 
 def record(env: RefuelEnv, policy) -> tuple[list[dict], float]:

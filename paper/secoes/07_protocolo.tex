@@ -1,0 +1,32 @@
+% =====================================================================================================
+\section{Protocolo experimental}\label{sec:protocolo}
+
+\paragraph{Sementes pareadas.} Uma \conceito{semente} é o número que inicializa o gerador de números aleatórios; com a
+mesma semente, os mesmos sorteios se repetem. A execução $k$ de cada missão usa a mesma semente para todos os métodos, de
+modo que todos enfrentam exatamente as mesmas rotas, velocidades, manobras, medidas de radar, falsos alarmes e iscas. As
+diferenças entre métodos, portanto, não vêm de sorteios diferentes, e a comparação pode ser feita par a par.
+
+\paragraph{O que é avaliado.} Os métodos sem parâmetros ajustados a partir de dados (M1--M22) são avaliados nas 192
+missões, com 5 execuções cada (960 episódios por método). A árvore com utilidade (M23) é ajustada nas missões de treino
+e avaliada em todas. As redes (M24--M29) são treinadas nas 128 missões de treino e avaliadas nas 64 de teste (320
+episódios), para cada uma das 3 sementes de treino. As ablações usam 3 execuções por missão.
+
+\paragraph{Métricas.} A métrica principal é o dano normalizado $D$~\eqref{eq:dano}; reportamos também o custo
+$C$~\eqref{eq:custo_ep}, que soma ao dano a penalidade dos interceptadores desperdiçados, a fração das ameaças armadas
+interceptadas, o número de impactos em zonas prioritárias, os interceptadores desperdiçados e gastos por ameaça e o tempo
+de decisão.
+
+\paragraph{Intervalos de confiança.} Reportamos a média de cada métrica com um \conceito{intervalo de confiança} de
+95\,\%, a faixa que, com 95\,\% de confiança, contém o valor médio verdadeiro. Ele é obtido por
+\conceito{\emph{bootstrap}}: reamostra-se o conjunto de dados com reposição milhares de vezes, recalcula-se a média em
+cada reamostra e tomam-se os percentis de 2,5 e 97,5\,\%. Reamostramos \emph{missões}, e não episódios, porque episódios
+da mesma missão são parecidos entre si; tratá-los como independentes produziria intervalos estreitos demais.
+
+\paragraph{Testes de significância.} Para decidir se um método é melhor que a referência (o húngaro ponderado, M7), usamos o
+\conceito{teste de Wilcoxon pareado}: para cada par (missão, semente), calcula-se a diferença de dano entre os dois métodos,
+e o teste verifica se essas diferenças tendem a um lado mais do que o acaso explicaria, sem supor que sigam uma
+distribuição normal. Reportamos o valor $p$: a probabilidade de observar diferenças tão sistemáticas se os dois métodos
+fossem, na verdade, equivalentes. Para as redes, cada par usa a média sobre as sementes de treino.
+
+\paragraph{Custo computacional.} O tempo de decisão é medido por chamada, com um processo por episódio.
+\todo{processador da máquina em que o benchmark rodar.}

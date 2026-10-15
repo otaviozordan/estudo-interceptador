@@ -1,0 +1,4706 @@
+{
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_00": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "agua||way/334365063"
+    ],
+    "eixo_az": 149.7,
+    "setor": 71.5,
+    "voo_alto": 14,
+    "cobertura": 0.9875,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_01": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "comunicacao||node/8922481859"
+    ],
+    "eixo_az": 175.0,
+    "setor": 66.7,
+    "voo_alto": 5,
+    "cobertura": 0.9904761904761905,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_02": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação DCTA|way/371362242",
+      "agua||way/334365063"
+    ],
+    "eixo_az": 77.2,
+    "setor": 70.7,
+    "voo_alto": 2,
+    "cobertura": 0.9640287769784173,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_03": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação São José dos Campos|way/170351418",
+      "comunicacao||node/8922431509"
+    ],
+    "eixo_az": 235.2,
+    "setor": 65.6,
+    "voo_alto": 5,
+    "cobertura": 0.8659217877094972,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_04": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua||way/334365063",
+      "subestacao|Subestação JMacêdo|way/548402626",
+      "subestacao|Subestação Shopping Vale Sul|way/548402567"
+    ],
+    "eixo_az": 201.5,
+    "setor": 67.8,
+    "voo_alto": 4,
+    "cobertura": 0.9820143884892086,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_05": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "agua||way/297125464"
+    ],
+    "eixo_az": 209.9,
+    "setor": 83.7,
+    "voo_alto": 2,
+    "cobertura": 0.967741935483871,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_06": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "agua||way/559251171",
+      "subestacao|Subestação CTA|way/1006185681"
+    ],
+    "eixo_az": 72.9,
+    "setor": 65.4,
+    "voo_alto": 4,
+    "cobertura": 0.7066666666666667,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_07": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação CTA|way/1006185681",
+      "subestacao|Subestação Shopping Vale Sul|way/548402567",
+      "industria|Embraer S.A.|way/373715246"
+    ],
+    "eixo_az": 201.4,
+    "setor": 82.7,
+    "voo_alto": 8,
+    "cobertura": 0.9953703703703703,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_08": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "agua||way/559251158"
+    ],
+    "eixo_az": 77.7,
+    "setor": 64.4,
+    "voo_alto": 4,
+    "cobertura": 0.6755952380952381,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_09": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/297125464",
+      "agua|Captação Petrobrás Revap|way/1523635019"
+    ],
+    "eixo_az": 272.4,
+    "setor": 61.1,
+    "voo_alto": 11,
+    "cobertura": 0.8274760383386581,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_10": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação JMacêdo|way/548402626",
+      "subestacao|Subestação CTA|way/1006185681"
+    ],
+    "eixo_az": 38.5,
+    "setor": 67.7,
+    "voo_alto": 16,
+    "cobertura": 0.8099041533546326,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_11": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação Parque Industrial|way/348438886",
+      "subestacao|Subestação São José dos Campos|way/170351418",
+      "industria|Embraer S.A.|way/373715246"
+    ],
+    "eixo_az": 120.2,
+    "setor": 78.9,
+    "voo_alto": 3,
+    "cobertura": 0.7593984962406015,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_12": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação CTA|way/1006185681",
+      "agua||way/559251158",
+      "agua||way/297125464"
+    ],
+    "eixo_az": 23.1,
+    "setor": 63.5,
+    "voo_alto": 1,
+    "cobertura": 0.5565476190476191,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_13": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação JMacêdo|way/548402626",
+      "industria|Embraer S.A.|way/373715246",
+      "subestacao|Subestação CTA|way/1006185681"
+    ],
+    "eixo_az": 317.2,
+    "setor": 67.3,
+    "voo_alto": 1,
+    "cobertura": 0.9847715736040609,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_14": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "agua||way/559251158"
+    ],
+    "eixo_az": 50.3,
+    "setor": 64.0,
+    "voo_alto": 10,
+    "cobertura": 0.7267080745341615,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_15": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "agua||way/297125464",
+      "subestacao|Subestação Urbanova|way/548375518"
+    ],
+    "eixo_az": 203.4,
+    "setor": 89.2,
+    "voo_alto": 11,
+    "cobertura": 0.9151670951156813,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_16": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação Vila Paiva|way/1175396834",
+      "subestacao|Subestação Mechichem|way/548375515",
+      "industria|Embraer S.A.|way/373715246"
+    ],
+    "eixo_az": 349.8,
+    "setor": 77.7,
+    "voo_alto": 14,
+    "cobertura": 0.8797169811320755,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_17": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/297125464",
+      "industria|Embraer S.A.|way/373715246"
+    ],
+    "eixo_az": 27.7,
+    "setor": 77.3,
+    "voo_alto": 5,
+    "cobertura": 0.6178343949044586,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_18": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/297125464",
+      "industria|Embraer S.A.|way/373715246"
+    ],
+    "eixo_az": 284.5,
+    "setor": 82.9,
+    "voo_alto": 20,
+    "cobertura": 0.9588138385502472,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_19": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "subestacao|Subestação Mechichem|way/548375515"
+    ],
+    "eixo_az": 275.2,
+    "setor": 67.7,
+    "voo_alto": 2,
+    "cobertura": 0.918200408997955,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_20": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "comunicacao||node/8922463803",
+      "subestacao|Subestação DCTA|way/371362242"
+    ],
+    "eixo_az": 334.4,
+    "setor": 62.8,
+    "voo_alto": 3,
+    "cobertura": 0.7413793103448276,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_21": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "comunicacao||node/8922420501",
+      "comunicacao||node/8922440579"
+    ],
+    "eixo_az": 81.1,
+    "setor": 64.5,
+    "voo_alto": 5,
+    "cobertura": 0.9849056603773585,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_22": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "agua||way/334365063",
+      "comunicacao||node/8922500077"
+    ],
+    "eixo_az": 136.7,
+    "setor": 62.9,
+    "voo_alto": 11,
+    "cobertura": 0.9959839357429718,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_23": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/334365063",
+      "industria|Embraer S.A.|way/373715246"
+    ],
+    "eixo_az": 297.0,
+    "setor": 77.0,
+    "voo_alto": 10,
+    "cobertura": 0.7551622418879056,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_24": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "subestacao|Subestação CTA|way/1006185681"
+    ],
+    "eixo_az": 189.2,
+    "setor": 70.1,
+    "voo_alto": 9,
+    "cobertura": 0.8448275862068966,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_25": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/297125464",
+      "subestacao|Subestação Shopping Vale Sul|way/548402567"
+    ],
+    "eixo_az": 158.6,
+    "setor": 84.0,
+    "voo_alto": 5,
+    "cobertura": 0.9565217391304348,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_26": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua||way/334365063",
+      "agua||way/559251171",
+      "subestacao|Subestação CTA|way/1006185681"
+    ],
+    "eixo_az": 131.8,
+    "setor": 80.3,
+    "voo_alto": 2,
+    "cobertura": 1.0,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_27": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua||way/297125464",
+      "subestacao|Subestação CTA|way/1006185681",
+      "industria|Embraer S.A.|way/373715246"
+    ],
+    "eixo_az": 88.0,
+    "setor": 89.2,
+    "voo_alto": 13,
+    "cobertura": 0.9431372549019608,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_28": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "comunicacao||node/8922488344",
+      "industria|Embraer S.A.|way/373715246"
+    ],
+    "eixo_az": 325.6,
+    "setor": 76.2,
+    "voo_alto": 20,
+    "cobertura": 0.825563909774436,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_29": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Embraer S.A.|way/373715246",
+      "subestacao|Subestação Urbanova|way/548375518"
+    ],
+    "eixo_az": 157.2,
+    "setor": 84.6,
+    "voo_alto": 6,
+    "cobertura": 0.9919571045576407,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_30": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação Urbanova|way/548375518",
+      "subestacao|Subestação Shopping Vale Sul|way/548402567",
+      "subestacao|Subestação São José dos Campos|way/170351418"
+    ],
+    "eixo_az": 106.8,
+    "setor": 88.2,
+    "voo_alto": 8,
+    "cobertura": 0.9251870324189526,
+    "split": "treino"
+  },
+  "sao_jose_dos_campos/real_sao_jose_dos_campos_31": {
+    "local": "Sao Jose dos Campos",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação CTA|way/1006185681",
+      "agua||way/334365063"
+    ],
+    "eixo_az": 10.0,
+    "setor": 87.6,
+    "voo_alto": 11,
+    "cobertura": 0.8498402555910544,
+    "split": "treino"
+  },
+  "taubate/real_taubate_00": {
+    "local": "Taubate",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "usina|UFV SP V EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/12483709"
+    ],
+    "eixo_az": 237.2,
+    "setor": 84.5,
+    "voo_alto": 4,
+    "cobertura": 0.890625,
+    "split": "treino"
+  },
+  "taubate/real_taubate_01": {
+    "local": "Taubate",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|UFV SP VI EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/15017726",
+      "agua|Sabesp|node/9709265836"
+    ],
+    "eixo_az": 316.3,
+    "setor": 66.1,
+    "voo_alto": 14,
+    "cobertura": 0.7183098591549296,
+    "split": "treino"
+  },
+  "taubate/real_taubate_02": {
+    "local": "Taubate",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|UFV SP VI EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/15017726",
+      "subestacao|Subestação General Eletric|way/745463211"
+    ],
+    "eixo_az": 179.7,
+    "setor": 81.5,
+    "voo_alto": 8,
+    "cobertura": 0.8894230769230769,
+    "split": "treino"
+  },
+  "taubate/real_taubate_03": {
+    "local": "Taubate",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|OneSubsea|way/992071688",
+      "usina|UFV SP V EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/12483709"
+    ],
+    "eixo_az": 283.6,
+    "setor": 71.5,
+    "voo_alto": 6,
+    "cobertura": 0.856,
+    "split": "treino"
+  },
+  "taubate/real_taubate_04": {
+    "local": "Taubate",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina||way/1503867864",
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610"
+    ],
+    "eixo_az": 61.6,
+    "setor": 64.2,
+    "voo_alto": 4,
+    "cobertura": 0.8222222222222222,
+    "split": "treino"
+  },
+  "taubate/real_taubate_05": {
+    "local": "Taubate",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria||way/745463212",
+      "agua|Sabesp|node/9709265836"
+    ],
+    "eixo_az": 63.2,
+    "setor": 66.4,
+    "voo_alto": 2,
+    "cobertura": 0.608433734939759,
+    "split": "treino"
+  },
+  "taubate/real_taubate_06": {
+    "local": "Taubate",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Mantiqueira|way/863185119",
+      "agua|Estação de Tratamento de Esgoto Jardim Continental II|way/993179289"
+    ],
+    "eixo_az": 30.4,
+    "setor": 71.9,
+    "voo_alto": 10,
+    "cobertura": 0.706959706959707,
+    "split": "treino"
+  },
+  "taubate/real_taubate_07": {
+    "local": "Taubate",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "industria||way/745463212",
+      "comunicacao||node/8907250081"
+    ],
+    "eixo_az": 62.3,
+    "setor": 79.4,
+    "voo_alto": 9,
+    "cobertura": 0.974025974025974,
+    "split": "treino"
+  },
+  "taubate/real_taubate_08": {
+    "local": "Taubate",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "comunicacao||node/8907248547"
+    ],
+    "eixo_az": 61.0,
+    "setor": 73.4,
+    "voo_alto": 2,
+    "cobertura": 0.9834710743801653,
+    "split": "treino"
+  },
+  "taubate/real_taubate_09": {
+    "local": "Taubate",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina||way/1503867864",
+      "agua|Estação de Tratamento de Esgoto Jardim Continental II|way/993179289"
+    ],
+    "eixo_az": 322.7,
+    "setor": 77.4,
+    "voo_alto": 14,
+    "cobertura": 0.8173913043478261,
+    "split": "treino"
+  },
+  "taubate/real_taubate_10": {
+    "local": "Taubate",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Taubaté|way/539025237",
+      "usina|UFV SP VI EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/15017726"
+    ],
+    "eixo_az": 85.6,
+    "setor": 79.4,
+    "voo_alto": 0,
+    "cobertura": 0.7111111111111111,
+    "split": "treino"
+  },
+  "taubate/real_taubate_11": {
+    "local": "Taubate",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua||way/283856159",
+      "agua||way/595189930",
+      "agua|Estação de Tratamento de Esgoto Jardim Continental II|way/993179289"
+    ],
+    "eixo_az": 277.4,
+    "setor": 66.0,
+    "voo_alto": 4,
+    "cobertura": 0.7529691211401425,
+    "split": "treino"
+  },
+  "taubate/real_taubate_12": {
+    "local": "Taubate",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|UFV SP V EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/12483709",
+      "agua||way/283856159"
+    ],
+    "eixo_az": 144.4,
+    "setor": 88.3,
+    "voo_alto": 8,
+    "cobertura": 0.9694656488549618,
+    "split": "treino"
+  },
+  "taubate/real_taubate_13": {
+    "local": "Taubate",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "comunicacao||node/8907239512",
+      "subestacao|Subestação General Eletric|way/745463211"
+    ],
+    "eixo_az": 321.7,
+    "setor": 75.8,
+    "voo_alto": 9,
+    "cobertura": 0.8288288288288288,
+    "split": "treino"
+  },
+  "taubate/real_taubate_14": {
+    "local": "Taubate",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina|UFV SP V EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/12483709",
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "subestacao|Subestação Taubaté|way/547975129"
+    ],
+    "eixo_az": 17.6,
+    "setor": 80.8,
+    "voo_alto": 2,
+    "cobertura": 0.9276018099547512,
+    "split": "treino"
+  },
+  "taubate/real_taubate_15": {
+    "local": "Taubate",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "subestacao|Subestação Mantiqueira|way/863185119"
+    ],
+    "eixo_az": 233.3,
+    "setor": 67.3,
+    "voo_alto": 13,
+    "cobertura": 0.9663608562691132,
+    "split": "treino"
+  },
+  "taubate/real_taubate_16": {
+    "local": "Taubate",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação Taubaté|way/539025237",
+      "usina|UFV SP V EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/12483709",
+      "subestacao|Subestação Mantiqueira|way/863185119"
+    ],
+    "eixo_az": 355.9,
+    "setor": 83.5,
+    "voo_alto": 4,
+    "cobertura": 0.7802547770700637,
+    "split": "treino"
+  },
+  "taubate/real_taubate_17": {
+    "local": "Taubate",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "usina||way/1503867864",
+      "comunicacao||node/8907263034"
+    ],
+    "eixo_az": 70.4,
+    "setor": 83.7,
+    "voo_alto": 3,
+    "cobertura": 0.9017160686427457,
+    "split": "treino"
+  },
+  "taubate/real_taubate_18": {
+    "local": "Taubate",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|UFV SP VI EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/15017726",
+      "agua|Sabesp|node/9709265836"
+    ],
+    "eixo_az": 95.4,
+    "setor": 74.5,
+    "voo_alto": 20,
+    "cobertura": 0.735191637630662,
+    "split": "treino"
+  },
+  "taubate/real_taubate_19": {
+    "local": "Taubate",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|ALSTOM Transport|way/595189927",
+      "agua|Estação de Tratamento de Esgoto Jardim Continental II|way/993179289"
+    ],
+    "eixo_az": 344.7,
+    "setor": 67.8,
+    "voo_alto": 4,
+    "cobertura": 0.7482014388489209,
+    "split": "treino"
+  },
+  "taubate/real_taubate_20": {
+    "local": "Taubate",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "usina|UFV SP V EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/12483709",
+      "agua|Sabesp|node/9709265836"
+    ],
+    "eixo_az": 305.9,
+    "setor": 87.2,
+    "voo_alto": 13,
+    "cobertura": 0.8591549295774648,
+    "split": "treino"
+  },
+  "taubate/real_taubate_21": {
+    "local": "Taubate",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "agua|Estação de Tratamento de Esgoto Jardim Continental II|way/993179289"
+    ],
+    "eixo_az": 286.8,
+    "setor": 79.4,
+    "voo_alto": 2,
+    "cobertura": 0.8591549295774648,
+    "split": "treino"
+  },
+  "taubate/real_taubate_22": {
+    "local": "Taubate",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|Estação de Tratamento de Esgoto Jardim Continental II|way/993179289",
+      "usina|UFV SP VI EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/15017726",
+      "agua||way/595189930"
+    ],
+    "eixo_az": 317.7,
+    "setor": 75.4,
+    "voo_alto": 7,
+    "cobertura": 0.8186666666666667,
+    "split": "treino"
+  },
+  "taubate/real_taubate_23": {
+    "local": "Taubate",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "comunicacao||node/8907264917",
+      "usina|UFV SP V EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/12483709"
+    ],
+    "eixo_az": 256.0,
+    "setor": 82.1,
+    "voo_alto": 17,
+    "cobertura": 0.9105367793240556,
+    "split": "treino"
+  },
+  "taubate/real_taubate_24": {
+    "local": "Taubate",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "industria||way/745463210"
+    ],
+    "eixo_az": 59.5,
+    "setor": 88.1,
+    "voo_alto": 9,
+    "cobertura": 0.7955390334572491,
+    "split": "treino"
+  },
+  "taubate/real_taubate_25": {
+    "local": "Taubate",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|UFV SP V EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/12483709",
+      "comunicacao||node/8000976766"
+    ],
+    "eixo_az": 333.6,
+    "setor": 76.9,
+    "voo_alto": 8,
+    "cobertura": 0.7505070993914807,
+    "split": "treino"
+  },
+  "taubate/real_taubate_26": {
+    "local": "Taubate",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|Estação de Tratamento de Esgoto Jardim Continental II|way/993179289",
+      "subestacao|Subestação Mantiqueira|way/863185119",
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610"
+    ],
+    "eixo_az": 239.0,
+    "setor": 85.6,
+    "voo_alto": 4,
+    "cobertura": 0.9965034965034965,
+    "split": "treino"
+  },
+  "taubate/real_taubate_27": {
+    "local": "Taubate",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina|UFV SP VI EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/15017726",
+      "agua||way/283856159",
+      "agua|Sabesp|node/9709265836"
+    ],
+    "eixo_az": 131.2,
+    "setor": 76.7,
+    "voo_alto": 4,
+    "cobertura": 0.9363057324840764,
+    "split": "treino"
+  },
+  "taubate/real_taubate_28": {
+    "local": "Taubate",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "industria||relation/11998941"
+    ],
+    "eixo_az": 282.0,
+    "setor": 71.7,
+    "voo_alto": 15,
+    "cobertura": 0.8038674033149171,
+    "split": "treino"
+  },
+  "taubate/real_taubate_29": {
+    "local": "Taubate",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Base de Aviação de Taubaté|node/1042060610",
+      "usina||way/1503867864",
+      "subestacao|Subestação Barreiro|way/214346593"
+    ],
+    "eixo_az": 255.1,
+    "setor": 84.7,
+    "voo_alto": 7,
+    "cobertura": 0.9908759124087592,
+    "split": "treino"
+  },
+  "taubate/real_taubate_30": {
+    "local": "Taubate",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Mantiqueira|way/863185119",
+      "usina||way/1503867864"
+    ],
+    "eixo_az": 293.7,
+    "setor": 87.8,
+    "voo_alto": 6,
+    "cobertura": 0.8733333333333333,
+    "split": "treino"
+  },
+  "taubate/real_taubate_31": {
+    "local": "Taubate",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria||relation/11998941",
+      "usina|UFV SP VI EQUIPAMENTOS FOTOVOLTAICOS LTDA|relation/15017726",
+      "industria|OneSubsea|way/992071688"
+    ],
+    "eixo_az": 151.0,
+    "setor": 79.4,
+    "voo_alto": 21,
+    "cobertura": 0.9465776293823038,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_00": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "subestacao|Subestação Itajubá|way/344557753"
+    ],
+    "eixo_az": 120.2,
+    "setor": 84.6,
+    "voo_alto": 8,
+    "cobertura": 0.44483985765124556,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_01": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Itajubá|way/344557753",
+      "aerodromo|Helibras|way/334012170"
+    ],
+    "eixo_az": 88.4,
+    "setor": 63.0,
+    "voo_alto": 3,
+    "cobertura": 0.5736196319018405,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_02": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|CEAM|way/1387658348",
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851"
+    ],
+    "eixo_az": 117.2,
+    "setor": 78.9,
+    "voo_alto": 18,
+    "cobertura": 0.5266903914590747,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_03": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "industria||way/272335023"
+    ],
+    "eixo_az": 43.9,
+    "setor": 79.1,
+    "voo_alto": 12,
+    "cobertura": 0.3802197802197802,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_04": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "comunicacao||node/8185460700",
+      "subestacao|Subestação Itajubá|way/344557753"
+    ],
+    "eixo_az": 341.7,
+    "setor": 60.8,
+    "voo_alto": 10,
+    "cobertura": 0.5355191256830601,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_05": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "subestacao|Subestação Itajubá|way/344557753"
+    ],
+    "eixo_az": 236.0,
+    "setor": 82.3,
+    "voo_alto": 3,
+    "cobertura": 0.8423423423423423,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_06": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/685077519",
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851"
+    ],
+    "eixo_az": 325.8,
+    "setor": 80.6,
+    "voo_alto": 4,
+    "cobertura": 0.6787330316742082,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_07": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "agua||way/685077519",
+      "comunicacao||node/8185478232"
+    ],
+    "eixo_az": 160.5,
+    "setor": 81.1,
+    "voo_alto": 9,
+    "cobertura": 0.6073059360730594,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_08": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Itajubá|way/344557753",
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851"
+    ],
+    "eixo_az": 103.3,
+    "setor": 80.5,
+    "voo_alto": 5,
+    "cobertura": 0.5128571428571429,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_09": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "industria||way/272335083",
+      "subestacao|Subestação Itajubá|way/344557753"
+    ],
+    "eixo_az": 85.5,
+    "setor": 67.4,
+    "voo_alto": 0,
+    "cobertura": 0.5123456790123457,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_10": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|Estação de Tratamento de Água|way/544994538",
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "industria||way/272335023"
+    ],
+    "eixo_az": 282.2,
+    "setor": 80.0,
+    "voo_alto": 10,
+    "cobertura": 0.6579710144927536,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_11": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "comunicacao||node/5280086295"
+    ],
+    "eixo_az": 294.2,
+    "setor": 76.4,
+    "voo_alto": 6,
+    "cobertura": 0.6607142857142857,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_12": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Itajubá|way/344557753",
+      "aerodromo|Helibras|way/334012170"
+    ],
+    "eixo_az": 111.3,
+    "setor": 62.5,
+    "voo_alto": 6,
+    "cobertura": 0.6691729323308271,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_13": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Mahle|way/450240403",
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851"
+    ],
+    "eixo_az": 79.9,
+    "setor": 85.2,
+    "voo_alto": 9,
+    "cobertura": 0.4982456140350877,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_14": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "agua|Estação de Tratamento de Água|way/446610199"
+    ],
+    "eixo_az": 356.2,
+    "setor": 84.9,
+    "voo_alto": 13,
+    "cobertura": 0.4417293233082707,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_15": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "industria||way/450423991",
+      "agua|Estação de Tratamento de Água|way/446610199"
+    ],
+    "eixo_az": 306.9,
+    "setor": 62.0,
+    "voo_alto": 2,
+    "cobertura": 0.7737226277372263,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_16": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria||way/272335083",
+      "industria||way/272335023",
+      "industria|Helibras|way/450423990"
+    ],
+    "eixo_az": 249.1,
+    "setor": 60.5,
+    "voo_alto": 10,
+    "cobertura": 0.6876640419947506,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_17": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria||way/272335083",
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "subestacao|Subestação Mahle|way/450240403"
+    ],
+    "eixo_az": 22.9,
+    "setor": 75.0,
+    "voo_alto": 9,
+    "cobertura": 0.3800978792822186,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_18": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "comunicacao||node/11882134267",
+      "agua|Estação de Tratamento de Água|way/544994538"
+    ],
+    "eixo_az": 257.3,
+    "setor": 64.9,
+    "voo_alto": 15,
+    "cobertura": 0.7528089887640449,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_19": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "subestacao|Subestação Mahle|way/450240403",
+      "subestacao|Subestação Itajubá|way/344557753"
+    ],
+    "eixo_az": 109.4,
+    "setor": 69.8,
+    "voo_alto": 16,
+    "cobertura": 0.49874686716791977,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_20": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria||way/450423991",
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851"
+    ],
+    "eixo_az": 104.7,
+    "setor": 69.1,
+    "voo_alto": 9,
+    "cobertura": 0.5619718309859155,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_21": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Itajubá|way/344557753",
+      "agua|Estação de Tratamento de Água|way/544994538"
+    ],
+    "eixo_az": 18.2,
+    "setor": 69.8,
+    "voo_alto": 6,
+    "cobertura": 0.4563758389261745,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_22": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "agua|Estação de Tratamento de Água|way/446610199",
+      "comunicacao||way/1557419653"
+    ],
+    "eixo_az": 343.3,
+    "setor": 79.3,
+    "voo_alto": 2,
+    "cobertura": 0.39490445859872614,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_23": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "subestacao|CEAM|way/1387658348",
+      "subestacao|Subestação Itajubá|way/344557753"
+    ],
+    "eixo_az": 7.0,
+    "setor": 66.6,
+    "voo_alto": 16,
+    "cobertura": 0.4646840148698885,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_24": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "agua|Estação de Tratamento de Água|way/446610199",
+      "industria||way/272335083"
+    ],
+    "eixo_az": 273.9,
+    "setor": 66.4,
+    "voo_alto": 4,
+    "cobertura": 0.6446280991735537,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_25": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "agua||way/685077519",
+      "industria||way/272335023"
+    ],
+    "eixo_az": 204.6,
+    "setor": 70.6,
+    "voo_alto": 5,
+    "cobertura": 0.4942528735632184,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_26": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "agua||way/685077519"
+    ],
+    "eixo_az": 350.6,
+    "setor": 72.1,
+    "voo_alto": 2,
+    "cobertura": 0.6170212765957447,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_27": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "comunicacao||node/4438497797",
+      "aerodromo|Helibras|way/334012170",
+      "industria||way/272335083"
+    ],
+    "eixo_az": 283.1,
+    "setor": 64.3,
+    "voo_alto": 5,
+    "cobertura": 0.5523114355231143,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_28": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria||way/450423991",
+      "industria||way/272335023"
+    ],
+    "eixo_az": 155.4,
+    "setor": 73.3,
+    "voo_alto": 6,
+    "cobertura": 0.5128205128205128,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_29": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|CEAM|way/1387658348",
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "industria||way/272335083"
+    ],
+    "eixo_az": 39.2,
+    "setor": 82.7,
+    "voo_alto": 4,
+    "cobertura": 0.40145985401459855,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_30": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina|Usina fotovoltaica Unimed Itajubá|way/1328820851",
+      "comunicacao||node/4438497800",
+      "agua|Estação de Tratamento de Água|way/544994538"
+    ],
+    "eixo_az": 309.7,
+    "setor": 83.2,
+    "voo_alto": 12,
+    "cobertura": 0.39094650205761317,
+    "split": "treino"
+  },
+  "itajuba_centro/real_itajuba_centro_31": {
+    "local": "Itajuba (centro)",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Helibras|way/334012170",
+      "subestacao|CEAM|way/1387658348"
+    ],
+    "eixo_az": 88.1,
+    "setor": 80.1,
+    "voo_alto": 12,
+    "cobertura": 0.5048309178743962,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_00": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "industria|Setefer/Fercoi|way/1041663725",
+      "subestacao|Subestação Pedro Vicente|way/552996898"
+    ],
+    "eixo_az": 333.6,
+    "setor": 60.6,
+    "voo_alto": 5,
+    "cobertura": 0.9782608695652174,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_01": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua||way/1170365505",
+      "agua|EEAT França Pinto|way/1221040326"
+    ],
+    "eixo_az": 171.1,
+    "setor": 64.5,
+    "voo_alto": 5,
+    "cobertura": 0.8860759493670886,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_02": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua|Caixa de Bombeamento de Esgosto|way/930300036",
+      "subestacao|Subestação Oratório|way/417294304"
+    ],
+    "eixo_az": 310.8,
+    "setor": 72.9,
+    "voo_alto": 11,
+    "cobertura": 0.9105504587155964,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_03": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação Pari - CPTM|way/484257445",
+      "subestacao|Subestação Barra Funda|way/551894120",
+      "subestacao|Subestação Miguel Reale|way/245893026"
+    ],
+    "eixo_az": 304.5,
+    "setor": 73.2,
+    "voo_alto": 7,
+    "cobertura": 0.9977064220183486,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_04": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua||way/589509395",
+      "industria|Coca Cola Brasil|way/705821780",
+      "agua||way/1170365505"
+    ],
+    "eixo_az": 228.0,
+    "setor": 89.4,
+    "voo_alto": 1,
+    "cobertura": 0.950354609929078,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_05": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/589509395",
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166"
+    ],
+    "eixo_az": 228.1,
+    "setor": 75.9,
+    "voo_alto": 4,
+    "cobertura": 0.9864864864864865,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_06": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua|EEAT França Pinto|way/1221040326",
+      "agua||way/589509395"
+    ],
+    "eixo_az": 139.1,
+    "setor": 60.1,
+    "voo_alto": 7,
+    "cobertura": 0.4670846394984326,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_07": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua||way/1170365505",
+      "agua||way/589509395"
+    ],
+    "eixo_az": 215.1,
+    "setor": 89.5,
+    "voo_alto": 4,
+    "cobertura": 0.9931972789115646,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_08": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "subestacao|Subestação Açúcar União|way/466024030"
+    ],
+    "eixo_az": 241.9,
+    "setor": 73.2,
+    "voo_alto": 3,
+    "cobertura": 0.745945945945946,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_09": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "subestacao|Subestação América|way/1420834090",
+      "subestacao|Subestação Armco|way/552425359"
+    ],
+    "eixo_az": 353.5,
+    "setor": 73.3,
+    "voo_alto": 9,
+    "cobertura": 0.9568690095846646,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_10": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua|EEAT França Pinto|way/1221040326"
+    ],
+    "eixo_az": 240.7,
+    "setor": 69.9,
+    "voo_alto": 1,
+    "cobertura": 0.9551282051282052,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_11": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua||way/589509395"
+    ],
+    "eixo_az": 160.4,
+    "setor": 68.5,
+    "voo_alto": 5,
+    "cobertura": 0.5712435233160622,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_12": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação Pari - CPTM|way/484257445",
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "industria|Coats Linhas Correntes|way/1135672211"
+    ],
+    "eixo_az": 358.5,
+    "setor": 84.8,
+    "voo_alto": 11,
+    "cobertura": 0.9448818897637795,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_13": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "industria|Garagem Grupo JCA|way/928932527"
+    ],
+    "eixo_az": 85.0,
+    "setor": 87.6,
+    "voo_alto": 1,
+    "cobertura": 0.8183254344391785,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_14": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|ARMCO|way/182543093",
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166"
+    ],
+    "eixo_az": 211.8,
+    "setor": 89.5,
+    "voo_alto": 11,
+    "cobertura": 0.46496815286624205,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_15": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação Shopping Mooca|way/552660521",
+      "agua|Caixa de Bombeamento de Esgosto|way/930300036",
+      "agua||way/589509395"
+    ],
+    "eixo_az": 58.7,
+    "setor": 70.6,
+    "voo_alto": 2,
+    "cobertura": 0.8888888888888888,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_16": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|EEAT França Pinto|way/1221040326",
+      "comunicacao||node/7202258306",
+      "agua||way/589509395"
+    ],
+    "eixo_az": 145.0,
+    "setor": 82.0,
+    "voo_alto": 9,
+    "cobertura": 0.6619718309859155,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_17": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|EEAT França Pinto|way/1221040326",
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua||way/1170365505"
+    ],
+    "eixo_az": 10.9,
+    "setor": 60.9,
+    "voo_alto": 15,
+    "cobertura": 0.8374291115311909,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_18": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação Tuiuti|way/245958763",
+      "subestacao||way/552784693",
+      "subestacao|Subestação Franca|way/1225575004"
+    ],
+    "eixo_az": 321.9,
+    "setor": 68.6,
+    "voo_alto": 13,
+    "cobertura": 0.8429602888086642,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_19": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua|EEAT França Pinto|way/1221040326",
+      "agua||way/589509395"
+    ],
+    "eixo_az": 120.5,
+    "setor": 89.9,
+    "voo_alto": 12,
+    "cobertura": 0.7018348623853211,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_20": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua|EEAT França Pinto|way/1221040326",
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166"
+    ],
+    "eixo_az": 226.8,
+    "setor": 68.3,
+    "voo_alto": 17,
+    "cobertura": 0.9644549763033176,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_21": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "industria||way/737029151"
+    ],
+    "eixo_az": 141.6,
+    "setor": 67.4,
+    "voo_alto": 4,
+    "cobertura": 0.8794326241134752,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_22": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação América|way/1420834090",
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166"
+    ],
+    "eixo_az": 36.4,
+    "setor": 69.4,
+    "voo_alto": 4,
+    "cobertura": 0.9578544061302682,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_23": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|ARMCO|way/182543093",
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166"
+    ],
+    "eixo_az": 25.0,
+    "setor": 67.2,
+    "voo_alto": 2,
+    "cobertura": 0.7272727272727273,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_24": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Juscelino Kubitschek|way/552406900",
+      "agua|Caixa de Bombeamento de Esgosto|way/930300036"
+    ],
+    "eixo_az": 272.5,
+    "setor": 64.1,
+    "voo_alto": 10,
+    "cobertura": 0.7946768060836502,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_25": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua|EEAT França Pinto|way/1221040326"
+    ],
+    "eixo_az": 251.6,
+    "setor": 85.5,
+    "voo_alto": 2,
+    "cobertura": 0.9321428571428572,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_26": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua||way/589509395"
+    ],
+    "eixo_az": 14.5,
+    "setor": 84.0,
+    "voo_alto": 0,
+    "cobertura": 0.9290322580645162,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_27": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "subestacao|Subestação Paula Souza|way/552823679",
+      "agua||way/589509395"
+    ],
+    "eixo_az": 240.2,
+    "setor": 86.2,
+    "voo_alto": 11,
+    "cobertura": 0.9922330097087378,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_28": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua|Caixa de Bombeamento de Esgosto|way/930300036",
+      "subestacao|Subestação Pari - CPTM|way/484257445"
+    ],
+    "eixo_az": 279.8,
+    "setor": 69.6,
+    "voo_alto": 19,
+    "cobertura": 0.8882783882783882,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_29": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "agua|Caixa de Bombeamento de Esgosto|way/930300036",
+      "industria||way/826488690"
+    ],
+    "eixo_az": 262.2,
+    "setor": 63.8,
+    "voo_alto": 10,
+    "cobertura": 0.8567293777134588,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_30": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "comunicacao||node/9843808327",
+      "agua|EEAT França Pinto|way/1221040326",
+      "subestacao|Subestação Cambuci|way/371377607"
+    ],
+    "eixo_az": 138.2,
+    "setor": 63.7,
+    "voo_alto": 18,
+    "cobertura": 0.8685446009389671,
+    "split": "treino"
+  },
+  "sao_paulo/real_sao_paulo_31": {
+    "local": "Sao Paulo",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 2,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Campo de Marte|way/1421149166",
+      "industria|Brasilmaxi Logística|way/802734365"
+    ],
+    "eixo_az": 280.3,
+    "setor": 77.0,
+    "voo_alto": 4,
+    "cobertura": 0.8805668016194332,
+    "split": "treino"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_00": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria||way/1422533645",
+      "agua|Estação de Tratamento de Esgoto Toque-Toque|way/123975568"
+    ],
+    "eixo_az": 253.1,
+    "setor": 81.6,
+    "voo_alto": 5,
+    "cobertura": 0.8885017421602788,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_01": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria||way/1422533644",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 212.6,
+    "setor": 85.4,
+    "voo_alto": 6,
+    "cobertura": 0.7105263157894737,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_02": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|Estaleiro Inhaúma|relation/15808038",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "industria||way/1422533644"
+    ],
+    "eixo_az": 96.7,
+    "setor": 82.0,
+    "voo_alto": 3,
+    "cobertura": 0.8610271903323263,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_03": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "agua||way/182648251"
+    ],
+    "eixo_az": 98.4,
+    "setor": 67.4,
+    "voo_alto": 5,
+    "cobertura": 0.9609756097560975,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_04": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1230415262",
+      "subestacao|Subestação Frei Caneca|way/108435903",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 303.4,
+    "setor": 75.4,
+    "voo_alto": 2,
+    "cobertura": 0.8849557522123894,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_05": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "industria||relation/14048665",
+      "usina||way/1230415262"
+    ],
+    "eixo_az": 141.9,
+    "setor": 81.1,
+    "voo_alto": 6,
+    "cobertura": 0.8013245033112583,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_06": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "agua|Estação de Tratamento de Esgoto Toque-Toque|way/182648249",
+      "industria||relation/14048665"
+    ],
+    "eixo_az": 214.0,
+    "setor": 63.6,
+    "voo_alto": 12,
+    "cobertura": 0.7627118644067796,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_07": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|Estação de Tratamento do Rio Carioca|way/385756486",
+      "agua||way/182648250",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 36.2,
+    "setor": 84.4,
+    "voo_alto": 3,
+    "cobertura": 0.6537216828478964,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_08": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1230415262",
+      "agua||way/182648251",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 91.2,
+    "setor": 82.7,
+    "voo_alto": 2,
+    "cobertura": 0.9226190476190477,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_09": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|Ilha das Cobras|way/70601832",
+      "usina||way/1230415262",
+      "industria|Garagem de Apoio Coesa|way/903416877"
+    ],
+    "eixo_az": 216.0,
+    "setor": 64.5,
+    "voo_alto": 3,
+    "cobertura": 0.7151515151515152,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_10": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina||way/1230415262",
+      "agua|Estação de Tratamento do Rio Carioca|way/385756486"
+    ],
+    "eixo_az": 27.5,
+    "setor": 66.7,
+    "voo_alto": 8,
+    "cobertura": 0.6470588235294118,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_11": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "usina||way/1230415262",
+      "agua||way/182648252"
+    ],
+    "eixo_az": 47.5,
+    "setor": 68.4,
+    "voo_alto": 21,
+    "cobertura": 0.8202247191011236,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_12": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "subestacao|Subestação Baependi|way/80508162",
+      "agua||way/182648252"
+    ],
+    "eixo_az": 17.3,
+    "setor": 87.6,
+    "voo_alto": 15,
+    "cobertura": 0.6294536817102138,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_13": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "agua|Estação de Tratamento de Esgoto Toque-Toque|way/182648249",
+      "comunicacao||node/9291210922"
+    ],
+    "eixo_az": 121.7,
+    "setor": 68.4,
+    "voo_alto": 13,
+    "cobertura": 0.8499156829679595,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_14": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|Estaleiro Inhaúma|relation/15808038",
+      "comunicacao||node/9665798043"
+    ],
+    "eixo_az": 160.9,
+    "setor": 79.5,
+    "voo_alto": 12,
+    "cobertura": 0.8218390804597702,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_15": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1230415262",
+      "subestacao|Subestação Frei Caneca|way/108435903",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 191.1,
+    "setor": 85.9,
+    "voo_alto": 4,
+    "cobertura": 0.8790896159317212,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_16": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "industria||relation/15808032",
+      "usina||way/1230415262"
+    ],
+    "eixo_az": 161.9,
+    "setor": 83.4,
+    "voo_alto": 3,
+    "cobertura": 0.6802030456852792,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_17": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "comunicacao||node/4308336803",
+      "subestacao|Subestação SuperVia|way/210111762",
+      "usina||way/1230415262"
+    ],
+    "eixo_az": 86.2,
+    "setor": 61.8,
+    "voo_alto": 16,
+    "cobertura": 0.6577946768060836,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_18": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Camerino|way/554739309",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 56.6,
+    "setor": 72.0,
+    "voo_alto": 7,
+    "cobertura": 0.8938053097345132,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_19": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "usina||way/1230415262"
+    ],
+    "eixo_az": 296.2,
+    "setor": 83.9,
+    "voo_alto": 19,
+    "cobertura": 0.9837209302325581,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_20": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1230415262",
+      "agua||way/182648252",
+      "subestacao|Subestação SuperVia|way/210111762"
+    ],
+    "eixo_az": 219.9,
+    "setor": 64.7,
+    "voo_alto": 5,
+    "cobertura": 0.889090909090909,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_21": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "subestacao|Subestação Santo Antonio|way/320725830"
+    ],
+    "eixo_az": 169.6,
+    "setor": 70.9,
+    "voo_alto": 22,
+    "cobertura": 0.7301587301587301,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_22": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1230415262",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "industria||relation/15808032"
+    ],
+    "eixo_az": 31.5,
+    "setor": 81.2,
+    "voo_alto": 5,
+    "cobertura": 0.7683168316831683,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_23": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria||relation/15808032",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 259.5,
+    "setor": 88.3,
+    "voo_alto": 2,
+    "cobertura": 0.9276315789473685,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_24": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/182648252",
+      "usina||way/1230415262"
+    ],
+    "eixo_az": 47.9,
+    "setor": 62.9,
+    "voo_alto": 3,
+    "cobertura": 0.8081761006289309,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_25": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1230415262",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "subestacao|Subestação Baependi|way/80508162"
+    ],
+    "eixo_az": 230.2,
+    "setor": 78.3,
+    "voo_alto": 6,
+    "cobertura": 0.9256505576208178,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_26": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1230415262",
+      "agua||way/182648252",
+      "subestacao|Subestação Baependi|way/80508162"
+    ],
+    "eixo_az": 120.5,
+    "setor": 81.1,
+    "voo_alto": 13,
+    "cobertura": 0.716024340770791,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_27": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "usina||way/1230415262",
+      "industria||relation/14048665"
+    ],
+    "eixo_az": 81.5,
+    "setor": 63.0,
+    "voo_alto": 11,
+    "cobertura": 0.9391304347826087,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_28": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua||way/182648251",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 181.3,
+    "setor": 86.4,
+    "voo_alto": 2,
+    "cobertura": 0.7248322147651006,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_29": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação SuperVia|way/210111762",
+      "aerodromo|Aeroporto Santos Dumont|way/383711861"
+    ],
+    "eixo_az": 255.5,
+    "setor": 77.2,
+    "voo_alto": 2,
+    "cobertura": 0.893687707641196,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_30": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "subestacao|Subestação Frei Caneca|way/108435903",
+      "agua||way/182648252"
+    ],
+    "eixo_az": 131.2,
+    "setor": 64.0,
+    "voo_alto": 3,
+    "cobertura": 0.6462585034013606,
+    "split": "teste"
+  },
+  "rio_de_janeiro/real_rio_de_janeiro_31": {
+    "local": "Rio de Janeiro",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Aeroporto Santos Dumont|way/383711861",
+      "subestacao|Subestação Botafogo|way/554739294",
+      "agua|Estação de Tratamento de Esgoto Toque-Toque|way/182648249"
+    ],
+    "eixo_az": 355.3,
+    "setor": 84.1,
+    "voo_alto": 7,
+    "cobertura": 0.8620689655172413,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_00": {
+    "local": "Brasilia",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao||way/1127539340",
+      "usina||way/1018913036",
+      "agua|Estação Elevatória de Esgoto|way/281941442"
+    ],
+    "eixo_az": 341.5,
+    "setor": 74.9,
+    "voo_alto": 9,
+    "cobertura": 0.9143468950749465,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_01": {
+    "local": "Brasilia",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "aerodromo|Pista de Aeromodelismo|way/282594904",
+      "subestacao|Subestação Brasília Centro|way/141491475",
+      "agua|Estação de Tratamento de Esgoto Sul|way/141450804"
+    ],
+    "eixo_az": 304.9,
+    "setor": 74.9,
+    "voo_alto": 8,
+    "cobertura": 0.7060439560439561,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_02": {
+    "local": "Brasilia",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao||way/1127539340",
+      "aerodromo|Associação dos Pilotos de Ultraleve de Brasília (APUB)|node/4794187471"
+    ],
+    "eixo_az": 1.3,
+    "setor": 60.4,
+    "voo_alto": 7,
+    "cobertura": 0.9838709677419355,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_03": {
+    "local": "Brasilia",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|Garagem de Ônibus da Piracicabana e da TCB|way/1074687670",
+      "subestacao|Subestação Estadio Nacional|way/285455217",
+      "agua|Estação Elevatória de Esgoto|way/281941442"
+    ],
+    "eixo_az": 333.8,
+    "setor": 67.3,
+    "voo_alto": 8,
+    "cobertura": 0.7614533965244866,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_04": {
+    "local": "Brasilia",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177",
+      "industria|Garagem de Ônibus da Piracicabana e da TCB|way/1074687670",
+      "agua|Estação Elevatória de Esgoto|way/281941442"
+    ],
+    "eixo_az": 59.8,
+    "setor": 76.3,
+    "voo_alto": 5,
+    "cobertura": 0.6342857142857142,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_05": {
+    "local": "Brasilia",
+    "n_aeronaves": 24,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 6,
+      "isca": 6,
+      "vagante": 6,
+      "fpv": 6
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "subestacao|Subestação 06|way/563882506",
+      "usina||way/1018913036",
+      "aerodromo|Pista de Aeromodelismo|way/282594904"
+    ],
+    "eixo_az": 13.3,
+    "setor": 67.0,
+    "voo_alto": 3,
+    "cobertura": 0.9473684210526315,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_06": {
+    "local": "Brasilia",
+    "n_aeronaves": 12,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 3,
+      "isca": 3,
+      "vagante": 3,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "comunicacao||node/8898756786",
+      "industria|Garagem de Ônibus da Piracicabana e da TCB|way/1074687670"
+    ],
+    "eixo_az": 76.3,
+    "setor": 65.1,
+    "voo_alto": 4,
+    "cobertura": 0.8352272727272727,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_07": {
+    "local": "Brasilia",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 3,
+    "radares": 5,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|CAESB - Estação de Tratamento de Esgoto Norte|way/141487700",
+      "subestacao|Subestação 06|way/563882506",
+      "usina||way/1486057657"
+    ],
+    "eixo_az": 259.5,
+    "setor": 67.2,
+    "voo_alto": 6,
+    "cobertura": 0.9925925925925926,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_08": {
+    "local": "Brasilia",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Associação dos Pilotos de Ultraleve de Brasília (APUB)|node/4794187471",
+      "usina||way/1486057657"
+    ],
+    "eixo_az": 19.9,
+    "setor": 84.4,
+    "voo_alto": 9,
+    "cobertura": 0.5223880597014925,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_09": {
+    "local": "Brasilia",
+    "n_aeronaves": 36,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 9,
+      "isca": 9,
+      "vagante": 9,
+      "fpv": 9
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177",
+      "usina||way/1018913036",
+      "agua|Estação Elevatória de Esgoto|way/281941442"
+    ],
+    "eixo_az": 162.6,
+    "setor": 80.5,
+    "voo_alto": 9,
+    "cobertura": 0.8043052837573386,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_10": {
+    "local": "Brasilia",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua||way/238457190",
+      "usina||way/1018913036",
+      "aerodromo|Pista de Aeromodelismo|way/282594904"
+    ],
+    "eixo_az": 12.8,
+    "setor": 85.2,
+    "voo_alto": 12,
+    "cobertura": 0.4414715719063545,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_11": {
+    "local": "Brasilia",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina||way/1486057657",
+      "aerodromo|Pista de Aeromodelismo|way/282594904"
+    ],
+    "eixo_az": 44.3,
+    "setor": 64.0,
+    "voo_alto": 11,
+    "cobertura": 0.597682119205298,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_12": {
+    "local": "Brasilia",
+    "n_aeronaves": 24,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 13,
+      "isca": 6,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 7,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "comunicacao||node/8898764637",
+      "usina||way/1018913036",
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177"
+    ],
+    "eixo_az": 147.2,
+    "setor": 78.6,
+    "voo_alto": 7,
+    "cobertura": 0.7899408284023669,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_13": {
+    "local": "Brasilia",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "usina||way/1018913036",
+      "agua||way/238457190"
+    ],
+    "eixo_az": 274.7,
+    "setor": 79.8,
+    "voo_alto": 1,
+    "cobertura": 0.9647058823529412,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_14": {
+    "local": "Brasilia",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Pista de Aeromodelismo|way/282594904",
+      "agua|Reservatório de Água 2|way/245309988"
+    ],
+    "eixo_az": 298.2,
+    "setor": 70.3,
+    "voo_alto": 3,
+    "cobertura": 0.9444444444444444,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_15": {
+    "local": "Brasilia",
+    "n_aeronaves": 24,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 4,
+      "isca": 3,
+      "vagante": 9,
+      "fpv": 8
+    },
+    "ondas": 1,
+    "radares": 4,
+    "drones": 30,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1018913036",
+      "usina||way/1486057657",
+      "subestacao|Subestação 02|way/141910972"
+    ],
+    "eixo_az": 47.8,
+    "setor": 80.3,
+    "voo_alto": 2,
+    "cobertura": 0.5,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_16": {
+    "local": "Brasilia",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua||way/238457190",
+      "usina||way/1018913036",
+      "usina||way/1486057657"
+    ],
+    "eixo_az": 136.3,
+    "setor": 81.8,
+    "voo_alto": 6,
+    "cobertura": 0.8646408839779005,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_17": {
+    "local": "Brasilia",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|Reservatório de Água 2|way/245309988",
+      "aerodromo|Pista de Aeromodelismo|way/282594904",
+      "industria|Garagem de Ônibus da Piracicabana e da TCB|way/1074687670"
+    ],
+    "eixo_az": 285.4,
+    "setor": 67.1,
+    "voo_alto": 14,
+    "cobertura": 0.9633620689655172,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_18": {
+    "local": "Brasilia",
+    "n_aeronaves": 36,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 20,
+      "isca": 9,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1018913036",
+      "subestacao|Subestação Estadio Nacional|way/285455217",
+      "aerodromo|Pista de Aeromodelismo|way/282594904"
+    ],
+    "eixo_az": 70.6,
+    "setor": 71.0,
+    "voo_alto": 13,
+    "cobertura": 0.533066132264529,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_19": {
+    "local": "Brasilia",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "agua|Estação Elevatória de Esgoto|way/281941442",
+      "subestacao||way/1127539340",
+      "usina||way/1486057657"
+    ],
+    "eixo_az": 7.3,
+    "setor": 62.4,
+    "voo_alto": 7,
+    "cobertura": 0.8642857142857143,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_20": {
+    "local": "Brasilia",
+    "n_aeronaves": 12,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 6,
+      "isca": 3,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 2,
+    "radares": 4,
+    "drones": 15,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1018913036",
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177",
+      "agua|Estação de Tratamento de Esgoto Sul|way/141450804"
+    ],
+    "eixo_az": 122.3,
+    "setor": 80.4,
+    "voo_alto": 5,
+    "cobertura": 0.5081967213114754,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_21": {
+    "local": "Brasilia",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 4,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Pista de Aeromodelismo|way/282594904",
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177"
+    ],
+    "eixo_az": 321.5,
+    "setor": 74.5,
+    "voo_alto": 20,
+    "cobertura": 0.7104851330203443,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_22": {
+    "local": "Brasilia",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177",
+      "aerodromo|Pista de Aeromodelismo|way/282594904"
+    ],
+    "eixo_az": 34.6,
+    "setor": 69.6,
+    "voo_alto": 4,
+    "cobertura": 0.672082717872969,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_23": {
+    "local": "Brasilia",
+    "n_aeronaves": 48,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 21,
+      "isca": 19,
+      "vagante": 5,
+      "fpv": 3
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Pista de Aeromodelismo|way/282594904",
+      "usina||way/1018913036"
+    ],
+    "eixo_az": 254.0,
+    "setor": 78.0,
+    "voo_alto": 17,
+    "cobertura": 0.9957537154989384,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_24": {
+    "local": "Brasilia",
+    "n_aeronaves": 36,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 6,
+      "isca": 4,
+      "vagante": 14,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 45,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "comunicacao||node/5256840736",
+      "aerodromo|Associação dos Pilotos de Ultraleve de Brasília (APUB)|node/4794187471",
+      "usina||way/1486057657"
+    ],
+    "eixo_az": 140.9,
+    "setor": 76.3,
+    "voo_alto": 6,
+    "cobertura": 0.7945736434108527,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_25": {
+    "local": "Brasilia",
+    "n_aeronaves": 12,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 2,
+      "isca": 2,
+      "vagante": 4,
+      "fpv": 4
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177",
+      "agua|CAESB - Estação de Tratamento de Esgoto Norte|way/141487700"
+    ],
+    "eixo_az": 139.5,
+    "setor": 85.7,
+    "voo_alto": 2,
+    "cobertura": 0.4497354497354497,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_26": {
+    "local": "Brasilia",
+    "n_aeronaves": 24,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 10,
+      "isca": 9,
+      "vagante": 3,
+      "fpv": 2
+    },
+    "ondas": 1,
+    "radares": 5,
+    "drones": 30,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "agua|CAESB - Estação de Tratamento de Esgoto Norte|way/141487700",
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177"
+    ],
+    "eixo_az": 259.3,
+    "setor": 67.2,
+    "voo_alto": 8,
+    "cobertura": 0.8865546218487395,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_27": {
+    "local": "Brasilia",
+    "n_aeronaves": 48,
+    "composicao": "equilibrado",
+    "classes": {
+      "ataque": 12,
+      "isca": 12,
+      "vagante": 12,
+      "fpv": 12
+    },
+    "ondas": 1,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "usina||way/1486057657",
+      "usina||way/1018913036",
+      "subestacao|Subestação 02|way/141910972"
+    ],
+    "eixo_az": 292.3,
+    "setor": 76.5,
+    "voo_alto": 9,
+    "cobertura": 0.9178082191780822,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_28": {
+    "local": "Brasilia",
+    "n_aeronaves": 36,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 15,
+      "isca": 14,
+      "vagante": 4,
+      "fpv": 3
+    },
+    "ondas": 2,
+    "radares": 7,
+    "drones": 45,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "aerodromo|Pista de Aeromodelismo|way/282594904",
+      "subestacao||way/1127539340"
+    ],
+    "eixo_az": 10.5,
+    "setor": 86.3,
+    "voo_alto": 13,
+    "cobertura": 0.9458333333333333,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_29": {
+    "local": "Brasilia",
+    "n_aeronaves": 48,
+    "composicao": "tatico",
+    "classes": {
+      "ataque": 8,
+      "isca": 5,
+      "vagante": 19,
+      "fpv": 16
+    },
+    "ondas": 2,
+    "radares": 6,
+    "drones": 60,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação 02|way/141910972",
+      "aerodromo|Associação dos Pilotos de Ultraleve de Brasília (APUB)|node/4794187471"
+    ],
+    "eixo_az": 192.4,
+    "setor": 77.1,
+    "voo_alto": 5,
+    "cobertura": 0.8612303290414879,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_30": {
+    "local": "Brasilia",
+    "n_aeronaves": 48,
+    "composicao": "longo_alcance",
+    "classes": {
+      "ataque": 27,
+      "isca": 12,
+      "vagante": 6,
+      "fpv": 3
+    },
+    "ondas": 3,
+    "radares": 7,
+    "drones": 60,
+    "zonas": 3,
+    "ativos_defendidos": [
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177",
+      "usina||way/1018913036",
+      "aerodromo|Pista de Aeromodelismo|way/282594904"
+    ],
+    "eixo_az": 238.1,
+    "setor": 76.1,
+    "voo_alto": 13,
+    "cobertura": 0.9298642533936652,
+    "split": "teste"
+  },
+  "brasilia/real_brasilia_31": {
+    "local": "Brasilia",
+    "n_aeronaves": 12,
+    "composicao": "saturacao",
+    "classes": {
+      "ataque": 5,
+      "isca": 4,
+      "vagante": 2,
+      "fpv": 1
+    },
+    "ondas": 3,
+    "radares": 6,
+    "drones": 15,
+    "zonas": 2,
+    "ativos_defendidos": [
+      "subestacao|Subestação Noroeste|way/554524275",
+      "industria|SIG - Setor de Industrias Gráficas|way/550880177"
+    ],
+    "eixo_az": 74.0,
+    "setor": 85.2,
+    "voo_alto": 3,
+    "cobertura": 0.4642857142857143,
+    "split": "teste"
+  }
+}

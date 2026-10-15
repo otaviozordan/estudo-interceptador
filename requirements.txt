@@ -2,5 +2,7 @@ numpy
 scipy
 matplotlib
 rasterio
-pytest
 pillow
+torch
+pandas
+pytest

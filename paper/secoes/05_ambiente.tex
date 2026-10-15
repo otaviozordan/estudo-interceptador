@@ -1,0 +1,120 @@
+% =====================================================================================================
+\section{Ambiente de simulação}\label{sec:ambiente}
+
+Todos os métodos são avaliados no mesmo simulador, escrito em Python e aberto. Esta seção descreve o que ele modela e por
+quê; a Tabela~\ref{tab:parametros} lista os parâmetros. O simulador avança em passos de 1~s sobre um modelo digital de
+elevação real (Copernicus GLO-30, com resolução de 30~m), e usa subpassos de 0,1~s quando algum interceptador está perto
+de uma aeronave, para que o contato seja verificado com precisão.
+
+\subsection{Radares}
+Um radar emite pulsos e mede o eco refletido pelos objetos; a intensidade do eco em relação ao ruído do receptor é a
+\conceito{relação sinal--ruído} (SNR), e quanto maior ela, mais provável detectar o alvo e mais precisa a medida. O SNR
+segue a \emph{equação do radar},
+\begin{equation}
+  \mathrm{SNR}=\mathrm{SNR}_{50}\Big(\frac{R_0}{r}\Big)^4\sigma_{\mathrm{ef}}\,10^{-L/10},
+\end{equation}
+em que $r$ é a distância, $R_0$ é o alcance em que um alvo de 1~m$^2$ é detectado com 50\,\% de probabilidade,
+$\sigma_{\mathrm{ef}}$ é a \conceito{seção reta radar} (o ``tamanho'' do alvo visto pelo radar, em m$^2$) e $L$ são as
+perdas em decibéis. O expoente 4 vem de o sinal percorrer a distância duas vezes, ida e volta. A seção radar depende do
+ângulo de visada: um avião visto de lado reflete mais que visto de frente.
+
+A detecção segue o modelo de alvo \conceito{Swerling~I}~\cite{swerling1960}, que representa alvos cuja seção radar
+flutua de uma varredura para outra (por pequenas mudanças de atitude), com probabilidade de detecção
+$P_d=P_{fa}^{1/(1+\mathrm{SNR})}$, em que $P_{fa}=10^{-6}$ é a probabilidade de falso alarme por célula de resolução.
+As perdas $L$ incluem a atenuação atmosférica e a \conceito{difração} no relevo: quando um morro fica entre o radar e o
+alvo, o sinal não é cortado de forma abrupta, mas se curva por cima do obstáculo com uma atenuação que cresce à medida que
+o alvo desce na sombra do morro, calculada pelo modelo de gume de faca. A curvatura da Terra também é considerada.
+
+Cada radar gira com período de 4~s, de modo que mede cada alvo apenas quando o feixe passa por ele, e os radares não são
+sincronizados entre si. O ruído das medidas de distância e de ângulo cresce quando o SNR cai. Cada radar tem ainda
+\conceito{vieses} --- erros fixos de distância e de azimute, como os causados por um desalinhamento da antena --- que o
+rastreador desconhece, e produz falsos alarmes concentrados perto da antena, onde os ecos do terreno são mais fortes.
+
+\subsection{Rastreador}
+As medidas de todos os radares são combinadas por um \conceito{rastreador}, que mantém a lista de pistas. Para cada
+pista, ele estima posição e velocidade com um \conceito{filtro de Kalman}, que combina a previsão do movimento com as
+novas medidas, pesando cada uma pela sua incerteza. Como as ameaças alternam voo reto, órbitas e manobras, usamos um filtro
+\conceito{IMM} (\emph{interacting multiple models})~\cite{blom1988}, que roda dois filtros em paralelo --- um supondo
+movimento quase uniforme e outro admitindo acelerações maiores --- e combina as estimativas segundo qual modelo explica
+melhor as medidas recentes.
+
+A cada varredura, o rastreador decide qual medida pertence a qual pista (a \conceito{associação de dados}). Para isso, mede
+a distância entre a medida e a posição prevista de cada pista em unidades de incerteza (a \emph{distância de Mahalanobis}),
+descarta pares improváveis e escolhe a associação global de menor custo~\cite{barshalom2001}. Medidas não associadas
+iniciam pistas novas. Uma pista só é \conceito{confirmada}, e passada aos métodos de alocação, após 3 medidas; é descartada
+após 20~s sem atualização. Pistas duplicadas (o mesmo alvo visto por dois radares) são fundidas.
+
+\subsection{Ameaças}
+Cada ameaça percorre uma rota suavizada $\bm{\gamma}(s)$, em que $s$ é a distância percorrida, a uma velocidade constante
+sorteada na faixa da sua classe, a uma altura sobre o terreno que varia entre os pontos de controle da rota e com um
+\conceito{mergulho} final até o ponto de impacto, cuja inclinação depende da classe (Tabela~\ref{tab:classes}). As
+classes e os seus parâmetros vêm de fontes abertas sobre os vetores empregados na guerra na Ucrânia
+(Seção~\ref{sec:dataset}); a Tabela~\ref{tab:classes} indica quais valores são hipóteses do modelo.
+
+Os drones FPV, pilotados, podem manobrar. Como no gerador de manobras do simulador, a manobra é um
+\conceito{deslocamento lateral} $y(t)$ em relação à rota, medido na direção perpendicular a ela, $\bm{n}(s)$:
+\begin{equation}
+  \bm{p}(t)=\bm{\gamma}(s)+y\,\bm{n}(s),\qquad
+  \ddot y = \mathrm{sat}_{a_e}\!\big(\omega^2(y_{\mathrm{ref}}-y)-2\zeta\omega\dot y\big).
+  \label{eq:evasao}
+\end{equation}
+A segunda equação faz o deslocamento seguir uma referência $y_{\mathrm{ref}}$ como um sistema massa--mola amortecido, com
+frequência $\omega$ e amortecimento $\zeta$; a função $\mathrm{sat}_{a_e}$ limita a aceleração lateral a $a_e$, o que
+representa a agilidade máxima da aeronave. O deslocamento se anula perto do impacto, de modo que o ponto de queda não muda
+com a manobra. Nos FPV, a referência é sorteada a intervalos aleatórios (curvas aleatórias); em metade deles, há também
+uma guinada brusca para o lado oposto a um interceptador que se aproxima (\conceito{quebra reativa}), como faria um
+piloto que vê o interceptador. As demais classes seguem a rota programada sem manobrar.
+
+As iscas voam como as demais ameaças, com assinatura de radar parecida ou maior, mas têm valor de dano nulo: o impacto
+de uma isca não conta no dano, e o interceptador que a abate é contado como desperdiçado.
+
+\subsection{Interceptadores}
+Os interceptadores voam com velocidade constante e com uma taxa máxima de curva, que representa a sua aceleração lateral
+limitada. Em trânsito, voam em direção ao ponto previsto de encontro da última estimativa da pista~\eqref{eq:tint}. Quando
+uma ameaça entra no alcance do sensor próprio, passam à guiagem terminal, com uma lei fixa escolhida pelo experimento da
+Seção~\ref{sec:res_guiagem}. O contato é verificado continuamente: em cada subpasso, calcula-se a menor distância entre o
+interceptador e cada ameaça, supondo movimento retilíneo durante o subpasso, e há contato se ela for menor que $r_c$. A
+velocidade de 65~m/s (234~km/h) segue a de interceptadores empregados contra drones de ataque, que anunciam cruzeiro de
+140 a 170~km/h e máximo de 280~km/h~\cite{whSting,uaSting}; ela precisa superar a do drone de ataque, de até 51~m/s,
+para que a interceptação pela cauda seja possível.
+
+\subsection{Rodadas de decisão e fim do episódio}
+A cada 2~s ocorre uma rodada de decisão. Decidem, nesta ordem, os interceptadores em voo cuja reavaliação venceu --- a
+cada 10~s, ou imediatamente se a pista que perseguiam desapareceu --- e os interceptadores ociosos nas bases. Decidir
+primeiro os que já estão em voo evita lançar um interceptador novo contra uma pista que um em voo poderia assumir.
+
+O episódio termina quando todas as ameaças foram interceptadas ou atingiram o impacto, ou quando acaba a duração da
+missão. Se a defesa fica sem interceptadores --- nenhum na base nem em voo ---, ninguém mais pode deter as ameaças
+restantes, e todas elas, inclusive as que ainda não entraram no mapa, são contadas como impacto. No fim, os
+interceptadores ainda em voo, que não neutralizaram nada, contam como desperdiçados.
+
+\begin{table}[t]
+\centering
+\caption{Parâmetros do ambiente de simulação. Os parâmetros de cada classe de ameaça estão na
+Tabela~\ref{tab:classes}.}
+\label{tab:parametros}
+\small
+\begin{tabularx}{0.85\textwidth}{@{}lX@{}}
+\toprule
+\multicolumn{2}{@{}l}{\emph{Radares (4--7 por missão, em topos de morro)}} \\
+alcance ($P_d=50\%$, 1~m$^2$) & 4~km; antena a 15~m do solo; varredura de 4~s; 3~GHz \\
+ruído / vieses & $\sigma_r=40$~m em SNR de referência; vieses fixos por radar \\
+falsos alarmes & 2--5 por varredura \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Ameaças (12--48 por missão, em 4 classes)}} \\
+velocidade / altura & 17--51~m/s; 20--1500~m sobre o terreno, conforme a classe \\
+seção radar & 0,02--1,5~m$^2$ conforme a classe, dependente do aspecto \\
+manobra (FPV) & $a_e\le8$~m/s$^2$; $\omega=0{,}7$~rad/s, $\zeta=0{,}8$; quebra reativa a 300~m \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Interceptadores ($\lceil 1{,}25N \rceil$, em 2--4 bases)}} \\
+velocidade / autonomia & 65~m/s; 420~s \\
+aceleração lateral & 30~m/s$^2$ \\
+sensor próprio / contato & 300~m / 3~m \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Simulação}} \\
+passo / subpasso & 1~s / 0,1~s \\
+rodada de decisão / reavaliação & 2~s / 10~s \\
+penalidade por desperdício $\eta$ & 0,2 \\
+\bottomrule
+\end{tabularx}
+\end{table}

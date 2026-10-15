@@ -1,0 +1,669 @@
+% =====================================================================================================
+\section{Métodos implementados}\label{sec:metodos}
+
+Esta seção descreve, um a um, os 29 métodos implementados. Começamos por um catálogo e por um exemplo numérico que
+mostra por que famílias diferentes chegam a decisões diferentes; em seguida, detalhamos cada família.
+
+\subsection{Interface comum}
+Para que a comparação seja justa, todos os métodos usam a mesma interface. A cada rodada de decisão, recebem o mesmo
+quadro de pistas e as mesmas zonas prioritárias, e devolvem uma ação --- uma pista ou a ação nula --- para cada
+interceptador da fila. Há dois estilos de decisão:
+\begin{itemize}
+  \item Os métodos \conceito{individuais} (gulosos e árvores de comportamento) decidem um interceptador por vez, na ordem
+        da fila, sem considerar os demais da rodada. A pista escolhida fica indisponível para os seguintes.
+  \item Os métodos \conceito{conjuntos} resolvem a rodada inteira --- todos os interceptadores da fila contra todas as
+        pistas --- e entregam a cada interceptador a sua parte da solução.
+\end{itemize}
+Nenhum método acessa a posição verdadeira das ameaças nem sabe quais pistas são falsas ou quais são iscas. Exceto M1 e M8, todos aplicam o
+filtro de plausibilidade (E1).
+
+\subsection{Catálogo}
+A Tabela~\ref{tab:catalogo} lista os 29 métodos, numerados de M1 a M29, com a origem, o funcionamento e a adaptação de
+cada um em uma linha. As subseções seguintes detalham cada um.
+
+\begin{table}[p]
+\centering
+\caption{Catálogo dos métodos implementados. \emph{Ind.}: decide um interceptador por vez; \emph{conj.}: resolve a rodada
+inteira. As referências são as de origem; a última coluna resume o que mudou para o nosso problema.}
+\label{tab:catalogo}
+\scriptsize
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright}p{2.6cm}>{\raggedright}p{1.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+\# & Método & Origem & Como funciona & Adaptação \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Regras simples}} \\
+M1 & Aleatório & -- & pista sorteada, sem filtro, nunca troca (ind.) & piso de desempenho \\
+M2 & Guloso (próximo) & \cite{kline2019} & menor $c_{ij}$ (ind.) & -- \\
+M3 & Guloso (urgente) & \cite{kline2019} & menor folga até o solo (ind.) & folga estimada só pelo radar \\
+M4 & Guloso (prioridade) & \cite{kline2019} & menor $c_{ij}/w_j$ (ind.) & peso inferido pela geometria (E3) \\
+M5 & TEWA sequencial & \cite{roux2007} & ordena por ameaça, designa o mais rápido (conj.) & ameaça = peso / tempo até a zona \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Atribuição ótima (um interceptador por pista)}} \\
+M6 & Húngaro & \cite{kuhn1955,munkres1957} & atribuição de mínimo tempo total (conj.) & custo com histerese (E2) \\
+M7 & Húngaro ponderado & \cite{kuhn1955} & idem, tempo dividido pelo peso (conj.) & especialista das redes \\
+M8 & Húngaro pond. sem filtro & \cite{kuhn1955} & M7 sem o filtro (E1) & mede o valor do filtro \\
+M9 & Leilão & \cite{bertsekas1988} & lances e preços até o equilíbrio (conj.) & versão assimétrica sem escalonamento de $\varepsilon$ \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Alocação distribuída}} \\
+M10 & Guloso global & \cite{choi2009} & fixa o par de maior lance, repete (conj.) & forma centralizada do CBAA \\
+M11 & CBAA & \cite{choi2009} & lances locais + consenso de máximo (conj.) & comunicação completa via estação central \\
+M12 & CBAA com comunic. local & \cite{choi2009} & idem, grafo de 3~km, 3 rodadas & conflitos resolvidos por ordem de chegada \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{WTA (objetivo de valor esperado \eqref{eq:F})}} \\
+M13 & MMR & \cite{denbroeder1959} & insere o par de maior ganho marginal (conj.) & custo de lançamento decide esperar \\
+M14 & Húngaro sobre WTA & \cite{ahuja2007} & solução exata de \eqref{eq:F} com $\bar n=1$ (conj.) & coluna ``esperar'' por interceptador \\
+M15 & MILP (HiGHS) & \cite{afonso2020,cruz2025} & mesmo problema como programa inteiro & parte de alocação do MPC inteiro \\
+M16 & Busca local (VLSN) & \cite{ahuja2007} & melhora o MMR por realocação e troca & vizinhança polinomial \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Metaheurísticas (objetivo \eqref{eq:F}, semeadas com o MMR)}} \\
+M17 & Algoritmo genético & \cite{lee2003ga} & torneio, cruzamento uniforme, mutação, elitismo & semente gulosa (``eugenia'') \\
+M18 & Colônia de formigas & \cite{lee2002aco} & construção probabilística guiada por feromônio & opção ``esperar'' como caminho \\
+M19 & Recozimento simulado & \cite{kline2019} & aceita pioras com probabilidade decrescente & parte do MMR \\
+M20 & Enxame de partículas & \cite{kline2019} & partículas contínuas decodificadas por chave & codificação por chaves aleatórias \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Alocação dinâmica}} \\
+M21 & Húngaro com reserva & \cite{hosein1990} & M7, mas guarda 20\,\% dos interceptadores & reserva só usada por pistas prioritárias \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Arquiteturas comportamentais}} \\
+M22 & Árvore (distância) & \cite{ricardo2023} & engaja a mais próxima a menos de 4~km (ind.) & sem líder--seguidor \\
+M23 & Árvore (utilidade) & \cite{feitosa2025} & avança se a utilidade afim $>0$ (ind.) & sem ramo de reforço; GA no treino \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Políticas aprendidas (imitam M7 e/ou otimizam o dano)}} \\
+M24 & Imitação, DeepSets & \cite{ross2011,zaheer2017} & DAgger sobre M7 & amostragem estratificada das esperas \\
+M25 & Imitação, atenção & \cite{ross2011,kool2019} & idem, codificador Transformer & idem \\
+M26 & Imitação+PPO, DeepSets & \cite{schulman2017} & M24 refinada por reforço & perda auxiliar de legitimidade \\
+M27 & Imitação+PPO, atenção & \cite{schulman2017,jia2026} & M25 refinada por reforço & idem \\
+M28 & PPO, DeepSets & \cite{liu2023drones,palmas2025} & reforço do zero & política compartilhada \\
+M29 & PPO, atenção & \cite{jia2026} & reforço do zero & política compartilhada \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Exemplo ilustrativo}\label{sec:exemplo}
+Antes do detalhe, um exemplo pequeno mostra por que as famílias chegam a decisões diferentes. Há três interceptadores (A,
+B e C) e três pistas; a pista 3 está numa zona prioritária, de modo que os pesos são $w=(1,1,10)$. Os tempos de
+interceptação (em segundos) e as probabilidades de sucesso dadas por~\eqref{eq:q} são
+\begin{equation*}
+  c=\begin{pmatrix} 10 & 12 & 50\\ 11 & 60 & 70\\ 40 & 15 & 30\end{pmatrix},
+  \qquad
+  q=\begin{pmatrix} 0{,}836 & 0{,}833 & 0{,}782\\ 0{,}835 & 0{,}769 & 0{,}756\\ 0{,}795 & 0{,}829 & 0{,}809\end{pmatrix},
+\end{equation*}
+com uma linha por interceptador e uma coluna por pista. A Tabela~\ref{tab:exemplo} traz a solução de cada família,
+obtida com as próprias implementações.
+
+O guloso por proximidade, decidindo A primeiro, dá a A a pista 1 (10~s), embora A seja quase tão rápido para a pista 2
+(12~s); com isso, B --- que só é rápido para a pista 1 --- fica com a pista 2, a 60~s. O húngaro enxerga a rodada inteira,
+troca A e B de pista e reduz o tempo total de 100 para 53~s. O CBAA e o MMR também fixam primeiro o par mais atraente e
+chegam à mesma solução que o guloso, embora por motivos diferentes: o MMR começa pela pista prioritária, cujo ganho
+($10\times0{,}809$) domina os demais. O WTA exato encontra o maior valor esperado destruído (9,753 contra 9,691), o que
+confirmamos enumerando as seis atribuições possíveis. O guloso por prioridade, ao dividir os tempos pelos pesos, manda o
+interceptador mais rápido de todos (A) à pista prioritária e piora o restante.
+
+\begin{table}[t]
+\centering
+\caption{Exemplo ilustrativo: solução de cada família para a mesma instância (pista 3 prioritária). $F$ é o valor
+esperado destruído~\eqref{eq:F} sem custo de lançamento.}
+\label{tab:exemplo}
+\small
+\begin{tabular}{@{}lcccl@{}}
+\toprule
+Método & Designação & Tempo total (s) & $F$ & Por quê \\
+\midrule
+Guloso próximo (ordem A,B,C) & A$\to$1, B$\to$2, C$\to$3 & 100 & 9,691 & A decide primeiro \\
+Guloso prioridade & A$\to$3, B$\to$1, C$\to$2 & 76 & 9,484 & o mais rápido vai à prioritária \\
+Guloso global / CBAA & A$\to$1, B$\to$2, C$\to$3 & 100 & 9,691 & fixa o melhor par primeiro \\
+MMR & A$\to$1, B$\to$2, C$\to$3 & 100 & 9,691 & começa pela prioritária \\
+Húngaro / leilão & A$\to$2, B$\to$1, C$\to$3 & 53 & 9,753 & ótimo do tempo total \\
+WTA exato (M14, M15) & A$\to$2, B$\to$1, C$\to$3 & 53 & 9,753 & ótimo do valor esperado \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Regras simples (M1--M5)}
+
+\begin{metodo}{M1 -- Aleatório}
+\ideia Medir o que se obtém sem usar informação alguma do quadro de radar.
+\func Cada interceptador ocioso é lançado contra uma pista sorteada uniformemente entre as livres, sem filtro de
+plausibilidade, e nunca troca de alvo.
+\espera É o \emph{piso} de desempenho: um método que não o supera não está extraindo informação útil das pistas.
+\end{metodo}
+
+\begin{metodo}{M2--M4 -- Gulosos}
+\ideia Cada interceptador escolhe, sozinho, a pista que lhe parece melhor por um critério simples.
+\orig Regras de despacho comuns em sistemas reais~\cite{roux2007,kline2019}.
+\func O interceptador da vez escolhe, entre as pistas livres e plausíveis,
+\begin{equation}
+  \text{M2: }\argmin_j c_{ij},\qquad
+  \text{M3: }\argmin_j\,(t^G_j-c_{ij}),\qquad
+  \text{M4: }\argmin_j \frac{c_{ij}}{w_j},
+\end{equation}
+em que $\argmin_j$ indica a pista $j$ que minimiza a expressão. M2 (\emph{próximo}) escolhe a pista que alcança mais
+cedo. M3 (\emph{urgente}) escolhe a pista com a menor folga entre o tempo que ela leva até o solo,
+$t^G_j=h_j^{\mathrm{AGL}}/(-v_j^z)$ (altura dividida pela velocidade de descida, infinito se a pista não desce), e o tempo de
+interceptação: uma folga pequena significa que é preciso agir já. M4 (\emph{prioridade}) divide o tempo pelo peso da zona,
+de modo que pistas prioritárias parecem dez vezes mais próximas. A pista escolhida fica indisponível para os
+interceptadores seguintes da fila.
+\prop Custo de $O(K)$ operações por interceptador, para $K$ pistas. Nenhuma garantia de qualidade; o resultado depende da
+ordem em que os interceptadores decidem (Tabela~\ref{tab:exemplo}).
+\adap O tempo até o solo (M3) e o peso (M4) são inferidos só pelo radar, porque o defensor não conhece o ponto de impacto.
+\espera Rápidos e razoáveis quando há folga de interceptadores. M3 é o mais frágil diante de manobras, porque a velocidade
+de descida estimada é ruidosa em zigue-zague e em voo baixo.
+\end{metodo}
+
+\begin{metodo}{M5 -- TEWA sequencial}
+\ideia Primeiro decidir \emph{quais ameaças importam mais}; depois designar a cada uma o melhor interceptador disponível.
+\orig Estrutura clássica dos sistemas de avaliação de ameaças e atribuição de armas~\cite{roux2007}.
+\func Cada pista recebe uma nota de ameaça, que cresce quanto mais perto ela estiver de uma zona prioritária:
+\begin{equation}
+  \theta_j=\begin{cases} w_P/(1+t^Z_j), & t^Z_j<\infty,\\ w_O/10^3, & \text{caso contrário.}\end{cases}
+\end{equation}
+As pistas são visitadas em ordem decrescente de $\theta_j$, e cada uma recebe, entre os interceptadores ainda livres, o
+de menor custo $c_{ij}$. O processo para quando acabam os interceptadores da rodada.
+\prop Custo de $O(K\log K+nK)$ (ordenar as pistas e procurar o melhor interceptador para cada uma). Nenhuma garantia.
+\adap A ameaça usa o tempo até a zona prioritária (E3) no lugar do tempo até o ativo defendido.
+\espera Protege bem as zonas prioritárias, mas pode gastar interceptadores distantes com ameaças de nota alta enquanto
+deixa passar ameaças de nota baixa e fáceis de pegar; herda os erros de $t^Z_j$ quando a rota passa perto de ativos
+que não são o alvo.
+\end{metodo}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Atribuição ótima (M6--M9)}\label{sec:met_atrib}
+
+\begin{metodo}{M6--M8 -- Método húngaro}
+\ideia Escolher, para a rodada inteira, o conjunto de pares interceptador--pista de menor custo total, considerando todos
+ao mesmo tempo.
+\orig Kuhn~\cite{kuhn1955}, que o batizou em homenagem a trabalhos de matemáticos húngaros, e Munkres~\cite{munkres1957}.
+\func O método resolve o problema de atribuição
+\begin{equation}
+  \min_{x}\sum_{i,j}\frac{c_{ij}}{w_j^{\,\beta}}x_{ij}\quad\text{s.a.}\quad
+  \sum_j x_{ij}\le1,\ \ \sum_i x_{ij}\le1,\ \ x_{ij}\in\{0,1\},
+  \label{eq:lap}
+\end{equation}
+isto é, minimiza a soma dos custos dos pares escolhidos, com cada interceptador e cada pista usados no máximo uma vez. O
+problema pode ser \emph{retangular} (mais interceptadores que pistas, ou o contrário). A intuição do algoritmo é a
+seguinte: subtrair uma constante de todos os custos de uma linha (ou de uma coluna) não muda qual atribuição é a melhor,
+porque todas as atribuições usam exatamente uma posição daquela linha. O algoritmo subtrai constantes --- chamadas
+\emph{potenciais} --- até que exista uma atribuição completa usando só posições de custo zero; como os custos restantes
+são não negativos, essa atribuição é ótima. Encontrar a atribuição entre os zeros é feito por \emph{caminhos
+alternantes}, que trocam pares já escolhidos por outros até acomodar mais um interceptador. Um resultado de teoria de
+otimização (a \emph{unimodularidade total} da matriz de restrições) garante que, nesse problema, a solução ótima com
+variáveis contínuas já é inteira, o que explica por que ele é fácil apesar de combinatório.
+\prop Exato para~\eqref{eq:lap}, em $O(n^2K)$ operações para $n$ interceptadores e $K$ pistas.
+\adap M6 usa $\beta=0$ (minimiza o tempo total); M7 usa $\beta=1$ (divide o tempo pelo peso, dando preferência às pistas
+prioritárias); M8 é o M7 sem o filtro (E1), para medir quanto o filtro vale. A pista atual de um interceptador em voo entra
+com a histerese (E2). M7 é também o especialista imitado pelas redes neurais. Usamos a implementação de
+\texttt{scipy.optimize.linear\_sum\_assignment}.
+\espera A solução é ótima para a rodada, mas não para o episódio: não considera ameaças que ainda vão aparecer, e o custo é
+uma previsão de velocidade constante.
+\end{metodo}
+
+\begin{metodo}{M9 -- Leilão de Bertsekas}
+\ideia Resolver o mesmo problema de atribuição como um mercado: os interceptadores ``compram'' as pistas, e os preços sobem
+até que ninguém queira trocar.
+\orig Bertsekas~\cite{bertsekas1988}.
+\func Cada pista $j$ tem um preço $p_j$, inicialmente zero, e cada par tem um benefício $a_{ij}=-c_{ij}/w_j$ (quanto
+menor o custo, maior o benefício). O \emph{valor líquido} de uma pista para um interceptador é o benefício menos o preço.
+Um interceptador sem pista encontra a pista de maior valor líquido, $j_i$, com valor $v^{(1)}$, e a segunda melhor, com
+valor $v^{(2)}$, e dá o lance
+\begin{equation}
+  p_{j_i}\leftarrow p_{j_i}+v^{(1)}-v^{(2)}+\varepsilon .
+  \label{eq:lance}
+\end{equation}
+Ou seja, eleva o preço da pista até o ponto em que ela ainda lhe vale tanto quanto a segunda opção, mais um pequeno
+incremento $\varepsilon$. Se a pista tinha dono, o dono anterior fica sem pista e volta a dar lances
+(Algoritmo~\ref{alg:leilao}). O incremento $\varepsilon>0$ garante que os preços sempre sobem e que o processo termina.
+\prop Ao final, cada interceptador está com uma pista cujo valor líquido está a menos de $\varepsilon$ do melhor
+disponível para ele (condição chamada de \emph{$\varepsilon$-folga complementar}), e o custo total fica a menos de
+$n\varepsilon$ do ótimo~\cite{bertsekas1988}. Com $\varepsilon$ pequeno, o leilão chega à mesma solução que o húngaro. Como
+cada lance só usa os preços correntes, o algoritmo se presta a implementação paralela ou distribuída.
+\adap Usamos os mesmos benefícios de M7, para que os dois sejam diretamente comparáveis. O caso \emph{assimétrico} (números
+diferentes de interceptadores e pistas) exige cuidado. A prática usual de começar com $\varepsilon$ grande e reduzi-lo
+(escalonamento de $\varepsilon$) acelera o leilão, mas, no caso assimétrico, deixa preços altos em pistas que terminam sem
+dono e perde a garantia de otimalidade --- uma primeira versão com escalonamento coincidiu com o húngaro em só 10\,\% de
+instâncias aleatórias. A versão final começa com preços nulos e usa um único $\varepsilon$ pequeno.
+\parm $\varepsilon=10^{-3}\,\mathrm{amplitude}(a)/(n+1)$, em que a amplitude é a diferença entre o maior e o menor benefício.
+\end{metodo}
+
+\begin{algorithm}[H]
+\caption{Leilão direto para atribuição assimétrica (M9).}\label{alg:leilao}
+\begin{algorithmic}[1]
+\Require benefícios $a_{ij}$ ($n\le m$), $\varepsilon>0$
+\State $p_j\gets0$ para todo $j$; todos os $i$ livres
+\While{existe $i$ livre com algum $a_{ij}$ finito}
+  \State $j_i\gets\argmax_j(a_{ij}-p_j)$;\quad $v^{(1)}\gets a_{ij_i}-p_{j_i}$;\quad $v^{(2)}\gets\max_{j\ne j_i}(a_{ij}-p_j)$
+  \State $p_{j_i}\gets p_{j_i}+v^{(1)}-v^{(2)}+\varepsilon$
+  \State designa $j_i$ a $i$; se $j_i$ tinha dono $k$, $k$ volta a ficar livre
+\EndWhile
+\Ensure designação $i\mapsto j_i$
+\end{algorithmic}
+\end{algorithm}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Alocação distribuída (M10--M12)}
+
+\begin{metodo}{M10--M12 -- Guloso global e CBAA}
+\ideia Permitir que cada interceptador escolha a sua pista trocando mensagens só com os vizinhos, sem decisor central, e
+ainda assim evitar que dois interceptadores persigam a mesma pista.
+\orig Choi, Brunet e How~\cite{choi2009}.
+\func Cada interceptador $i$ atribui a cada pista um \emph{lance} $b_{ij}=w_j/\max(c_{ij},1)$, maior para pistas
+prioritárias e próximas, e guarda três informações: a sua tarefa $x_i$, o maior lance que conhece para cada pista,
+$y_{ij}$, e quem deu esse lance, $z_{ij}$. Duas fases se alternam (Algoritmo~\ref{alg:cbaa}):
+\begin{itemize}
+  \item na fase de \emph{lances}, um interceptador sem tarefa escolhe a pista em que o seu lance supera o maior lance que
+        ele conhece, $x_i=\argmax_j\{b_{ij}:b_{ij}>y_{ij}\}$, e se declara vencedor dela;
+  \item na fase de \emph{consenso}, cada interceptador compara o que sabe com o que sabem os vizinhos do grafo de
+        comunicação e adota, para cada pista, o maior lance conhecido,
+        \begin{equation}
+          y_{ij}\leftarrow\max_{k\in\mathcal{N}_i\cup\{i\}}y_{kj},
+          \label{eq:consenso}
+        \end{equation}
+        com desempate pelo menor índice. Se descobre que alguém deu um lance maior pela sua pista, desiste dela e volta a
+        dar lances na rodada seguinte.
+\end{itemize}
+O processo para quando ninguém muda de tarefa.
+\prop Como a informação sobre o maior lance se propaga um vizinho por rodada, o CBAA converge em no máximo (número de
+agentes) $\times$ (diâmetro do grafo) rodadas, onde o diâmetro é o maior número de saltos entre dois agentes. O resultado
+não tem conflitos e vale pelo menos 50\,\% do ótimo~\cite{choi2009}. Com grafo completo (todos falam com todos), o
+resultado coincide com o do \emph{guloso global}: fixar o par de maior lance entre todos, remover o interceptador e a pista,
+e repetir.
+\adap Implementamos as duas formas: o guloso global centralizado (M10) e o CBAA iterativo com grafo completo (M11),
+representando a comunicação via estação central de~\cite{feitosa2025}; a Seção~\ref{sec:validacao} confirma que dão a mesma
+solução. M12 restringe a comunicação a interceptadores a até 3~km uns dos outros e a 3 rodadas de consenso por decisão.
+Com isso, interceptadores de bases diferentes podem acreditar que ganharam a mesma pista; o simulador resolve o conflito
+pela ordem de chegada, e o perdedor espera a próxima rodada --- que é o custo real de uma visão inconsistente.
+\parm M11: até 100 rodadas de consenso; M12: alcance de 3~km e 3 rodadas.
+\espera O guloso global é melhor que os gulosos individuais (não depende da ordem da fila), mas pode perder para o húngaro
+(Tabela~\ref{tab:exemplo}). M12 mede quanto se perde com comunicação limitada.
+\end{metodo}
+
+\begin{algorithm}[H]
+\caption{CBAA: consenso sobre lances, uma tarefa por agente (M11, M12).}\label{alg:cbaa}
+\begin{algorithmic}[1]
+\Require lances $b_{ij}$, grafo $\mathcal{G}$, máximo de rodadas $R$
+\State $x_i\gets\varnothing$, $y_{ij}\gets-\infty$, $z_{ij}\gets\varnothing$ para todo $i,j$
+\For{$r=1,\dots,R$}
+  \For{cada $i$ com $x_i=\varnothing$} \Comment{lances}
+    \State $H\gets\{j: b_{ij}>y_{ij}\}$; se $H\neq\varnothing$: $x_i\gets\argmax_{j\in H}b_{ij}$, $y_{ix_i}\gets b_{ix_i}$, $z_{ix_i}\gets i$
+  \EndFor
+  \For{cada $i$} \Comment{consenso}
+    \State $y_{ij},z_{ij}\gets$ maior lance e vencedor entre $\mathcal{N}_i\cup\{i\}$, para todo $j$
+    \State se $z_{ix_i}\ne i$: $x_i\gets\varnothing$
+  \EndFor
+  \State se nada mudou, pare
+\EndFor
+\Ensure tarefa $x_i$ de cada agente
+\end{algorithmic}
+\end{algorithm}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{WTA: retorno marginal, solução exata e busca local (M13--M16)}
+Os métodos desta família otimizam o valor esperado destruído~\eqref{eq:F}, e não o tempo. Isso traz duas diferenças
+práticas em relação aos anteriores: eles podem decidir \emph{não lançar}, quando nenhum par compensa o custo de
+lançamento; e entendem salvas, isto é, sabem que o segundo interceptador contra a mesma pista vale menos que o primeiro,
+porque só conta se o primeiro falhar.
+
+\begin{metodo}{M13 -- Máximo retorno marginal (MMR)}
+\ideia Designar um interceptador de cada vez ao par que mais aumenta o valor esperado destruído, considerando o que já
+foi designado.
+\orig den Broeder, Ellison e Emerling~\cite{denbroeder1959}.
+\func O \emph{ganho marginal} de designar $i$ à pista $j$ é quanto o valor esperado destruído aumenta com essa designação,
+descontado o custo de lançamento:
+\begin{equation}
+  \Delta_{ij}=V_j\,\tilde S_j\,q_{ij}-\ell_i,
+  \label{eq:mmr}
+\end{equation}
+em que $\tilde S_j$ é a chance de a pista ainda sobreviver dadas as designações feitas até agora. O algoritmo escolhe o par
+livre de maior ganho, designa-o e atualiza a sobrevivência da pista, $\tilde S_j\leftarrow\tilde S_j(1-q_{ij})$ --- de modo
+que um segundo interceptador na mesma pista terá ganho menor ---, e repete até que nenhum ganho seja positivo
+(Algoritmo~\ref{alg:mmr}). Esse critério de parada é o que implementa a decisão de esperar.
+\prop Ótimo quando todas as armas são idênticas; em geral, uma heurística de bom desempenho e ponto de partida de métodos
+melhores~\cite{ahuja2007}. Custo de $O(n^2K)$.
+\adap Valor e probabilidade de sucesso dados por (E3) e (E4).
+\parm $P_T$, $\tau_q$ e $\ell_i$ de (E4).
+\espera A qualidade depende do modelo de sucesso~\eqref{eq:q}: se as manobras reduzem a chance real de contato de modo
+diferente do previsto pelo modelo, a ordenação dos ganhos fica errada.
+\end{metodo}
+
+\begin{algorithm}[H]
+\caption{Máximo retorno marginal (M13).}\label{alg:mmr}
+\begin{algorithmic}[1]
+\Require $q_{ij}$, $V_j$, $S_j$, $\ell_i$, $n_j^0$, $\bar n$
+\State $\tilde S_j\gets S_j$, $n_j\gets n_j^0$, todos os $i$ livres
+\Loop
+  \State $(i^\star,j^\star)\gets\argmax\{V_j\tilde S_jq_{ij}-\ell_i:\ i\text{ livre},\ n_j<\bar n\}$
+  \State se o ganho é $\le0$, pare
+  \State $x_{i^\star j^\star}\gets1$;\quad $\tilde S_{j^\star}\gets\tilde S_{j^\star}(1-q_{i^\star j^\star})$;\quad $n_{j^\star}\gets n_{j^\star}+1$
+\EndLoop
+\Ensure $\bm{x}$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{metodo}{M14, M15 -- WTA exato (húngaro e MILP)}
+\ideia Quando cada pista recebe no máximo um interceptador, o objetivo de valor esperado se torna linear e pode ser
+otimizado exatamente.
+\orig Formulação exata do WTA~\cite{ahuja2007}; M15 representa a família de otimização inteira mista
+de~\cite{afonso2020,cruz2025}.
+\func Com $\bar n=1$, cada pista tem um único fator no produto de~\eqref{eq:F}, e o valor destruído por designar $i$ a $j$
+passa a ser simplesmente $V_jS_jq_{ij}$. O problema fica
+\begin{equation}
+  \max_{x}\sum_{i,j}\big(V_jS_jq_{ij}-\ell_i\big)x_{ij}\quad\text{s.a.}\quad\sum_jx_{ij}\le1,\ \ \sum_ix_{ij}\le\bar n-n_j^0,\ \
+  x_{ij}\in\{0,1\},
+  \label{eq:wta11}
+\end{equation}
+que é de novo um problema de atribuição, agora maximizando valor em vez de minimizar tempo. Resolvemo-lo de duas formas.
+M14 usa o húngaro: replica a coluna de cada pista conforme a sua capacidade restante e acrescenta, para cada
+interceptador, uma coluna ``esperar'' de valor nulo, de modo que esperar seja escolhido quando nenhum par tem valor
+positivo. M15 escreve~\eqref{eq:wta11} como \emph{programa linear inteiro} --- um problema de otimização linear em que as
+variáveis devem ser inteiras --- e o resolve com o solver aberto HiGHS, que usa \emph{ramificação e corte}: resolve
+relaxações contínuas, divide o problema em ramos quando a solução não é inteira e acrescenta restrições (cortes) que
+eliminam soluções fracionárias.
+\prop Ambos encontram o ótimo de~\eqref{eq:wta11}; devem atingir o mesmo valor, diferindo só no custo computacional e,
+quando há empates, em qual das soluções ótimas escolhem.
+\adap Em~\cite{cruz2025}, a alocação está acoplada ao planejamento da trajetória, com obstáculos e bateria; aqui reproduzimos
+só a parte de alocação, com a previsão de velocidade constante embutida em $c_{ij}$.
+\parm M15: limite de 5~s por rodada.
+\espera Diferem do húngaro ponderado (M7) no critério: valor esperado em vez de tempo, e possibilidade de esperar.
+\end{metodo}
+
+\begin{metodo}{M16 -- Busca local (VLSN simplificada)}
+\ideia Partir de uma boa solução gulosa e melhorá-la por pequenas modificações enquanto houver ganho.
+\orig Busca em vizinhança de grande escala de Ahuja et al.~\cite{ahuja2007}.
+\func Uma \emph{vizinhança} é o conjunto de soluções obtidas a partir da atual por uma modificação simples. Usamos duas:
+\emph{realocação} (um interceptador muda para outra pista viável ou passa a esperar) e \emph{troca} (dois interceptadores
+trocam de pista entre si). A partir da solução do MMR, avaliamos todas as soluções das duas vizinhanças, adotamos a de
+maior valor de~\eqref{eq:F} se ela for melhor que a atual, e repetimos até não haver melhoria.
+\prop Termina num \emph{ótimo local}: uma solução que nenhuma realocação ou troca isolada melhora. Nunca é pior que o MMR.
+\adap A VLSN original usa vizinhanças exponencialmente grandes (reatribuições em cadeia) exploradas por algoritmos de fluxo
+em rede; a nossa usa vizinhanças de tamanho polinomial, avaliadas de forma vetorizada.
+\parm Até 30 iterações.
+\end{metodo}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Metaheurísticas (M17--M20)}
+As quatro metaheurísticas otimizam o mesmo objetivo~\eqref{eq:F}. Todas representam uma solução por um vetor
+$\bm{g}\in\{-1,0,\dots,K-1\}^{|\mathcal{D}_t|}$, com uma posição por interceptador da fila contendo o índice da pista
+designada ($-1$ significa esperar), e só consideram pares viáveis. Todas incluem a solução do MMR no ponto de partida, de
+modo que nunca terminam abaixo dela. Por serem estocásticas, usam sementes aleatórias fixadas pelo instante da rodada,
+para que os resultados sejam reprodutíveis.
+
+\begin{metodo}{M17 -- Algoritmo genético}
+\ideia Imitar a seleção natural: manter uma \emph{população} de soluções, combinar as melhores para gerar novas e
+introduzir variações aleatórias.
+\orig Lee, Su e Lee~\cite{lee2003ga}, que semeiam a população com soluções gulosas (``eugenia gulosa'').
+\func A cada \emph{geração}: (i) \emph{seleção por torneio} --- sorteiam-se três soluções e a melhor delas é escolhida
+como pai, o que favorece as boas sem descartar as demais; (ii) \emph{cruzamento uniforme} --- o filho herda a designação de
+cada interceptador de um dos dois pais, sorteado com igual chance; (iii) \emph{mutação} --- cada designação do filho é
+trocada por uma opção viável sorteada com pequena probabilidade, o que mantém a diversidade; (iv) \emph{elitismo} --- as
+duas melhores soluções passam intactas para a próxima geração, para não perder o melhor já encontrado. A qualidade
+(\emph{aptidão}) de cada solução é~\eqref{eq:F}.
+\parm População de 40, 40 gerações, torneio de 3, probabilidade de mutação $1/|\mathcal{D}_t|$, elitismo de 2.
+\end{metodo}
+
+\begin{metodo}{M18 -- Colônia de formigas}
+\ideia Imitar formigas que, ao encontrar comida, reforçam com feromônio o caminho percorrido; caminhos bons acumulam mais
+feromônio e atraem mais formigas.
+\orig Lee, Lee e Su~\cite{lee2002aco}.
+\func Cada \emph{formiga} constrói uma solução visitando os interceptadores em ordem aleatória e escolhendo, para cada um,
+uma opção $j$ (uma pista ou esperar) com probabilidade
+\begin{equation}
+  P_{ij}=\frac{\tau_{ij}^{\alpha}\eta_{ij}^{\beta}}{\sum_{k}\tau_{ik}^{\alpha}\eta_{ik}^{\beta}},
+\end{equation}
+que combina duas informações: a \emph{atratividade heurística} $\eta_{ij}=\max(V_jS_jq_{ij}-\ell_i,10^{-6})$, o ganho do
+par se ele fosse o único, e o \emph{feromônio} $\tau_{ij}$, que acumula a experiência das iterações anteriores. Os
+expoentes $\alpha$ e $\beta$ regulam o peso de cada uma. Pistas já no limite de capacidade recebem probabilidade nula. Ao
+fim de cada iteração, todo o feromônio \emph{evapora} parcialmente (o que permite esquecer escolhas ruins) e a melhor
+solução encontrada é reforçada: $\tau\leftarrow(1-\rho)\tau+\rho F^\star\mathbf{1}_{\bm{g}^\star}$, em que
+$\mathbf{1}_{\bm{g}^\star}$ marca os pares da melhor solução e $F^\star$ é o seu valor.
+\adap A opção ``esperar'' é tratada como um caminho com atratividade fixa ($\eta_{i,-1}=0{,}05$).
+\parm 16 formigas, 15 iterações, $\alpha=1$, $\beta=2$, taxa de evaporação $\rho=0{,}1$.
+\end{metodo}
+
+\begin{metodo}{M19 -- Recozimento simulado}
+\ideia Imitar o resfriamento lento de um metal: no início, o sistema ``quente'' aceita mudanças que pioram a solução, o que
+permite escapar de ótimos locais; à medida que esfria, torna-se cada vez mais exigente.
+\orig Metaheurística de uso amplo no WTA~\cite{kline2019}.
+\func Partindo do MMR, propõe-se a cada passo uma realocação aleatória de um interceptador. Uma melhoria é sempre aceita;
+uma piora $\Delta F<0$ é aceita com probabilidade $e^{\Delta F/T}$, em que $T$ é a \emph{temperatura}: com $T$ alta, quase
+toda piora é aceita; com $T$ baixa, quase nenhuma. A temperatura diminui a cada passo, e guarda-se a melhor solução
+visitada.
+\parm 1500 movimentos, temperatura inicial $T_0=0{,}2|F_0|$ (proporcional ao valor da solução inicial) e resfriamento
+$T\leftarrow0{,}995\,T$.
+\end{metodo}
+
+\begin{metodo}{M20 -- Enxame de partículas}
+\ideia Imitar um bando: cada solução candidata (uma \emph{partícula}) se move pelo espaço de soluções, atraída pela melhor
+posição que ela própria já visitou e pela melhor posição encontrada pelo bando.
+\orig Metaheurística de uso amplo no WTA~\cite{kline2019}.
+\func Cada partícula tem uma posição $\bm{X}$ e uma velocidade $\bm{V}$, atualizadas por
+\begin{equation}
+  \bm{V}\leftarrow\omega\bm{V}+c_1\bm{r}_1\odot(\bm{X}^{p}-\bm{X})+c_2\bm{r}_2\odot(\bm{X}^{g}-\bm{X}),\qquad
+  \bm{X}\leftarrow\mathrm{clip}_{[0,1]}(\bm{X}+\bm{V}),
+\end{equation}
+em que $\bm{X}^p$ é a melhor posição da própria partícula, $\bm{X}^g$ a melhor do bando, $\bm{r}_1,\bm{r}_2$ números
+aleatórios uniformes e $\odot$ o produto elemento a elemento. O primeiro termo é a \emph{inércia} (manter a direção), o
+segundo a atração \emph{individual} e o terceiro a atração \emph{social}.
+\adap O enxame de partículas trabalha com posições contínuas, mas a alocação é discreta. Usamos a codificação por
+\emph{chaves aleatórias}: cada partícula é uma tabela de números em $[0,1]$, com uma linha por interceptador e uma coluna
+por opção (cada pista e esperar); para obter a alocação, cada interceptador recebe a opção viável de maior número na sua
+linha. Uma partícula começa na codificação da solução do MMR.
+\parm 20 partículas, 25 iterações, inércia $\omega=0{,}7$, $c_1=c_2=1{,}5$.
+\end{metodo}
+
+\paragraph{O que esperar das metaheurísticas.} Elas só podem superar o MMR se o objetivo~\eqref{eq:F} tiver estrutura que
+a escolha gulosa perde; em troca, custam uma a duas ordens de grandeza mais tempo por rodada
+(Seção~\ref{sec:validacao}).
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Alocação dinâmica (M21 e variantes)}
+
+\begin{metodo}{M21 -- Húngaro com reserva}
+\ideia Quando as ameaças chegam em ondas, não gastar todos os interceptadores na primeira.
+\orig Lição do WTA dinâmico~\cite{hosein1990}.
+\func Resolve o problema de atribuição~\eqref{eq:lap} como M7, mas aplica uma regra de reserva: um interceptador da base só
+é lançado contra uma pista de baixa prioridade ($w_j<w_P$) se, depois do lançamento, restarem mais de 20\,\% dos
+interceptadores ociosos. Pistas dentro de zonas prioritárias podem usar a reserva.
+\adap É uma política de horizonte deslizante: aproxima o valor de guardar recursos sem modelar explicitamente as ondas
+futuras, que o defensor não conhece.
+\parm Reserva de 20\,\% da frota.
+\espera Pode perder ameaças de baixa prioridade na primeira onda para ganhar nas seguintes.
+\end{metodo}
+
+\paragraph{\emph{Shoot--look--shoot} e salvas.} Todos os métodos permitem trocar de alvo em voo: um interceptador que perde
+a pista ou percebe que ela era falsa é redesignado em vez de desperdiçado. Isso é a forma \emph{shoot--look--shoot} do WTA
+dinâmico~\cite{hosein1990}: observar antes de reengajar. A alternativa, \emph{shoot--shoot}, manda dois interceptadores à
+mesma pista de uma vez ($\bar n=2$), trocando interceptadores por chance de sucesso. Medimos as duas por ablação
+(Seção~\ref{sec:res_ablacao}): desligando a troca de alvo, e permitindo salvas no M13 e no M17.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Arquiteturas comportamentais (M22, M23)}
+Nas árvores de comportamento, cada interceptador executa a sua própria árvore de forma independente, com o quadro de radar
+comum; quando dois escolhem a mesma pista, prevalece o primeiro numa ordem fixa. Diferentemente dos métodos conjuntos, a
+árvore decide \emph{se} lança, além de \emph{contra quem} --- o que lhe permite poupar interceptadores.
+
+\begin{metodo}{M22 -- Árvore com alocação por distância}
+\ideia Engajar só ameaças que já estão perto, e sempre a mais próxima.
+\orig Ricardo Jr et al.~\cite{ricardo2023}.
+\func A árvore tem um seletor com dois ramos, tentados em ordem: \emph{engajar}, se existe ameaça livre e plausível a menos
+de $R_e$ do interceptador (o alvo é a mais próxima); senão, \emph{esperar}. Em voo, o interceptador mantém o alvo até
+perdê-lo.
+\adap No original, os defensores protegem um drone líder numa arquitetura líder--seguidor; aqui cada interceptador decide
+sozinho a partir da sua base.
+\parm Raio de engajamento $R_e=4$~km.
+\espera Economiza interceptadores, mas, ao esperar que a ameaça se aproxime, deixa pouco tempo para alcançar alvos rápidos.
+\end{metodo}
+
+\begin{metodo}{M23 -- Árvore com utilidade afim}
+\ideia Decidir se vale a pena avançar sobre uma ameaça por uma nota de \emph{utilidade} que pesa o custo de ir, o perigo
+da ameaça e a pressão total sobre a defesa.
+\orig Feitosa, Ricardo Jr e Santos~\cite{feitosa2025}.
+\func A árvore original tem três ramos: \emph{responder} (inspecionar a ameaça e então avançar ou pedir reforço),
+\emph{reforço} (atender pedidos de apoio de outros defensores) e \emph{ocioso}. A decisão de avançar é dada por uma
+utilidade afim --- uma soma ponderada de fatores mais uma constante. Na nossa versão, o interceptador toma como alvo a
+ameaça livre de menor custo $c_{ij}$ e avança se
+\begin{equation}
+  U_i = c_1\frac{c_{ij}}{100} + c_2\,\theta'_j + c_3\frac{\Theta}{N} + c_4 > 0,\qquad
+  \theta'_j=\frac{w_j}{w_P}e^{-t^Z_j/120},\quad \Theta=\sum_{k}\theta'_k .
+  \label{eq:util}
+\end{equation}
+Os quatro termos correspondem aos da utilidade original: o tempo de deslocamento (normalizado por 100~s), a ameaça do alvo
+$\theta'_j$ (que vale até 1 e decai com o tempo até a zona, em escala de 2~minutos), a ameaça composta $\Theta$ (a soma das
+ameaças de todas as pistas, dividida pelo número de aeronaves, que mede a pressão sobre a defesa) e uma constante que
+representa a aversão a risco. Os coeficientes $c_1,\dots,c_4$ definem o comportamento: um $c_1$ negativo desestimula
+perseguir alvos distantes; $c_2$ e $c_3$ positivos estimulam reagir a ameaças fortes ou a muita pressão.
+\adap O ramo de reforço trata alvos que resistem a vários disparos e não se aplica a interceptadores que neutralizam com um
+único contato. A ameaça de uma pista usa o tempo até a zona prioritária. Como no original, os coeficientes são ajustados
+por um algoritmo genético; aqui, para minimizar o dano~\eqref{eq:dano} médio em cenários de treino.
+\parm Algoritmo genético com população de 12, 8 gerações, torneio, cruzamento aritmético (média ponderada dos pais) e
+mutação gaussiana de 10\,\% da faixa de cada coeficiente, avaliado em 10 cenários de treino.
+\end{metodo}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Políticas aprendidas (M24--M29)}\label{sec:redes}
+
+\paragraph{Ideia geral.} Uma política aprendida é uma rede neural que recebe a situação vista por um interceptador e
+devolve uma distribuição de probabilidade sobre as ações possíveis. Em princípio, ela pode capturar regularidades que as
+regras ignoram --- por exemplo, que certas pistas quase sempre são falsas, ou que vale esperar uma pista se confirmar antes
+de lançar. Todos os interceptadores consultam a mesma rede, cada um com a sua observação (\emph{política compartilhada}).
+
+\paragraph{Observação e ação.} Para o interceptador da vez, a rede recebe até $K=64$ pistas livres. Cada pista é descrita
+por 17 \emph{traços de decisão} --- posição e velocidade relativas ao interceptador, tempo previsto de interceptação, se é
+alcançável com a autonomia restante, idade, incerteza, se já está coberta por outro interceptador, altura, razão de
+subida, distância e velocidade de aproximação à zona prioritária, se é o alvo atual --- e por 10 \emph{traços de
+legitimidade}, só de radar, que ajudam a separar aeronaves de falsos alarmes: velocidade, razão de subida, altura,
+incerteza, idade, tempo de vida, número e taxa de medidas e distância ao radar mais próximo. Há ainda 7 \emph{traços
+globais}: quantos interceptadores estão pendentes e livres, quantas pistas há, o instante, a autonomia restante, se o
+interceptador está em voo e a idade da pista que persegue. A ação é uma das pistas ou a ação nula.
+
+\paragraph{Classificador de legitimidade.} Em vez do filtro (E1), a rede tem um pequeno classificador $\lambda$ que
+recebe os traços de legitimidade de uma pista e devolve a probabilidade de ela ser uma aeronave. Ele é treinado com o
+rótulo verdadeiro, que o simulador conhece (mas que nunca é dado à rede na decisão), por \emph{entropia cruzada binária}
+--- a perda padrão de classificação, que penaliza atribuir probabilidade baixa à classe correta ---, com as classes
+balanceadas, porque os falsos alarmes são maioria. A probabilidade estimada entra na nota de cada pista.
+
+\begin{metodo}{Arquitetura DeepSets}
+\orig Zaheer et al.~\cite{zaheer2017}.
+\func O número de pistas varia e a ordem em que são listadas é arbitrária; a decisão não pode depender dela. A
+arquitetura DeepSets resolve isso processando cada pista com a mesma rede $\phi$ (um \emph{perceptron multicamadas}, MLP,
+a rede neural mais simples) e combinando os resultados por uma média, operação que não depende da ordem:
+\begin{equation}
+  \bm{h}_j=\phi([\bm{o}_j,\bm{l}_j,\bm{g}]),\quad \bar{\bm{h}}=\tfrac{1}{|\mathcal{V}|}\textstyle\sum_{j}\bm{h}_j,\quad
+  z_j=\psi\big([\bm{h}_j,\bar{\bm{h}},\sigma(\lambda(\bm{l}_j))]\big),\quad z_{\varnothing}=\chi([\bar{\bm{h}},\bm{g}]),
+\end{equation}
+em que $\bm{o}_j$, $\bm{l}_j$ e $\bm{g}$ são os traços de decisão, de legitimidade e globais; $\bm{h}_j$ é o
+\emph{código} da pista; $\bar{\bm{h}}$, o \emph{contexto}, resume todas as pistas; $z_j$ é a nota da pista, que depende do
+seu código, do contexto e da probabilidade de ser legítima; e $z_\varnothing$ é a nota da ação nula. As notas são
+convertidas em probabilidades pela função \emph{softmax}, $\pi_j=e^{z_j}/\sum_ke^{z_k}$.
+\parm MLPs de 96 unidades; classificador com camadas de 10, 64, 64 e 1 unidades.
+\end{metodo}
+
+\begin{metodo}{Arquitetura com atenção}
+\orig Vaswani et al.~\cite{vaswani2017}; aplicação a problemas combinatórios por Kool et al.~\cite{kool2019}; agregação por
+atenção em grafos em Jia et al.~\cite{jia2026}.
+\func Na média do DeepSets, todas as pistas pesam igual no contexto. Com \emph{atenção}, cada pista ``consulta'' as demais
+e decide quanto cada uma importa para ela. Cada código $\bm{h}_j$ gera uma consulta $\bm{q}_j$, uma chave $\bm{k}_j$ e um
+valor $\bm{v}_j$ (projeções lineares aprendidas); o peso que a pista $j$ dá à pista $k$ é proporcional a
+$e^{\bm{q}_j\cdot\bm{k}_k/\sqrt{d}}$, e o novo código de $j$ é a média dos valores ponderada por esses pesos:
+\begin{equation}
+  \text{Atenção}(Q,K,V)=\mathrm{softmax}\!\Big(\frac{QK^\top}{\sqrt{d}}\Big)V .
+\end{equation}
+Assim, o código de uma pista passa a refletir, por exemplo, se há outra pista mais fácil perto dela. Usamos duas camadas
+de \emph{codificador Transformer} (atenção seguida de um MLP, com conexões residuais e normalização), com 4
+\emph{cabeças} de atenção em paralelo, antes da média; o restante é igual ao DeepSets. A operação continua independente da
+ordem das pistas.
+\parm 2 camadas, 4 cabeças, dimensão 96.
+\end{metodo}
+
+\begin{metodo}{M24, M25 -- Imitação (DAgger)}
+\ideia Aprender a decidir como um especialista, mas mais rápido, a partir de exemplos rotulados por ele.
+\orig Ross, Gordon e Bagnell~\cite{ross2011}.
+\func O especialista é o húngaro ponderado (M7). Uma imitação ingênua treinaria a rede só com situações produzidas pelo
+especialista; mas, ao ser usada, a rede comete pequenos erros que a levam a situações que o especialista nunca produziu, e
+nessas ela erra mais --- um efeito chamado \emph{mudança de distribuição}. O DAgger corrige isso iterativamente: na primeira
+iteração, o especialista conduz os episódios e rotula as decisões; nas seguintes, a \emph{rede} conduz, e o especialista
+apenas rotula a decisão certa em cada situação que ela visitou. Os exemplos de todas as iterações são acumulados, e a rede
+é retreinada para prever a ação do especialista, minimizando a entropia cruzada entre a sua distribuição e a ação rotulada.
+\adap Quase todas as decisões do especialista são ``esperar'', porque a cada rodada todos os interceptadores ociosos nas
+bases decidem e a maioria espera. Treinada com essa proporção, uma versão preliminar da rede aprendeu a esperar sempre.
+Guardamos então todas as decisões de lançar ou trocar e só 10\,\% das de esperar, sorteadas. Para não enviesar a rede no
+sentido oposto, cada exemplo de esperar recebe \emph{peso de importância} 10 (o inverso da fração guardada), de modo que a
+perda média é a mesma que se teria com todos os exemplos:
+\begin{equation}
+  \mathcal{L}_{\mathrm{IL}}=\frac{\sum_k\omega_k\,\mathrm{CE}\big(\pi(\cdot\mid o_k),a^\star_k\big)}{\sum_k\omega_k}
+  +0{,}5\,\mathcal{L}_{\mathrm{leg}},\qquad\omega_k=\begin{cases}10,&a^\star_k=\text{esperar},\\1,&\text{caso contrário,}\end{cases}
+\end{equation}
+em que $\mathrm{CE}$ é a entropia cruzada, $a^\star_k$ a ação do especialista no exemplo $k$ e $\mathcal{L}_{\mathrm{leg}}$ a
+perda do classificador de legitimidade.
+\parm 5 iterações de 28 episódios, 8 épocas de treino por iteração, otimizador Adam com taxa $10^{-3}$, 3 sementes de
+treino.
+\espera A rede pode, no melhor caso, igualar o especialista; a vantagem é a velocidade de decisão, e o interesse é servir
+de ponto de partida para o reforço.
+\end{metodo}
+
+\begin{metodo}{M26--M29 -- Reforço (PPO)}
+\ideia Aprender diretamente a minimizar o dano, por tentativa e erro, sem depender de um especialista.
+\orig Otimização de política proximal (PPO)~\cite{schulman2017}; políticas centralizadas para alocação por
+reforço~\cite{liu2023drones,palmas2025,jia2026}.
+\func A rede joga episódios completos e recebe, a cada passo, uma \emph{recompensa} que premia a interceptação de
+ameaças armadas, pune impactos pelo seu peso, cobra cada interceptador desperdiçado (inclusive os gastos em iscas) e
+cobra um pequeno custo pelo tempo com ameaças ainda vivas, para estimular rapidez:
+\begin{equation}
+  r_t = \sum_{a:\,\nu_a>0}\mathbf{1}\{a\text{ interceptada}\} - \sum_a w_a\mathbf{1}\{a\text{ atinge o impacto}\}
+  - \eta\,\Delta W_t - \frac{N_{\mathrm{vivas}}(t)\,\Delta t}{300\,N},
+\end{equation}
+em que $\Delta W_t$ é o número de interceptadores desperdiçados no passo. Os dois primeiros termos e o terceiro
+correspondem a~\eqref{eq:dano} e~\eqref{eq:custo_ep}: a recompensa ensina a proteger sem disparar à toa.
+O objetivo é maximizar a soma das recompensas. Para isso, além da política, a rede tem uma cabeça de \emph{valor}, que
+estima quanto de recompensa ainda se espera obter a partir de uma situação. A \emph{vantagem} $\hat A_t$ de uma ação é
+quanto ela foi melhor que o esperado: positiva se a recompensa obtida superou a estimativa de valor. Usamos a estimativa
+GAE, uma média ponderada das diferenças entre recompensa observada e valor previsto ao longo dos passos seguintes, que
+equilibra ruído e viés. A atualização torna mais prováveis as ações de vantagem positiva e menos as de vantagem negativa.
+O PPO limita o tamanho de cada atualização para não destruir o que já foi aprendido:
+\begin{equation}
+  \mathcal{L}^{\mathrm{CLIP}}=\mathbb{E}_t\Big[\min\big(\rho_t\hat A_t,\ \mathrm{clip}(\rho_t,1-\epsilon,1+\epsilon)\hat A_t\big)\Big],
+  \qquad\rho_t=\frac{\pi_{\mathrm{nova}}(a_t\mid o_t)}{\pi_{\mathrm{antiga}}(a_t\mid o_t)},
+\end{equation}
+em que $\rho_t$ mede quanto a nova política mudou a probabilidade da ação tomada; o recorte ($\mathrm{clip}$) ignora
+mudanças maiores que $\pm\epsilon$. Somam-se uma perda de valor, um bônus de \emph{entropia} (que estimula a política a
+continuar explorando ações diferentes) e a perda de legitimidade.
+\adap M26 e M27 partem das redes de imitação (M24, M25), com taxa de aprendizado menor, para refinar o comportamento já
+aprendido; M28 e M29 partem do zero. A perda de legitimidade é mantida como tarefa auxiliar.
+\parm 40 atualizações de 7 episódios cada, 4 passadas pelos dados por atualização, lotes de 512 exemplos, $\epsilon=0{,}2$,
+fator de desconto $\gamma=0{,}995$, parâmetro do GAE 0,95, bônus de entropia 0,01; taxa de aprendizado $10^{-4}$ (M26, M27)
+ou $3\times10^{-4}$ (M28, M29); 3 sementes de treino, só nos cenários de treino.
+\espera O reforço do zero é o mais custoso de treinar e o mais variável entre sementes; o refino a partir da imitação
+tende a ser mais estável.
+\end{metodo}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Resumo de custo e garantias}
+A Tabela~\ref{tab:metodos} resume, para cada família, o objetivo otimizado, a garantia conhecida e o custo por rodada.
+
+\begin{table}[t]
+\centering
+\caption{Objetivo, garantia e custo por rodada. $n$: interceptadores da rodada; $K$: pistas; $G$: iterações; $P$: população;
+$R$: rodadas de consenso.}
+\label{tab:metodos}
+\small
+\begin{tabularx}{\textwidth}{@{}l l X l@{}}
+\toprule
+Métodos & Objetivo & Garantia & Custo por rodada \\
+\midrule
+M2--M4 & tempo (individual) & nenhuma; depende da ordem da fila & $O(nK)$ \\
+M5 & ameaça, depois tempo & nenhuma & $O(K\log K+nK)$ \\
+M6--M8 & tempo total \eqref{eq:lap} & ótimo da rodada & $O(n^2K)$ \\
+M9 & tempo total \eqref{eq:lap} & a $n\varepsilon$ do ótimo & pseudo-polinomial \\
+M10--M11 & lances $w_j/c_{ij}$ & $\ge50\,\%$ do ótimo~\cite{choi2009} & $O(R\,n^2K)$ \\
+M12 & idem, comunicação local & sem garantia de ausência de conflito & $O(3\,n^2K)$ \\
+M13 & valor esperado \eqref{eq:F} & ótimo para armas idênticas & $O(n^2K)$ \\
+M14, M15 & valor esperado, $\bar n=1$ & ótimo da rodada & $O(n^2K)$ / exponencial no pior caso \\
+M16 & valor esperado & ótimo local, $\ge$ M13 & $O(G(nK+n^2)nK)$ \\
+M17--M20 & valor esperado & $\ge$ M13 & $O(GP\,nK)$ \\
+M21 & tempo + reserva & nenhuma & $O(n^2K)$ \\
+M22, M23 & regra / utilidade & nenhuma & $O(K)$ por interceptador \\
+M24--M29 & imitação / recompensa & nenhuma & uma inferência por interceptador \\
+\bottomrule
+\end{tabularx}
+\end{table}

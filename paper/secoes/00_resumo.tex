@@ -1,0 +1,24 @@
+\begin{abstract}
+Ataques com dezenas a centenas de aeronaves não tripuladas baratas, lançadas em ondas e misturadas a iscas, tornaram-se
+frequentes na última década. Contra eles, o recurso que se esgota primeiro não é o sensor nem o efetor, e sim a
+capacidade de \emph{decidir}: qual interceptador lançar contra qual ameaça, quando lançar, quando guardar e quando trocar
+de alvo. Essa decisão é estudada há mais de sessenta anos como problema de atribuição arma--alvo (WTA), mas a literatura
+recente se dividiu em comunidades que raramente se comparam entre si --- pesquisa operacional, robótica multiagente,
+controle preditivo e aprendizado por reforço ---, cada uma com seu próprio simulador e suas próprias hipóteses. Este
+artigo faz três coisas. Primeiro, formula o problema como um processo de decisão parcialmente observável, em que o
+decisor vê apenas pistas de radar ruidosas e possivelmente falsas, não distingue drones armados de iscas e paga tanto
+pelos impactos quanto pelos interceptadores desperdiçados. Segundo, revisa as técnicas de alocação em oito famílias,
+explicando a ideia, a origem e as hipóteses de cada uma. Terceiro, \emph{implementa e compara todas as técnicas
+revisadas} --- 23 algoritmos de alocação e 6 políticas aprendidas --- num mesmo simulador aberto, com relevo real, rede
+de radares com difração, ruído, vieses e falsos alarmes e rastreador IMM. O conjunto de avaliação tem 192 missões em
+seis cidades brasileiras (São José dos Campos, Taubaté, Itajubá, São Paulo, Rio de Janeiro e Brasília): enxames de 12 a
+48 vetores que misturam quatro classes de ameaça com parâmetros de fontes abertas --- drones de ataque de longo alcance,
+iscas, munições vagantes e FPV ---, atacando ativos reais de infraestrutura extraídos do OpenStreetMap, por rotas
+planejadas sobre o relevo e com chegada coordenada, contra uma defesa montada sem conhecimento do ataque. Duas cidades
+(Rio de Janeiro e Brasília) ficam reservadas para teste, o que permite medir desempenho, custo computacional e
+generalização com testes estatísticos pareados.
+\todo{resumo dos resultados quantitativos quando os experimentos terminarem.}
+\end{abstract}
+
+\noindent\textbf{Palavras-chave:} atribuição arma--alvo; enxames de drones; iscas; alocação de tarefas; leilão;
+consenso; metaheurísticas; aprendizado por reforço; rastreamento por radar; infraestrutura crítica.

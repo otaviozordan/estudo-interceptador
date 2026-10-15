@@ -1,0 +1,37 @@
+% =====================================================================================================
+\section{Discussão}\label{sec:discussao}
+\todo{síntese por família; efeito das iscas e do desperdício (dano $\times$ custo); efeito da composição e do voo
+baixo sobre a previsão de velocidade constante; generalização para cidades nunca vistas; custo computacional e
+escalabilidade; recomendações.}
+
+\subsection{Limitações}
+\begin{itemize}
+  \item \textbf{Modelo de interceptador.} Os interceptadores são pontos de massa em duas dimensões, com velocidade
+        constante e aceleração lateral limitada; não há dinâmica de atitude nem vento sobre eles. Por isso, a altura da
+        ameaça afeta a detecção pelo radar, mas não o engajamento.
+  \item \textbf{Modelo de ameaça.} A velocidade de cada ameaça é constante ao longo da rota (o aumento de velocidade da
+        munição vagante no mergulho não é modelado), e só o trecho final das rotas de longo alcance, dentro de um mapa de
+        12 a 14~km, é simulado. A seção radar, o valor de dano de cada classe e a penalidade por desperdício
+        ($\eta=0{,}2$) são hipóteses do modelo; os parâmetros de fontes abertas vêm de reportagens e análises
+        secundárias, não de especificações oficiais.
+  \item \textbf{Ativos.} Os alvos dependem do mapeamento colaborativo do OpenStreetMap, cuja cobertura varia entre as
+        cidades; a importância de cada categoria de ativo é uma escolha do modelo.
+  \item \textbf{Sensor próprio ideal.} Na fase final, o interceptador vê a aeronave sem erro.
+  \item \textbf{Adaptações.} As técnicas foram adaptadas a interceptadores descartáveis de contato único. A árvore com
+        utilidade (M23) perde o ramo de reforço, e o MILP (M15) representa só a parte de alocação de~\cite{cruz2025}, sem
+        obstáculos nem bateria. Só as redes treinadas por reforço conhecem a penalidade por desperdício; os métodos de
+        WTA usam o seu próprio custo de lançamento, e os demais não têm nenhum.
+  \item \textbf{Modelo de sucesso.} Os métodos M13--M20 dependem de~\eqref{eq:q}, calibrado num experimento 1$\times$1; um
+        modelo melhor poderia favorecer essa família.
+  \item \textbf{Orçamento de treino.} As redes foram treinadas com um orçamento fixo e modesto; resultados com mais
+        treino podem diferir.
+\end{itemize}
+
+\section{Conclusão}\label{sec:conclusao}
+\todo{}
+
+\section*{Disponibilidade de código e dados}
+O simulador, os geradores de missões, a extração dos ativos do OpenStreetMap, as 192 missões, as implementações dos 29
+métodos (um arquivo por método), os modelos treinados e os scripts que geram as tabelas e figuras deste artigo estão
+disponíveis em \todo{repositório}. Qualquer método pode ser rodado isoladamente sobre qualquer missão
+(\texttt{rodar.py}).
