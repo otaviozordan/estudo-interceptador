@@ -29,7 +29,7 @@ Tabela~\ref{tab:notacao} resume a notação.
 \caption{Notação principal.}
 \label{tab:notacao}
 \small
-\begin{tabularx}{\textwidth}{@{}lX@{}}
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
 \toprule
 Símbolo & Significado \\
 \midrule
@@ -87,21 +87,20 @@ O nosso problema é um POMDP com decisões a cada $\Delta_d=2$~s (as \conceito{r
         máximo $\bar n$ interceptadores, contando os $n_j^0$ que já a perseguem ($\bar n=1$ por padrão).
   \item \textbf{Transição}: as ameaças avançam pelas rotas (as FPV manobram e algumas reagem ao interceptador); os interceptadores em trânsito voam
         em direção ao ponto previsto de encontro com a sua pista e, ao entrar no alcance do sensor, passam a perseguir a
-        aeronave diretamente; os radares medem e o rastreador atualiza as pistas. Há contato quando um interceptador passa
-        a menos de $r_c$ de uma aeronave, e impacto quando uma aeronave chega ao fim da rota.
-  \item \textbf{Objetivo}: minimizar o valor esperado do \conceito{dano normalizado},
+        ameaça diretamente; os radares medem e o rastreador atualiza as pistas. Há contato quando um interceptador passa
+        a menos de $r_c$ de uma ameaça, e impacto quando uma ameaça chega ao fim da rota.
+  \item \textbf{Objetivo}: minimizar $\mathbb{E}_\pi[D]$, o valor esperado do \conceito{dano normalizado},
         \begin{equation}
-          \min_{\pi}\ \mathbb{E}_\pi[D],\qquad
-          D = \frac{\sum_{a\in\mathcal{A}} w_a\,\mathbf{1}\{a\text{ atinge o impacto}\}}{\sum_{a\in\mathcal{A}} w_a}\in[0,1],
+          D = \frac{\sum_{a\in\mathcal{A}} w_a\,\mathbf{1}^{\mathrm{imp}}_a}{\sum_{a\in\mathcal{A}} w_a}\in[0,1],
           \label{eq:dano}
         \end{equation}
-        em que $\mathbf{1}\{\cdot\}$ vale 1 se a condição é verdadeira e 0 caso contrário. $D$ é a fração do dano possível
+        em que $\mathbf{1}^{\mathrm{imp}}_a$ vale 1 se a ameaça $a$ atinge o impacto e 0 caso contrário. $D$ é a fração do dano possível
         que de fato ocorreu: vale 0 se todas as ameaças armadas foram interceptadas e 1 se nenhuma foi. A normalização
         permite comparar cenários com números diferentes de ameaças. As iscas não entram em~\eqref{eq:dano}, porque
         $w_a=0$, mas pesam no \conceito{custo}, que soma ao dano a penalidade dos interceptadores desperdiçados:
         \begin{equation}
-          C = \frac{\sum_{a\in\mathcal{A}} w_a\,\mathbf{1}\{a\text{ atinge o impacto}\} + \eta\,W}{\sum_{a\in\mathcal{A}} w_a},
-          \qquad \eta=0{,}2 .
+          C = \frac{\sum_{a\in\mathcal{A}} w_a\,\mathbf{1}^{\mathrm{imp}}_a + \eta\,W}{\sum_{a\in\mathcal{A}} w_a},
+          \quad \eta=0{,}2 .
           \label{eq:custo_ep}
         \end{equation}
         Um interceptador desperdiçado custa um quinto do impacto de uma ameaça plena num ativo não defendido. Com
@@ -160,10 +159,11 @@ parte da frota. A forma mais simples de \emph{avaliação de ameaças} é uma re
 voam dentro de um envelope de velocidade, razão de subida e altura; uma pista fora desse envelope provavelmente é falsa.
 O envelope precisa cobrir todas as classes, inclusive o mergulho final, e por isso é largo. Os métodos só consideram
 pistas com
-\begin{equation}
-  \Pi(p_j)=\mathbf{1}\{12\le\|\bm{v}_{j}^{h}\|\le75\}\;\mathbf{1}\{|v_{j}^{z}|\le60\}\;\mathbf{1}\{-50\le h_j^{\mathrm{AGL}}\le2500\}=1,
+\begin{multline}
+  \Pi(p_j)=\mathbf{1}\{12\le\|\bm{v}_{j}^{h}\|\le75\}\;\mathbf{1}\{|v_{j}^{z}|\le60\}\\
+  \times\mathbf{1}\{-50\le h_j^{\mathrm{AGL}}\le2500\}=1,
   \label{eq:plaus}
-\end{equation}
+\end{multline}
 em que $\bm{v}_j^h$ é a velocidade horizontal estimada (m/s), $v_j^z$ a vertical (m/s) e $h_j^{\mathrm{AGL}}$ a altura
 sobre o terreno (m). Os falsos alarmes do modelo de radar tendem a ter velocidades incoerentes, porque resultam de
 associações espúrias entre medidas; uma aeronave que manobra forte pode, por sua vez, ser momentaneamente rejeitada, que
@@ -194,14 +194,15 @@ melhor. Sem histerese, duas pistas a distâncias parecidas, cujas estimativas os
 interceptador trocar de alvo a cada rodada e não chegar a nenhum. Por exemplo, se a pista atual está a 50~s e outra a
 40~s, o custo atual é $0{,}7\times50=35<40$, e o interceptador mantém o alvo; se a outra estiver a 30~s, ele troca.
 
-\paragraph{(E3) Peso de prioridade e tempo até a zona.} O defensor não sabe onde cada aeronave vai cair, mas pode inferir
+\paragraph{(E3) Peso de prioridade e tempo até a zona.} O defensor não sabe onde cada ameaça vai cair, mas pode inferir
 a prioridade pela geometria da pista em relação às zonas. Sejam $d_j$ a distância da pista à borda da zona prioritária
 mais próxima (negativa se já está dentro) e $\dot d_j$ a velocidade com que ela se aproxima do centro dessa zona. Definimos
 o \conceito{peso de prioridade} e o \conceito{tempo até a zona}
 \begin{equation}
-  w_j=\begin{cases} w_P, & d_j\le 0,\\ (w_P+w_O)/2, & \dot d_j>5\text{ m/s e } d_j<3\text{ km},\\ w_O, & \text{caso contrário;}\end{cases}
-  \qquad
+  \begin{gathered}
+  w_j=\begin{cases} w_P, & d_j\le 0,\\ (w_P+w_O)/2, & \dot d_j>5\text{ m/s},\ d_j<3\text{ km},\\ w_O, & \text{caso contrário;}\end{cases}\\[4pt]
   t^Z_j=\begin{cases}0, & d_j\le0,\\ d_j/\dot d_j, & \dot d_j>1\text{ m/s},\\ \infty,&\text{caso contrário.}\end{cases}
+  \end{gathered}
   \label{eq:peso}
 \end{equation}
 Uma pista dentro de uma zona recebe o peso máximo; uma pista fora, mas que se aproxima depressa de uma zona próxima,
@@ -224,9 +225,11 @@ Cada pista tem valor $V_j=w_j$. Se já há interceptadores em voo contra a pista
 decide nesta rodada), a chance de ela ainda sobreviver é $S_j=\prod_{k\in\mathcal{F}_j}(1-q_{kj})$, a
 \conceito{sobrevivência atual}. O objetivo de uma rodada é o \conceito{valor esperado destruído},
 \begin{equation}
-  F(\bm{x}) = \underbrace{\sum_j V_j S_j\Big[1-\prod_{i}(1-q_{ij})^{x_{ij}}\Big]}_{\text{valor esperado destruído}}
-  - \underbrace{\sum_{i}\ell_i\sum_j x_{ij}}_{\text{custo de lançamento}}
-  - \underbrace{M\sum_j\max\!\Big(0,\ n_j^0+\sum_i x_{ij}-\bar n\Big)}_{\text{penalidade de capacidade}} .
+  \begin{split}
+  F(\bm{x}) ={}& \underbrace{\sum_j V_j S_j\Big[1-\prod_{i}(1-q_{ij})^{x_{ij}}\Big]}_{\text{valor esperado destruído}}
+  - \underbrace{\sum_{i}\ell_i\sum_j x_{ij}}_{\text{custo de lançamento}}\\
+  &- \underbrace{M\sum_j\max\!\Big(0,\ n_j^0+\sum_i x_{ij}-\bar n\Big)}_{\text{penalidade de capacidade}} .
+  \end{split}
   \label{eq:F}
 \end{equation}
 O primeiro termo é~\eqref{eq:wta} reescrito como ganho: para cada pista, o valor ainda em risco ($V_jS_j$) vezes a

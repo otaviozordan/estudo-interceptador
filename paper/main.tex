@@ -2,9 +2,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
-\usepackage{lmodern}
-\usepackage[margin=2.5cm]{geometry}
-\usepackage{amsmath,amssymb,bm}
+\usepackage{newtxtext,newtxmath}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\linespread{1.08}
+\usepackage{amsmath,bm}
 \usepackage{booktabs,tabularx,multirow,longtable,array}
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -12,39 +13,34 @@
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage[numbers,sort&compress]{natbib}
-\usepackage{microtype}
-\usepackage[most]{tcolorbox}
+\usepackage[expansion=false]{microtype}
 \usepackage{titlesec,fancyhdr,enumitem}
-\usepackage[font=small,labelfont={bf,color=azul},labelsep=period,justification=justified]{caption}
-\usepackage[colorlinks,linkcolor=azul,citecolor=azul,urlcolor=azul]{hyperref}
-\usepackage{url}
-\usepackage{setspace}
-\setstretch{1.25}
+\usepackage[font=small,labelfont=bf,labelsep=period,justification=justified,skip=4pt]{caption}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
 
-% ------------------------------------------------------------------ estilo
-\definecolor{azul}{RGB}{20,70,140}
-\definecolor{azulclaro}{RGB}{235,242,252}
-\definecolor{areia}{RGB}{252,247,232}
-\definecolor{ocre}{RGB}{170,120,20}
-\titleformat{\section}{\Large\sffamily\bfseries\color{azul}}{\thesection}{0.8em}{}[{\color{azul}\titlerule[0.6pt]}]
-\titleformat{\subsection}{\large\sffamily\bfseries\color{azul}}{\thesubsection}{0.8em}{}
-\titleformat{\subsubsection}{\normalsize\sffamily\bfseries}{\thesubsubsection}{0.8em}{}
-\titlespacing*{\section}{0pt}{2.2ex plus .5ex}{1.2ex}
-\titlespacing*{\subsection}{0pt}{1.8ex plus .5ex}{0.8ex}
-\setlist{itemsep=2pt,topsep=4pt}
+% ------------------------------------------------------------------ estilo de revista
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape}{\thesubsubsection}{0.6em}{}
+\titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{}{0pt}{}[.]
+\titlespacing*{\section}{0pt}{2.0ex plus .5ex minus .2ex}{1.0ex}
+\titlespacing*{\subsection}{0pt}{1.6ex plus .4ex minus .2ex}{0.6ex}
+\titlespacing*{\paragraph}{0pt}{1.0ex plus .3ex}{0.6em}
+\setlist{itemsep=1pt,topsep=3pt,leftmargin=1.2em}
+\setlength{\parindent}{1.2em}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\sffamily\color{azul}Alocação de interceptadores contra enxames mistos}
-\fancyhead[R]{\small\sffamily\thepage}
+\fancyhead[L]{\footnotesize\itshape Alocação de interceptadores contra enxames mistos de drones e iscas}
+\fancyhead[R]{\footnotesize\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
-\setlength{\headheight}{14pt}
+\setlength{\headheight}{13pt}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{10pt plus 2pt minus 2pt}
 
-% cartao de metodo (secao 4) e quadro de conceito (revisao)
-\newtcolorbox{metodo}[1]{breakable,enhanced,colback=azulclaro,colframe=azul,boxrule=0.6pt,arc=2pt,
-  left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\sffamily\bfseries,title={#1},before skip=8pt,after skip=8pt}
-\newtcolorbox{conceitobox}[1]{breakable,enhanced,colback=areia,colframe=ocre,boxrule=0.5pt,arc=2pt,
-  left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\sffamily\bfseries\small,title={Conceito: #1},fontupper=\small,
-  before skip=6pt,after skip=6pt}
+% descricao de cada metodo (secao 4) e quadros de conceito (revisao): paragrafos simples
+\newenvironment{metodo}[1]{\par\medskip\noindent{\bfseries #1}\par\nopagebreak\smallskip}{\par\medskip}
+\newenvironment{conceitobox}[1]{\par\smallskip\small\noindent\textit{Conceito: #1.}\ }{\par\smallskip}
 
 \newcommand{\todo}[1]{\textcolor{red}{[\textbf{A FAZER:} #1]}}
 \newcommand{\inp}[1]{\IfFileExists{#1.tex}{\input{#1}}{\todo{tabela \texttt{\detokenize{#1}} será gerada pelos scripts de análise}}}
@@ -62,20 +58,27 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
+% resumo no bloco de titulo
+\renewenvironment{abstract}{\noindent\textbf{Resumo.}\ }{\par\smallskip}
+
 
 \begin{document}
-\thispagestyle{empty}
 \begin{center}
-{\color{azul}\rule{\textwidth}{1.2pt}}\\[10pt]
-{\sffamily\bfseries\LARGE\color{azul}Alocação de interceptadores contra enxames mistos\\[2pt]
-de drones e iscas sob informação de radar}\\[8pt]
-{\sffamily\large Revisão de técnicas e avaliação comparativa reprodutível}\\[8pt]
-{\color{azul}\rule{\textwidth}{1.2pt}}\\[14pt]
-{\large Otávio Zordan Alves}\\[18pt]
+{\LARGE\bfseries Alocação de interceptadores contra enxames mistos\\[3pt]
+de drones e iscas sob informação de radar\par}
+\vspace{6pt}
+{\large Revisão de técnicas e avaliação comparativa reprodutível\par}
+\vspace{10pt}
+{\large Otávio Zordan Alves\par}
+\vspace{2pt}
+{\small \todo{afiliação} \quad \texttt{otaviozordan@gmail.com}\par}
 \end{center}
-\input{secoes/00_resumo}
-\tableofcontents
-\newpage
+\vspace{6pt}
+\hrule\vspace{8pt}
+{\small\input{secoes/00_resumo}}
+\vspace{4pt}\hrule\vspace{14pt}
+\thispagestyle{empty}
+
 \input{secoes/01_introducao}
 \input{secoes/02_problema}
 \input{secoes/03_revisao}
@@ -86,6 +89,7 @@ de drones e iscas sob informação de radar}\\[8pt]
 \input{secoes/08_resultados}
 \input{secoes/09_discussao}
 
+\small
 \bibliographystyle{unsrtnat-pt}
 \bibliography{refs}
 \end{document}

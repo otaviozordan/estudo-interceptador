@@ -217,7 +217,7 @@ def main():
         lines.append(f"{NAMES[k]} & {ref or '--'} & {f(100 * conc, 1) if conc is not None else '--'} & "
                      f"{f(100 * sv, 1) if sv is not None else '--'} & "
                      f"{f(rel) if rel is not None else '--'} & {f(t['mediana'], 2)} & {f(t['p95'], 2)} \\\\")
-    tex = r"""\begin{table}[t]
+    tex = r"""\begin{table*}[t]
 \centering
 \caption{Validação das implementações e custo por rodada de decisão: %d rodadas de %d cenários, resolvidas por todos
 os algoritmos (instância mediana com %d pares interceptador--pista; máxima com %d). Mesma designação: fração dos
@@ -234,7 +234,7 @@ Algoritmo & Referência equivalente & Mesma designação (\%%) & Mesmo valor (\%
 %s
 \bottomrule
 \end{tabular}}
-\end{table}
+\end{table*}
 """ % (out["rodadas"], len(paths), out["tamanho_mediano"], out["tamanho_max"], "\n".join(lines))
     os.makedirs(os.path.join(a.paper, "tabelas"), exist_ok=True)
     open(os.path.join(a.paper, "tabelas", "equivalencia.tex"), "w", encoding="utf-8").write(tex)

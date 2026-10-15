@@ -117,13 +117,14 @@ em voo sem uso no fim), com a mesma normalização; Desperd.: interceptadores de
 pareado contra o húngaro ponderado.}}
 \label{{{label}}}
 \small
+\resizebox{{\linewidth}}{{!}}{{%
 \begin{{tabular}}{{@{{}}llcccccccccc@{{}}}}
 \toprule
 Método & Família & Dano & IC 95\,\% & Custo & Desperd. & Intercept. (\%) & Quedas prior. & Drones/aeron. & ms/decisão & $p$ \\
 \midrule
 {body}
 \bottomrule
-\end{{tabular}}
+\end{{tabular}}}}
 \end{{table*}}
 """
     open(path, "w", encoding="utf-8").write(tex)
@@ -149,13 +150,14 @@ def breakdown(df: pd.DataFrame, col: str, names: dict | None, path: str, caption
 \caption{{{caption}}}
 \label{{{label}}}
 \small
+\resizebox{{\linewidth}}{{!}}{{%
 \begin{{tabular}}{{@{{}}l{cols}@{{}}}}
 \toprule
 Método & {head} \\
 \midrule
 {body}
 \bottomrule
-\end{{tabular}}
+\end{{tabular}}}}
 \end{{table}}
 """
     open(path, "w", encoding="utf-8").write(tex)
@@ -183,13 +185,14 @@ def ablation_table(df: pd.DataFrame, path: str):
 \caption{{Ablações (dano médio em todos os cenários). A coluna ``base'' usa a guiagem padrão do benchmark.}}
 \label{{tab:ablacao}}
 \small
+\resizebox{{\linewidth}}{{!}}{{%
 \begin{{tabular}}{{@{{}}l{'c' * len(vs)}@{{}}}}
 \toprule
 Método & {head} \\
 \midrule
 {body}
 \bottomrule
-\end{{tabular}}
+\end{{tabular}}}}
 \end{{table*}}
 """
     open(path, "w", encoding="utf-8").write(tex)
@@ -231,13 +234,14 @@ def guidance_table(gdir: str, path: str):
 10~m/s$^2$ de aceleração lateral; raio de contato {g['args']['contact']:.0f}~m; $a_{{\max}}$ do drone em m/s$^2$.}}
 \label{{tab:guiagem}}
 \small
+\resizebox{{\linewidth}}{{!}}{{%
 \begin{{tabular}}{{@{{}}ll{'c' * len(amax)}@{{}}}}
 \toprule
 Manobra & Lei & {head} \\
 \midrule
 {body}
 \bottomrule
-\end{{tabular}}
+\end{{tabular}}}}
 \end{{table}}
 """
     open(path, "w", encoding="utf-8").write(tex)
@@ -271,12 +275,13 @@ def guidance_table_classes(g: dict, rows: pd.DataFrame, amax, laws: dict, path: 
 (Tabela~\ref{{tab:classes}}); raio de contato {a['contact']:.0f}~m; $a_{{\max}}$ do interceptador em m/s$^2$.}}
 \label{{tab:guiagem}}
 \small
+\resizebox{{\linewidth}}{{!}}{{%
 \begin{{tabular}}{{@{{}}ll{'c' * len(amax)}@{{}}}}
 \toprule
 Classe & Lei & {head} \\
 \midrule
 {body}
-\end{{tabular}}
+\end{{tabular}}}}
 \end{{table}}
 """
     open(path, "w", encoding="utf-8").write(tex)

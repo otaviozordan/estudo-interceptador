@@ -1,0 +1,91 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs,tabularx,multirow,longtable,array}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{microtype}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec,fancyhdr,enumitem}
+\usepackage[font=small,labelfont={bf,color=azul},labelsep=period,justification=justified]{caption}
+\usepackage[colorlinks,linkcolor=azul,citecolor=azul,urlcolor=azul]{hyperref}
+\usepackage{url}
+\usepackage{setspace}
+\setstretch{1.25}
+
+% ------------------------------------------------------------------ estilo
+\definecolor{azul}{RGB}{20,70,140}
+\definecolor{azulclaro}{RGB}{235,242,252}
+\definecolor{areia}{RGB}{252,247,232}
+\definecolor{ocre}{RGB}{170,120,20}
+\titleformat{\section}{\Large\sffamily\bfseries\color{azul}}{\thesection}{0.8em}{}[{\color{azul}\titlerule[0.6pt]}]
+\titleformat{\subsection}{\large\sffamily\bfseries\color{azul}}{\thesubsection}{0.8em}{}
+\titleformat{\subsubsection}{\normalsize\sffamily\bfseries}{\thesubsubsection}{0.8em}{}
+\titlespacing*{\section}{0pt}{2.2ex plus .5ex}{1.2ex}
+\titlespacing*{\subsection}{0pt}{1.8ex plus .5ex}{0.8ex}
+\setlist{itemsep=2pt,topsep=4pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{azul}Alocação de interceptadores contra enxames mistos}
+\fancyhead[R]{\small\sffamily\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+
+% cartao de metodo (secao 4) e quadro de conceito (revisao)
+\newtcolorbox{metodo}[1]{breakable,enhanced,colback=azulclaro,colframe=azul,boxrule=0.6pt,arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\sffamily\bfseries,title={#1},before skip=8pt,after skip=8pt}
+\newtcolorbox{conceitobox}[1]{breakable,enhanced,colback=areia,colframe=ocre,boxrule=0.5pt,arc=2pt,
+  left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\sffamily\bfseries\small,title={Conceito: #1},fontupper=\small,
+  before skip=6pt,after skip=6pt}
+
+\newcommand{\todo}[1]{\textcolor{red}{[\textbf{A FAZER:} #1]}}
+\newcommand{\inp}[1]{\IfFileExists{#1.tex}{\input{#1}}{\todo{tabela \texttt{\detokenize{#1}} será gerada pelos scripts de análise}}}
+\newcommand{\orig}{\par\smallskip\noindent\textbf{Origem.}~}
+\newcommand{\ideia}{\par\smallskip\noindent\textbf{Ideia.}~}
+\newcommand{\func}{\par\smallskip\noindent\textbf{Como funciona.}~}
+\newcommand{\prop}{\par\smallskip\noindent\textbf{Propriedades.}~}
+\newcommand{\adap}{\par\smallskip\noindent\textbf{Adaptações.}~}
+\newcommand{\parm}{\par\smallskip\noindent\textbf{Parâmetros.}~}
+\newcommand{\espera}{\par\smallskip\noindent\textbf{O que esperar.}~}
+\newcommand{\conceito}[1]{\textbf{#1}}
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+\renewcommand{\algorithmicensure}{\textbf{Saída:}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+{\color{azul}\rule{\textwidth}{1.2pt}}\\[10pt]
+{\sffamily\bfseries\LARGE\color{azul}Alocação de interceptadores contra enxames mistos\\[2pt]
+de drones e iscas sob informação de radar}\\[8pt]
+{\sffamily\large Revisão de técnicas e avaliação comparativa reprodutível}\\[8pt]
+{\color{azul}\rule{\textwidth}{1.2pt}}\\[14pt]
+{\large Otávio Zordan Alves}\\[18pt]
+\end{center}
+\input{secoes/00_resumo}
+\tableofcontents
+\newpage
+\input{secoes/01_introducao}
+\input{secoes/02_problema}
+\input{secoes/03_revisao}
+\input{secoes/04_metodos}
+\input{secoes/05_ambiente}
+\input{secoes/06_cenarios}
+\input{secoes/07_protocolo}
+\input{secoes/08_resultados}
+\input{secoes/09_discussao}
+
+\bibliographystyle{unsrtnat-pt}
+\bibliography{refs}
+\end{document}

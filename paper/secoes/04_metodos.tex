@@ -21,7 +21,7 @@ filtro de plausibilidade (E1).
 A Tabela~\ref{tab:catalogo} lista os 29 métodos, numerados de M1 a M29, com a origem, o funcionamento e a adaptação de
 cada um em uma linha. As subseções seguintes detalham cada um.
 
-\begin{table}[p]
+\begin{table*}[p]
 \centering
 \caption{Catálogo dos métodos implementados. \emph{Ind.}: decide um interceptador por vez; \emph{conj.}: resolve a rodada
 inteira. As referências são as de origem; a última coluna resume o que mudou para o nosso problema.}
@@ -78,7 +78,7 @@ M28 & PPO, DeepSets & \cite{liu2023drones,palmas2025} & reforço do zero & polí
 M29 & PPO, atenção & \cite{jia2026} & reforço do zero & política compartilhada \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\end{table*}
 
 % ---------------------------------------------------------------------------------------------------------------
 \subsection{Exemplo ilustrativo}\label{sec:exemplo}
@@ -101,7 +101,7 @@ chegam à mesma solução que o guloso, embora por motivos diferentes: o MMR com
 confirmamos enumerando as seis atribuições possíveis. O guloso por prioridade, ao dividir os tempos pelos pesos, manda o
 interceptador mais rápido de todos (A) à pista prioritária e piora o restante.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Exemplo ilustrativo: solução de cada família para a mesma instância (pista 3 prioritária). $F$ é o valor
 esperado destruído~\eqref{eq:F} sem custo de lançamento.}
@@ -119,7 +119,7 @@ Húngaro / leilão & A$\to$2, B$\to$1, C$\to$3 & 53 & 9,753 & ótimo do tempo to
 WTA exato (M14, M15) & A$\to$2, B$\to$1, C$\to$3 & 53 & 9,753 & ótimo do valor esperado \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 % ---------------------------------------------------------------------------------------------------------------
 \subsection{Regras simples (M1--M5)}
@@ -136,8 +136,8 @@ plausibilidade, e nunca troca de alvo.
 \orig Regras de despacho comuns em sistemas reais~\cite{roux2007,kline2019}.
 \func O interceptador da vez escolhe, entre as pistas livres e plausíveis,
 \begin{equation}
-  \text{M2: }\argmin_j c_{ij},\qquad
-  \text{M3: }\argmin_j\,(t^G_j-c_{ij}),\qquad
+  \text{M2: }\argmin_j c_{ij},\quad
+  \text{M3: }\argmin_j\,(t^G_j-c_{ij}),\quad
   \text{M4: }\argmin_j \frac{c_{ij}}{w_j},
 \end{equation}
 em que $\argmin_j$ indica a pista $j$ que minimiza a expressão. M2 (\emph{próximo}) escolhe a pista que alcança mais
@@ -178,8 +178,10 @@ ao mesmo tempo.
 \orig Kuhn~\cite{kuhn1955}, que o batizou em homenagem a trabalhos de matemáticos húngaros, e Munkres~\cite{munkres1957}.
 \func O método resolve o problema de atribuição
 \begin{equation}
-  \min_{x}\sum_{i,j}\frac{c_{ij}}{w_j^{\,\beta}}x_{ij}\quad\text{s.a.}\quad
-  \sum_j x_{ij}\le1,\ \ \sum_i x_{ij}\le1,\ \ x_{ij}\in\{0,1\},
+  \begin{aligned}
+  &\min_{x}\sum_{i,j}\frac{c_{ij}}{w_j^{\,\beta}}x_{ij}\\
+  &\text{s.a.}\quad\sum_j x_{ij}\le1,\ \ \sum_i x_{ij}\le1,\ \ x_{ij}\in\{0,1\},
+  \end{aligned}
   \label{eq:lap}
 \end{equation}
 isto é, minimiza a soma dos custos dos pares escolhidos, com cada interceptador e cada pista usados no máximo uma vez. O
@@ -349,8 +351,10 @@ de~\cite{afonso2020,cruz2025}.
 \func Com $\bar n=1$, cada pista tem um único fator no produto de~\eqref{eq:F}, e o valor destruído por designar $i$ a $j$
 passa a ser simplesmente $V_jS_jq_{ij}$. O problema fica
 \begin{equation}
-  \max_{x}\sum_{i,j}\big(V_jS_jq_{ij}-\ell_i\big)x_{ij}\quad\text{s.a.}\quad\sum_jx_{ij}\le1,\ \ \sum_ix_{ij}\le\bar n-n_j^0,\ \
-  x_{ij}\in\{0,1\},
+  \begin{aligned}
+  &\max_{x}\sum_{i,j}\big(V_jS_jq_{ij}-\ell_i\big)x_{ij}\\
+  &\text{s.a.}\quad\sum_jx_{ij}\le1,\ \ \sum_ix_{ij}\le\bar n-n_j^0,\ \ x_{ij}\in\{0,1\},
+  \end{aligned}
   \label{eq:wta11}
 \end{equation}
 que é de novo um problema de atribuição, agora maximizando valor em vez de minimizar tempo. Resolvemo-lo de duas formas.
@@ -439,8 +443,10 @@ posição que ela própria já visitou e pela melhor posição encontrada pelo b
 \orig Metaheurística de uso amplo no WTA~\cite{kline2019}.
 \func Cada partícula tem uma posição $\bm{X}$ e uma velocidade $\bm{V}$, atualizadas por
 \begin{equation}
-  \bm{V}\leftarrow\omega\bm{V}+c_1\bm{r}_1\odot(\bm{X}^{p}-\bm{X})+c_2\bm{r}_2\odot(\bm{X}^{g}-\bm{X}),\qquad
+  \begin{gathered}
+  \bm{V}\leftarrow\omega\bm{V}+c_1\bm{r}_1\odot(\bm{X}^{p}-\bm{X})+c_2\bm{r}_2\odot(\bm{X}^{g}-\bm{X}),\\
   \bm{X}\leftarrow\mathrm{clip}_{[0,1]}(\bm{X}+\bm{V}),
+  \end{gathered}
 \end{equation}
 em que $\bm{X}^p$ é a melhor posição da própria partícula, $\bm{X}^g$ a melhor do bando, $\bm{r}_1,\bm{r}_2$ números
 aleatórios uniformes e $\odot$ o produto elemento a elemento. O primeiro termo é a \emph{inércia} (manter a direção), o
@@ -504,8 +510,10 @@ da ameaça e a pressão total sobre a defesa.
 utilidade afim --- uma soma ponderada de fatores mais uma constante. Na nossa versão, o interceptador toma como alvo a
 ameaça livre de menor custo $c_{ij}$ e avança se
 \begin{equation}
-  U_i = c_1\frac{c_{ij}}{100} + c_2\,\theta'_j + c_3\frac{\Theta}{N} + c_4 > 0,\qquad
-  \theta'_j=\frac{w_j}{w_P}e^{-t^Z_j/120},\quad \Theta=\sum_{k}\theta'_k .
+  \begin{gathered}
+  U_i = c_1\frac{c_{ij}}{100} + c_2\,\theta'_j + c_3\frac{\Theta}{N} + c_4 > 0,\\
+  \theta'_j=\frac{w_j}{w_P}e^{-t^Z_j/120},\qquad \Theta=\sum_{k}\theta'_k .
+  \end{gathered}
   \label{eq:util}
 \end{equation}
 Os quatro termos correspondem aos da utilidade original: o tempo de deslocamento (normalizado por 100~s), a ameaça do alvo
@@ -549,8 +557,10 @@ balanceadas, porque os falsos alarmes são maioria. A probabilidade estimada ent
 arquitetura DeepSets resolve isso processando cada pista com a mesma rede $\phi$ (um \emph{perceptron multicamadas}, MLP,
 a rede neural mais simples) e combinando os resultados por uma média, operação que não depende da ordem:
 \begin{equation}
-  \bm{h}_j=\phi([\bm{o}_j,\bm{l}_j,\bm{g}]),\quad \bar{\bm{h}}=\tfrac{1}{|\mathcal{V}|}\textstyle\sum_{j}\bm{h}_j,\quad
-  z_j=\psi\big([\bm{h}_j,\bar{\bm{h}},\sigma(\lambda(\bm{l}_j))]\big),\quad z_{\varnothing}=\chi([\bar{\bm{h}},\bm{g}]),
+  \begin{gathered}
+  \bm{h}_j=\phi([\bm{o}_j,\bm{l}_j,\bm{g}]),\qquad \bar{\bm{h}}=\tfrac{1}{|\mathcal{V}|}\textstyle\sum_{j}\bm{h}_j,\\
+  z_j=\psi\big([\bm{h}_j,\bar{\bm{h}},\sigma(\lambda(\bm{l}_j))]\big),\qquad z_{\varnothing}=\chi([\bar{\bm{h}},\bm{g}]),
+  \end{gathered}
 \end{equation}
 em que $\bm{o}_j$, $\bm{l}_j$ e $\bm{g}$ são os traços de decisão, de legitimidade e globais; $\bm{h}_j$ é o
 \emph{código} da pista; $\bar{\bm{h}}$, o \emph{contexto}, resume todas as pistas; $z_j$ é a nota da pista, que depende do
@@ -591,8 +601,11 @@ Guardamos então todas as decisões de lançar ou trocar e só 10\,\% das de esp
 sentido oposto, cada exemplo de esperar recebe \emph{peso de importância} 10 (o inverso da fração guardada), de modo que a
 perda média é a mesma que se teria com todos os exemplos:
 \begin{equation}
+  \begin{gathered}
   \mathcal{L}_{\mathrm{IL}}=\frac{\sum_k\omega_k\,\mathrm{CE}\big(\pi(\cdot\mid o_k),a^\star_k\big)}{\sum_k\omega_k}
-  +0{,}5\,\mathcal{L}_{\mathrm{leg}},\qquad\omega_k=\begin{cases}10,&a^\star_k=\text{esperar},\\1,&\text{caso contrário,}\end{cases}
+  +0{,}5\,\mathcal{L}_{\mathrm{leg}},\\
+  \omega_k=\begin{cases}10,&a^\star_k=\text{esperar},\\1,&\text{caso contrário,}\end{cases}
+  \end{gathered}
 \end{equation}
 em que $\mathrm{CE}$ é a entropia cruzada, $a^\star_k$ a ação do especialista no exemplo $k$ e $\mathcal{L}_{\mathrm{leg}}$ a
 perda do classificador de legitimidade.
@@ -610,10 +623,13 @@ reforço~\cite{liu2023drones,palmas2025,jia2026}.
 ameaças armadas, pune impactos pelo seu peso, cobra cada interceptador desperdiçado (inclusive os gastos em iscas) e
 cobra um pequeno custo pelo tempo com ameaças ainda vivas, para estimular rapidez:
 \begin{equation}
-  r_t = \sum_{a:\,\nu_a>0}\mathbf{1}\{a\text{ interceptada}\} - \sum_a w_a\mathbf{1}\{a\text{ atinge o impacto}\}
-  - \eta\,\Delta W_t - \frac{N_{\mathrm{vivas}}(t)\,\Delta t}{300\,N},
+  \begin{split}
+  r_t ={}& \sum_{a:\,\nu_a>0}\mathbf{1}^{\mathrm{int}}_a - \sum_a w_a\mathbf{1}^{\mathrm{imp}}_a\\
+  &- \eta\,\Delta W_t - \frac{N_{\mathrm{vivas}}(t)\,\Delta t}{300\,N},
+  \end{split}
 \end{equation}
-em que $\Delta W_t$ é o número de interceptadores desperdiçados no passo. Os dois primeiros termos e o terceiro
+em que $\mathbf{1}^{\mathrm{int}}_a$ e $\mathbf{1}^{\mathrm{imp}}_a$ indicam que a ameaça $a$ foi interceptada ou
+atingiu o impacto no passo e $\Delta W_t$ é o número de interceptadores desperdiçados no passo. Os dois primeiros termos e o terceiro
 correspondem a~\eqref{eq:dano} e~\eqref{eq:custo_ep}: a recompensa ensina a proteger sem disparar à toa.
 O objetivo é maximizar a soma das recompensas. Para isso, além da política, a rede tem uma cabeça de \emph{valor}, que
 estima quanto de recompensa ainda se espera obter a partir de uma situação. A \emph{vantagem} $\hat A_t$ de uma ação é
@@ -622,8 +638,10 @@ GAE, uma média ponderada das diferenças entre recompensa observada e valor pre
 equilibra ruído e viés. A atualização torna mais prováveis as ações de vantagem positiva e menos as de vantagem negativa.
 O PPO limita o tamanho de cada atualização para não destruir o que já foi aprendido:
 \begin{equation}
-  \mathcal{L}^{\mathrm{CLIP}}=\mathbb{E}_t\Big[\min\big(\rho_t\hat A_t,\ \mathrm{clip}(\rho_t,1-\epsilon,1+\epsilon)\hat A_t\big)\Big],
-  \qquad\rho_t=\frac{\pi_{\mathrm{nova}}(a_t\mid o_t)}{\pi_{\mathrm{antiga}}(a_t\mid o_t)},
+  \begin{gathered}
+  \mathcal{L}^{\mathrm{CLIP}}=\mathbb{E}_t\Big[\min\big(\rho_t\hat A_t,\ \mathrm{clip}(\rho_t,1-\epsilon,1+\epsilon)\hat A_t\big)\Big],\\
+  \rho_t=\frac{\pi_{\mathrm{nova}}(a_t\mid o_t)}{\pi_{\mathrm{antiga}}(a_t\mid o_t)},
+  \end{gathered}
 \end{equation}
 em que $\rho_t$ mede quanto a nova política mudou a probabilidade da ação tomada; o recorte ($\mathrm{clip}$) ignora
 mudanças maiores que $\pm\epsilon$. Somam-se uma perda de valor, um bônus de \emph{entropia} (que estimula a política a
@@ -641,7 +659,7 @@ tende a ser mais estável.
 \subsection{Resumo de custo e garantias}
 A Tabela~\ref{tab:metodos} resume, para cada família, o objetivo otimizado, a garantia conhecida e o custo por rodada.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Objetivo, garantia e custo por rodada. $n$: interceptadores da rodada; $K$: pistas; $G$: iterações; $P$: população;
 $R$: rodadas de consenso.}
@@ -666,4 +684,4 @@ M22, M23 & regra / utilidade & nenhuma & $O(K)$ por interceptador \\
 M24--M29 & imitação / recompensa & nenhuma & uma inferência por interceptador \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\end{table*}
