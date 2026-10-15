@@ -1,28 +1,29 @@
-\begin{table}[t]
+\begin{table*}[t]
 \centering
-\caption{Validação das implementações e custo por rodada de decisão: 320 rodadas de 8 cenários, resolvidas por todos
-os algoritmos (instância mediana com 49 pares interceptador--pista; máxima com 376). Mesma designação: fração dos
+\caption{Validação das implementações e custo por rodada de decisão: 480 rodadas de 8 cenários, resolvidas por todos
+os algoritmos (instância mediana com 31 pares interceptador--pista; máxima com 128). Mesma designação: fração dos
 interceptadores designados igual à referência teoricamente equivalente; mesmo valor: fração das rodadas em que o valor
 do objetivo coincide (a designação pode diferir quando há ótimos alternativos). Objetivo relativo: valor do
 objetivo~\eqref{eq:F} dividido pelo melhor encontrado na rodada.}
 \label{tab:equivalencia}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llccccc@{}}
 \toprule
 Algoritmo & Referência equivalente & Mesma designação (\%) & Mesmo valor (\%) & Objetivo relativo & Tempo mediano (ms) & Tempo p95 (ms) \\
 \midrule
-Húngaro ponderado & -- & -- & -- & -- & 3,78 & 9,02 \\
-Leilão (Bertsekas) & Húngaro ponderado & 99,6 & 100,0 & -- & 3,83 & 8,50 \\
-Guloso global & -- & -- & -- & -- & 3,87 & 9,26 \\
-CBAA distribuído & Guloso global & 100,0 & 100,0 & -- & 9,34 & 22,70 \\
-Húngaro sobre WTA & -- & -- & -- & 1,000 & 3,76 & 8,81 \\
-MILP (HiGHS) & Húngaro sobre WTA & 96,8 & 100,0 & -- & 14,56 & 30,91 \\
-MMR & -- & -- & -- & 0,999 & 4,03 & 11,67 \\
-Busca local (VLSN) & -- & -- & -- & 1,000 & 5,32 & 14,56 \\
-Algoritmo genético & -- & -- & -- & 1,000 & 81,91 & 146,04 \\
-Colônia de formigas & -- & -- & -- & 1,000 & 404,94 & 811,31 \\
-Recozimento simulado & -- & -- & -- & 0,999 & 214,69 & 307,84 \\
-Enxame de partículas & -- & -- & -- & 0,999 & 11,13 & 22,08 \\
+Húngaro ponderado & -- & -- & -- & -- & 1,23 & 2,59 \\
+Leilão (Bertsekas) & Húngaro ponderado & 99,9 & 100,0 & -- & 1,24 & 2,88 \\
+Guloso global & -- & -- & -- & -- & 1,23 & 2,53 \\
+CBAA distribuído & Guloso global & 100,0 & 100,0 & -- & 2,68 & 5,85 \\
+Húngaro sobre WTA & -- & -- & -- & 1,000 & 1,34 & 2,87 \\
+MILP (HiGHS) & Húngaro sobre WTA & 97,6 & 100,0 & -- & 2,94 & 9,59 \\
+MMR & -- & -- & -- & 0,997 & 1,38 & 3,03 \\
+Busca local (VLSN) & -- & -- & -- & 0,998 & 1,73 & 3,87 \\
+Algoritmo genético & -- & -- & -- & 1,000 & 30,49 & 52,31 \\
+Colônia de formigas & -- & -- & -- & 1,000 & 130,81 & 246,27 \\
+Recozimento simulado & -- & -- & -- & 0,998 & 76,69 & 137,33 \\
+Enxame de partículas & -- & -- & -- & 0,999 & 4,18 & 8,43 \\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{tabular}}
+\end{table*}
